@@ -1,0 +1,82 @@
+2007-04-26  Morten Kjeldgaard  <mok@ghost.bioxray.dk>
+
+	* Fixed bug where the x coordinate would read wrong if the value
+	went into field 30. Reading of ATOM records now faster and less
+	error prone. Can handle situat ion with no spaces between numbers.
+	I no longer convert '*' to primes in the atom names of riboses in
+	nucleic acids. Release as version 1.3.1
+	* Changes in pucker to reflect the above.
+	
+2007-04-01  Morten  Kjeldgaard  <mok@homunculus.local>
+
+	* Rama was revamped, now using opag to generate code for 
+	option parsing. Now accepts --chains option. The routine
+	read_matrix_file is now part of the library.
+
+2007-03-28  Morten Kjeldgaard  <mok@ghost.bioxray.dk>
+
+	* Funny, I updated this exactly a year ago! I improved the 
+	way libatom categorizes residues. The pucker program was
+	given an overhall, and now compiles with g++. Pucker now accepts
+	the --chains option, and uses an opag generated option parser.
+
+2006-03-28  Morten Kjeldgaard  <mok@aggemam.stofanet.dk>
+
+	* I had to rename vector.h to mox_vector.h, because it was
+	clashing with <vector.h>. This is a problem when using the library
+	from C++. Version 1.2.1.
+
+2006-03-21  Morten Kjeldgaard  <mok@ghost.bioxray.dk>
+	* Add new program salign, to produce a structural alignment.
+	Bump version to 1.2
+
+2006-03-20  Morten Kjeldgaard  <mok@ghost.bioxray.dk>
+
+	* Several changes in library. Header files now usable from C++.
+	Output of chain classes modified.  Construction of chains changed,
+	so residues do not need to be contiguous in the PDB
+	file. Cofactors are often placed at the end of the PDB file but
+	with the same chain Id.  This would cause an other chain of the
+	same Id to be added, but now that residue is added to the end of
+	the earlier chain.
+
+	* pdb2odb now includes a --chains argument to select chains.
+	This should be extended to other programs as well.
+
+2006-03-16  Morten Kjeldgaard  <mok@ghost.bioxray.dk>
+
+	* Moved header files back to lib.
+
+2006-02-27  Morten Kjeldgaard  <mok@ghost.bioxray.dk>
+
+	* misc/chaincat.c (main): Fixed file open.
+	  lib/libatom: fixed output.
+	
+2006-02-24  Morten Kjeldgaard  <mok@ghost.bioxray.dk>
+
+	* Added man file to qdalign. As well as whole bunch of 
+	program changes.
+
+2006-02-08  Morten  Kjeldgaard  <mok@homunculus.local>
+
+	* Convert library routines to ansi C.
+
+Wed Apr  5 12:59:27 1995  Morten Kjeldgaard  <morten@beast.kemi.aau.dk>
+
+	* pucker.c (main): 	
+
+	How to use a text block:
+
+	{
+	   char **t;
+	   db = dbpointer(DB, "_residue_conf");
+	   t = (char **) db2->data;
+	}
+
+	then the array can be referenced with t[i];
+
+<!--
+Local variables:
+mode: font-lock
+End:
+-->

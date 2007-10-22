@@ -1,0 +1,34 @@
+
+Package: mox
+Version: 1.2.1
+Revision: 1.mok
+Description: Collection of jiffies
+License: GPL
+Maintainer: Morten Kjeldgaard <mok@bioxray.dk>
+Homepage: http://www.bioxray.dk/~mok
+BuildDepends: libodb
+Depends: libodb
+
+DescDetail: <<
+A collection of jiffies.
+
+Author: Morten Kjeldgaard
+<<
+
+# Unpack phase
+Source: ftp://ftp.bioxray.dk/mok/src/%n-%v.tar.gz
+Source-MD5: 9f3a2d4235bee6ea0ada769cc3fd6678
+SourceDirectory: %n-%v
+
+# Patch phase:
+##Patch: %n-%v.patch
+
+CompileScript: <<
+
+./configure --prefix=%i 
+make
+<<
+
+# Install phase:
+
+####
