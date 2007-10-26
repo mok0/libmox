@@ -1,0 +1,47 @@
+Package: moxlib
+Version: @VERSION@
+Revision: 1
+Maintainer: Morten Kjeldgaard <mok@bioxray.dk>
+Description: Macromolecular coordinate library
+License: LGPL3
+HomePage: http://www.bioxray.dk/~mok/%N.php
+Source: ftp://ftp.bioxray.au.dk/pub/mok/src/%N-%v.tar.gz
+Source-MD5: 1f4ecf472705b010dcd813207be20666 
+NoSourceDirectory: false
+BuildDependsOnly: true
+DocFiles: README COPYING 
+DescDetail: << 
+This package contains a utility library for macromolecular computation.
+<<
+CompileScript: <<
+  ./configure --prefix=%p
+  make
+<<
+InstallScript: <<
+  make install DESTDIR=%d
+<<
+SplitOff: <<
+  Package: libmox1-shlibs
+  Files: <<
+    lib/libmox.1.dylib 
+    lib/libmox.1.0.0.dylib
+  <<
+  Shlibs: <<
+    %p/lib/libmox.1.dylib 1.0.0 %n (>= @VERSION@-1)
+    %p/lib/libmox.1.0.0.dylib 1.0.0 %n (>= @VERSION@-1)
+  <<
+<<
+SplitOff2: <<
+  Package: libmox-dev
+  Depends: libmox1-shlibs (= %v-%r)
+  BuildDependsOnly: True
+  Files: <<   
+    lib/libmox.dylib
+    lib/*.a
+    lib/*.la
+    include/mox/*.h
+    <<
+  Shlibs: <<
+    %p/lib/libmox.dylib 1.0.0 %n (>= @VERSION@-1)
+  <<
+<<

@@ -1,0 +1,70 @@
+# -*- mode: rpm-spec ; mode: font-lock -*-
+#->---------------------------------
+%define comp xray
+%define _rpmdir  /u/src/apt/%{dist}/%{rel}/%{_arch}/RPMS.%{comp}
+%define _srcrpmdir /u/src/apt/%{dist}/%{rel}/%{_arch}/SRPMS.%{comp}
+#<----------------------------------
+
+Summary: Macromolecular coordinate library
+Name: moxlib
+Version: @VERSION@
+Release: 1%{?reltag}%{?repotag}
+License: LGPL
+Group: Science/Crystallography
+Source:	%name-%version.tar.gz
+URL: http://www.bioxray.dk/~mok
+BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot/
+BuildRequires: libcgraph
+Requires: %name-libs = %epoch:%version-%release
+
+%description
+This package contains libmox, a powerful utility library that reads a
+PDB file and creates a versatile data structure.
+
+%package -n libmox-devel
+Summary: Development environment for mox programs
+Group: Science/Crystallography
+Requires: libmox1 = %epoch:%version-%release
+%description -n libmox-devel
+
+Development environment for mox programs. Contains libmox, a powerful
+library that reads a PDB file and creates a versatile data structure.
+
+%package -n libmox1
+Summary: Shared library needed for dynamic linking of mox programs
+Group: Science/Crystallography
+%description -n libmox1
+
+Shared library used by programs developed with libmox-devel.
+
+%prep
+%setup -q
+
+%build
+%configure
+make
+
+%install
+rm -rf %{buildroot}
+
+%makeinstall
+
+%clean
+[ -n "%{buildroot}" -a "%{buildroot}" != / ] && rm -rf -- "%{buildroot}"
+
+%files -n libmox-devel
+%{_includedir}/mox
+%{_libdir}/libmox.a
+%{_libdir}/libmox.la
+%{_libdir}/libmox.so
+%{_libdir}/libmox.1.so
+
+%files libmox1
+%{_libdir}/libmox.so.1.0.0
+
+
+%changelog
+* Mon Oct 22 2007 Morten Kjeldgaard <mok@bioxray.dk> - 2.0
+- Inital packaging as a standalone library. 
+
+####
