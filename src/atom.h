@@ -1,8 +1,19 @@
-/*
-   $Id$
+/*    
+    This file is a part of moxlib, a utility library.
+    Copyright (C) 1995-2007 Morten Kjeldgaard  
 
-   atom.h -- Define datastructure for residues, atoms, and chains.
-   mok Jan 1997
+    This program is free software: you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public License
+    as published by the Free Software Foundation, either version 3 of
+    the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #ifndef _mox_atom_h
@@ -12,7 +23,7 @@
 #  include <zlib.h>
 #endif
 
-# include "mox_vector.h"
+# include "veclib.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -21,8 +32,7 @@ extern "C" {
 /* define USEPRIME if you want to use primes in atom names on nucleic acids 
    instead of the standard asterisk */
 
-/* #define USEPRIME */
-
+#define USEPRIME
 
 enum class_type { PROTEIN, AMINOACID, CIS, NUCLEIC_ACID, DNA, RNA,
 		  PURINE, PYRIMIDINE, SOLVENT, HETERO, NUCLEOTIDE, 

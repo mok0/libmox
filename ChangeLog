@@ -1,3 +1,8 @@
+2007-10-26  Morten Kjeldgaard  <mok@homunculus.local>
+
+	* Various syntactic fixes to the code. Eliminate error messages
+	  under Ubuntu 7.10.
+
 2007-04-26  Morten Kjeldgaard  <mok@ghost.bioxray.dk>
 
 	* Fixed bug where the x coordinate would read wrong if the value

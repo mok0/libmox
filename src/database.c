@@ -1,22 +1,33 @@
-/*
-   $Id$
+/*    
+    This file is a part of moxlib, a utility library.
+    Copyright (C) 1995-2007 Morten Kjeldgaard  
 
-   My database routines.
+    This program is free software: you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public License
+    as published by the Free Software Foundation, either version 3 of
+    the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
-#include "mox_vector.h"
+#include <math.h>		/* definition of HUGE */
+#include "veclib.h"
 #include "database.h"
 
-/* 
-   DBcreate -- create a new empty database.
-   mk 950404.
+/** 
+   Create a new empty database.
 */
-Database *
-DBcreate(char *name)
+Database *DBcreate(char *name)
 {
   Database *DB;
   extern char *strdup();
@@ -32,12 +43,10 @@ DBcreate(char *name)
   return DB;
 }
 
-/*
-   DBlist -- list the contents of the database.
-   mk 950404.
+/**
+   List the contents of the database.
 */
-void 
-DBlist (Database *DB)
+void DBlist (Database *DB)
 {
   Datablock *db;
   char *s, *str;
@@ -60,9 +69,8 @@ DBlist (Database *DB)
 }
 
   
-/* 
-   dbcreate -- add new empty datablock of given name and size.
-   mk 950331.
+/** 
+   Add new empty datablock of given name and size.
 */
 Datablock *
 dbcreate(Database *DB, char *name, char type, int size)
@@ -148,14 +156,12 @@ dbcreate(Database *DB, char *name, char type, int size)
 }
 
 
-/*
-   dbpointer -- return pointer to data area of named datablock, NULL if 
+/**
+   Return pointer to data area of named datablock, NULL if 
    datablock was not found. This is a simple search from the top of the list. 
    Could be greatly improved, using a hash table or some such.
-   mk 950404.
 */
-Datablock *
-dbpointer (Database *DB, char *name)
+Datablock *dbpointer (Database *DB, char *name)
 {
   Datablock *db;
 
@@ -170,12 +176,10 @@ dbpointer (Database *DB, char *name)
   return NULL;
 }
 
-#include <math.h>		/* definition of HUGE */
 
-/*
-   dbmin -- return (as a double value) the minimum value of an integer or real
+/**
+   return (as a double value) the minimum value of an integer or real
    datablock.
-   mk 950406
 */
 double dbmin (Datablock *db)
 {
@@ -215,9 +219,8 @@ double dbmin (Datablock *db)
 
 
 /*
-   dbmax -- return (as a double value) the maximum value of an integer or real
+   Return (as a double value) the maximum value of an integer or real
    datablock.
-   mk 950406
 */
 double dbmax (Datablock *db)
 {
@@ -252,28 +255,6 @@ double dbmax (Datablock *db)
   return m;
 }
 
-
-#ifdef TESTING
-
-main () 
-{
-  Database *DB;
-  Datablock *db;
-
-  DB = DBcreate("test");
-
-  db = dbcreate (DB, "integers", 'i', 1000);
-  db = dbcreate (DB, "reals", 'r', 1000);
-  db = dbcreate (DB, "coordinates", 'x', 1000);
-  db = dbcreate (DB, "hkls", 'h', 1000);
-  db = dbcreate (DB, "text", 't', 1000);
-  db = dbcreate (DB, "bytes", 'b', 1000);
-  db = dbcreate (DB, "pointers", 'p', 1000);
-  db = dbcreate (DB, "mol_atom_xyz", 'x', 10);
-  DBlist (DB);
-
-}
-#endif
 
 /* 
    Local Variables:

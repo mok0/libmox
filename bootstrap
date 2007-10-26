@@ -2,6 +2,6 @@
 
 aclocal -I config \
 && libtoolize --force --copy \
-&& automake --gnu --add-missing \
+&& automake --foreign --add-missing --copy \
 && autoconf
 

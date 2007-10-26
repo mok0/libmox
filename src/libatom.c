@@ -1,22 +1,31 @@
-/** @file
+/*    
+    This file is a part of moxlib, a utility library.
+    Copyright (C) 1995-2007 Morten Kjeldgaard  
 
-   $Id$
+    This program is free software: you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public License
+    as published by the Free Software Foundation, either version 3 of
+    the License, or (at your option) any later version.
 
-   My atom library, version 3. The most significant changes from version 2 
-   is in function atm_read_pdbfile, which now decodes a pdb file directly 
-   into the datastructure.
-   mok, January 1997
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #ifdef HAVE_LIBZ
 #  include <zlib.h>
 #endif
 #include "atom.h"
 #include "pdb.h"
+#include "util.h"
 
 #define SEP1 ':'
 #define SEP2 '.'
@@ -191,13 +200,13 @@ void atm_close_file (AtomFile *f)
 Structure *atm_read_pdbfile (AtomFile *f)
 {
   Structure *s;
-  Atom *theatom, *newatom;
-  Residue *theresidue, *newresidue;
-  Chain *thechain, *newchain, *lastchain;
+  Atom *theatom = NULL, *newatom;
+  Residue *theresidue = NULL, *newresidue;
+  Chain *thechain = NULL, *newchain, *lastchain = NULL;
   pdb_atom_record pdbatom;
   char buf[100];
   int what, done, natoms, nhetatoms, hetflag;
-  char chain_was, residue_ins_was;
+  char chain_was, residue_ins_was = 0;
   int residue_was, isfirstchain, isfirstresidue, isfirstatom;
   int ctatom, ctres;
 
@@ -391,7 +400,7 @@ Structure *atm_read_pdbfile (AtomFile *f)
     case ANISOU:
       {
 	pdb_aniso_record pdbaniso;
-	register i;
+	register int i;
 
 	if (!decode_pdb_aniso (&pdbaniso, buf))
 	  break;
@@ -410,7 +419,7 @@ Structure *atm_read_pdbfile (AtomFile *f)
 	  Matrix3 *m;
 
 	  m = atm_aniso_to_M3(theatom);
-	  M3Print("Aniso matrix", m);
+	  m3_print("Aniso matrix", m);
 	  free(m);
 	}
 #endif
@@ -896,7 +905,7 @@ void atm_version_out(void)
 */
 void atm_structure_out (Structure *s)
 {
-  register i;
+  register int i;
 
   if (s) {
     printf ("structure name: %s, id: %s\n", s->name, s->id);
@@ -989,15 +998,15 @@ void atm_chain_cg(Chain *chain)
       res->cg.x = res->cg.y = res->cg.z = 0.0;
       atom = res->atoms;
       while (atom) {
-	V3Add (&atom->xyz, &res->cg, &res->cg);
+	v3_add (&atom->xyz, &res->cg, &res->cg);
 	atom = atom->next;
       }
       if (res->natoms > 1)
-	V3Div (&res->cg, (double)res->natoms, &res->cg);
-      V3Add (&res->cg, &chain->cg, &chain->cg); 
+	v3_div (&res->cg, (double)res->natoms, &res->cg);
+      v3_add (&res->cg, &chain->cg, &chain->cg); 
       res = res->next;
     }
-    V3Div (&chain->cg, (double)chain->nres, &chain->cg);
+    v3_div (&chain->cg, (double)chain->nres, &chain->cg);
     chain = chain->next;
   }
 }
@@ -1377,6 +1386,8 @@ Matrix3 *atm_aniso_to_M3 (Atom *atom)
   m->element[1][0] = m->element[0][1];
   m->element[2][0] = m->element[0][2];
   m->element[2][1] = m->element[1][2];
+
+  return m;
 }
 
 /* 

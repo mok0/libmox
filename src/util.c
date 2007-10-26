@@ -1,12 +1,27 @@
-/*
-   Utility routines for moxlib
-*/
+/*    
+    This file is a part of moxlib, a utility library.
+    Copyright (C) 1995-2007 Morten Kjeldgaard  
 
+    This program is free software: you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public License
+    as published by the Free Software Foundation, either version 3 of
+    the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include <time.h>
+#include <sys/stat.h>
 #include <math.h>
 #ifdef linux
 #  include <unistd.h>		/* for myuser */
@@ -88,8 +103,7 @@ strlower (char *str)
    Convert a string to upper case. The string must be terminated by a 
    zero byte.
 */
-char *
-strupper (char *str)
+char *strupper (char *str)
 {
   char *s;
 
@@ -176,7 +190,7 @@ double nicenum (double x, int round)
 char *
 eatpath (char *fname)
 {
-  register n;
+  register int n;
   char *s;
 
   if (!fname)
@@ -192,7 +206,6 @@ eatpath (char *fname)
   }
   return fname;
 }
-#endif
 
 /**
    eat the file name extension bit from a filename. The string
@@ -200,7 +213,7 @@ eatpath (char *fname)
 */
 char *eatext (char *fname)
 {
-  register n;
+  register int n;
 
   if (!fname)
     return NULL;
@@ -225,7 +238,7 @@ void printbits (unsigned long num)
   int i;
   
   for (i = 32; i >= 0; ) {
-    bbuf[32 - i] = ((num >> --i) & 1 == 1 ? '1' : '0');
+    bbuf[32 - i] = (((num >> --i) & 1) == 1 ? '1' : '0');
   }
   bbuf[32 - i] = '\0';
   printf (" %s", bbuf);
@@ -302,37 +315,8 @@ int rand_range(int max)
   return (int) (10.0*rand()/(RAND_MAX+1.0));
 }
 
-/**
-  read in Gerards matrix98 file.  mok 970116, Feb-2006
-*/
 
-void read_matrix_file(int mat98[37][37])
-{
-  register i, j;
-  FILE *f;
 
-  f = fopen ("matrix98.dat", "r");
-  if (!f) {
-    char fnam[500];
-    strncpy(fnam, RAMADIR, 450);
-    strncat(fnam,"/matrix98.dat",49);
-    f = fopen (fnam, "r");
-    if (!f) {
-      fprintf (stderr, "Could not open file %s\n",fnam);
-      //exit(2);
-      return;
-    }
-  }
-
-  for (i = 0; i < 37; i++) {
-    for (j = 0; j < 37; j++) {
-      fscanf (f, " %d", &mat98[j][i]);
-    }
-  }
-  fclose(f);
-}
-
-#include <sys/stat.h>
 
 /**
    See if a file exists. Try a number of different strategies to find

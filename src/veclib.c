@@ -1,14 +1,26 @@
-/*
-   A bunch of vector and matrix routines. Some were lifted from the
-   Graphics Gems library, others I wrote myself...
-   Morten Kjeldgaard <mok@bioxray.dk>
+/*    
+    This file is a part of moxlib, a utility library.
+    Copyright (C) 1995-2007 Morten Kjeldgaard  
+
+    This program is free software: you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public License
+    as published by the Free Software Foundation, either version 3 of
+    the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "mox_vector.h"
+#include "veclib.h"
 
 /**
    returns squared length of input vector 
@@ -366,7 +378,7 @@ double v2_angle (Vector2 *v1, Vector2 *v2)
 */
 Matrix3 *m3_zero (Matrix3 *m)
 {
-  register i, j;
+  register int i, j;
   for (i=0; i<3; i++)
     for (j=0; j<3; j++)
       m->element[i][j] = 0.0;
@@ -716,6 +728,85 @@ Matrix3 *orthog(float *cell, Matrix3 *m, int isw)
     m->element[2][2] = 1.0 / (sabg[1] * sabgs1 * cell[2]);
   }
   return m;
+}
+
+
+/**
+  Copy a 3D vector to a second.
+*/
+Vector3 *v3_copy (Vector3 *u, Vector3 *v)
+{
+  v->x = u->x; v->y = u->y; v->z = u->z;
+  return v;
+}
+
+/**
+  Copy a 2D vector to a second.
+*/
+Vector2 *v2_copy (Vector2 *u, Vector2 *v)
+{
+  v->x = u->x; v->y = u->y;
+  return v;
+}
+
+/*
+  Copy a 4x4 matrix to another.
+*/
+Matrix4 *m4_copy (Matrix4 *n, Matrix4 *m)
+{
+  register int i, j;
+
+  for (i=0; i < 4; i++)
+    for (j=0; j < 4; j++)
+      m->element[i][j] = n->element[i][j];
+  return m;
+}
+
+/*
+  Set 4x4 matrix to identity.
+*/
+Matrix4 *m4_ident (Matrix4 *m)
+{
+  m->element[0][0] = 1.0; m->element[0][1] = 0.0;  
+  m->element[0][2] = 0.0; m->element[0][3] = 0.0;
+  m->element[1][0] = 0.0; m->element[1][1] = 1.0;  
+  m->element[1][2] = 0.0; m->element[1][3] = 0.0;
+  m->element[2][0] = 0.0; m->element[2][1] = 0.0;  
+  m->element[2][2] = 1.0; m->element[2][3] = 0.0;
+  m->element[3][0] = 0.0; m->element[3][1] = 0.0;  
+  m->element[3][2] = 0.0; m->element[3][3] = 1.0;
+  return m;
+}
+
+/*
+  Dump a vector to stderr
+*/
+void v3_print (char *str, Vector3 *vec)
+{
+  fprintf (stderr,"%s: %f %f %f\n", str, vec->x, vec->y, vec->z);
+}
+
+/**
+  Dump a vector to stderr
+*/
+void v2_print (char *str, Vector2 *vec)
+{
+  fprintf (stderr, "%s: %f %f\n", str, vec->x, vec->y);
+}
+
+/** 
+   Multiply a point by the rotation part of a 4x4 matrix and return
+   the transformed point. mok 930216.
+*/
+Point3 *v3_mulpointbymatrix4 (Point3 *pin, Matrix4 *m, Point3 *pout)
+{
+  pout->x = (pin->x * m->element[0][0]) + (pin->y * m->element[1][0]) +
+    (pin->z * m->element[2][0]);
+  pout->y = (pin->x * m->element[0][1]) + (pin->y * m->element[1][1]) +
+    (pin->z * m->element[2][1]);
+  pout->z = (pin->x * m->element[0][2]) + (pin->y * m->element[1][2]) +
+    (pin->z * m->element[2][2]);
+  return(pout);
 }
 
 /*

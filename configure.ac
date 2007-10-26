@@ -2,10 +2,9 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT(moxlib, 2.0, mok@bioxray.dk)
+AC_INIT(mox, 2.0.1, mok@bioxray.dk)
 
-
-AC_CONFIG_SRCDIR([misc/chaincat.c])
+AC_CONFIG_SRCDIR([src/libatom.c])
 AC_CONFIG_AUX_DIR([config])
 #AC_CONFIG_HEADER([config.h])
 
@@ -41,17 +40,6 @@ AC_FUNC_REALLOC
 AC_FUNC_STAT
 AC_FUNC_STRTOD
 AC_CHECK_FUNCS([bzero floor memset pow putenv setenv sqrt strcasecmp strchr strdup strerror strncasecmp strrchr strstr])
-
-AM_PATH_GSL(1.5)
-if test "x$GSL_LIBS" == x; then
-   AC_MSG_NOTICE([GSL not found, attempt to use LAPACK])
-   ACX_LAPACK()
-else
-   AC_MSG_NOTICE([Using GSL])
-   AC_DEFINE(HAVE_GSL,1,[Define if you have the GSL library.])
-fi
-
-AM_PATH_CGRAPH
 
 AC_CONFIG_FILES([Makefile
 		 mox.spec

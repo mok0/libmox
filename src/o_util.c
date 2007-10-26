@@ -1,15 +1,26 @@
-/*
-   $Id: outil.c 308 2006-03-28 11:37:01Z mok $
+/*    
+    This file is a part of moxlib, a utility library.
+    Copyright (C) 1995-2007 Morten Kjeldgaard  
 
-   This file contains O interface routines, to read & write datablocks etc.
-   mok 950816
+    This program is free software: you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public License
+    as published by the Free Software Foundation, either version 3 of
+    the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "mox_vector.h"
+#include "veclib.h"
 #include "transform.h"
 
 /* 
@@ -20,9 +31,10 @@
 Transform *
 O_read_transform (FILE *f)
 {
+  register int i, j;
   Transform *t;
   char buf[80];
-  register i,j;
+
   double gs[27];		/* large enough for the .gs_real datablock */
 
   if (!f)
@@ -93,8 +105,7 @@ O_read_transform (FILE *f)
 /*
    destroy this transform, and all the transforms in the list.
 */
-int
-transform_destroy (Transform *trf)
+void transform_destroy (Transform *trf)
 {
   if (!trf)
     return;
@@ -156,7 +167,7 @@ transform_concat (Transform *a, Transform *b, Transform *c)
   }
   m1.element[3][3] = m2.element[3][3] = 1.0;
 
-  M4MatMul (&m1, &m2, &m1);
+  m4_matmul (&m1, &m2, &m1);
 
   for (i=0; i< 3; i++) {
     for (j=0; j< 3; j++) {

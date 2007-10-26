@@ -6,7 +6,7 @@
 #<----------------------------------
 
 Summary: Macromolecular coordinate library
-Name: moxlib
+Name: mox
 Version: @VERSION@
 Release: 1%{?reltag}%{?repotag}
 License: LGPL

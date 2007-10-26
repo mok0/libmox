@@ -28,12 +28,18 @@ s/V3Set/v3_set/g
 s/V3SquaredLength/v3_squaredlength/g
 s/V3Sub/v3_sub/g
 s/V3Torsion/v3_torsion/g
+s/V3print/v3_print/g
+s/V2print/v2_print/g
+s/V3Copy/v3_copy/g
+s/V2Copy/v2_copy/g
 s/M3MatMul/m3_matmul/g
+s/V3MatMul/m4_matmul/g
 s/M3Zero/m3_zero/g
 s/M3Transpose/m3_transpose/g
 s/M3Duplicate/m3_duplicate/g
 s/M3mgs/m3_mgs/g
 s/M3Print/m3_print/g
+s/M4print/m4_print/g
 s/M3_mat_to_rot/m3__mat_to_rot/g
 s/M3mgs/m3_mgs/g
 s/M3toScale/m3_toscale/g
@@ -42,3 +48,5 @@ s/M4MatMul/m4_matmul/g
 s/M4Transpose/m4_transpose/g
 s/M4Duplicate/m4_duplicate/g
 s/M4Print/m4_print/g
+s/M4Copy/m4_copy/g
+s/M4ident/m4_ident/g

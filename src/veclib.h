@@ -1,9 +1,23 @@
-/*
-  mox_vector.h -- utility datastructures for atomlib
+/*    
+    This file is a part of moxlib, a utility library.
+    Copyright (C) 1995-2007 Morten Kjeldgaard  
+
+    This program is free software: you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public License
+    as published by the Free Software Foundation, either version 3 of
+    the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef _mox_vector_h
-#define _mox_vector_h
+#ifndef _veclib_h
+#define _veclib_h
 
 #ifdef __cplusplus
 extern "C" {
@@ -135,11 +149,14 @@ double v2_angle(Vector2 *, Vector2 *);
 double v3_torsion(Point3 *, Point3 *, Point3 *, Point3 *);
 double m3_toscale(Matrix3 *);
 
+Vector2 *v2_set(Vector2 *, double, double);
+Vector2 *v2_sub(Vector2 *, Vector2 *, Vector2 *);
+Vector2 *v2_copy (Vector2 *, Vector2 *);
+
 Vector3 *v3_normalize(Vector3 *);
 Vector3 *v3_scale(Vector3 *, double);
 Vector3 *v3_add(Vector3 *, Vector3 *, Vector3 *);
 Vector3 *v3_sub(Vector3 *, Vector3 *, Vector3 *);
-Vector2 *v2_sub(Vector2 *, Vector2 *, Vector2 *);
 Vector3 *v3_lerp(Vector3 *, Vector3 *, double, Vector3 *);
 Vector3 *v3_combine(Vector3 *, Vector3 *, Vector3 *, double, double);
 Vector3 *v3_mul(Vector3 *, double, Vector3 *);
@@ -148,9 +165,11 @@ Vector3 *v3_new(double, double, double);
 Vector3 *v3_duplicate(Vector3 *);
 Vector3 *v3_mid(Vector3 *, Vector3 *, Vector3 *);
 Vector3 *v3_set(Vector3 *, double, double, double);
-Vector2 *v2_set(Vector2 *, double, double);
 Vector3 *v3_negate(Vector3 *);
 Vector3 *v3_addScl (Vector3 *, Vector3 *, Vector3 *, double);
+Vector3 *v3_div (Vector3 *, double, Vector3 *);
+Vector3 *v3_copy (Vector3 *, Vector3 *);
+
 
 Point3 *v3_mulpointbymatrix();
 Point3 *v3_mulpointbyprojmatrix(Point3 *, Matrix4 *, Point3 *);
@@ -167,18 +186,23 @@ Matrix3 *m3_duplicate(Matrix3 *);
 Matrix4 *m4_duplicate(Matrix4 *);
 Matrix4 *m4_matmul(Matrix4 *, Matrix4 *, Matrix4 *);
 Matrix4 *m4_transpose(Matrix4 *);
+Matrix4 *m4_ident (Matrix4 *);
+Matrix4 *m4_copy();
 
 void m3_mat_to_rot(Matrix3 *, double *, double *, double *);
 void m3_print(char *, Matrix3 *);
+
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* mox_vector.h */
+#endif /* _veclib_h */
 
 /*
   Local variables:
   mode: font-lock
   End:
 */
+
+

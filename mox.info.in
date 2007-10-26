@@ -1,4 +1,4 @@
-Package: moxlib
+Package: mox
 Version: @VERSION@
 Revision: 1
 Maintainer: Morten Kjeldgaard <mok@bioxray.dk>

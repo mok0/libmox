@@ -1,21 +1,35 @@
-/*
-  $Id: colorlib.c 298 2006-03-17 13:21:12Z mok $
+/*    
+    This file is a part of moxlib, a utility library.
+    Copyright (C) 1995-2007 Morten Kjeldgaard  
+
+    This program is free software: you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public License
+    as published by the Free Software Foundation, either version 3 of
+    the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "colorlib.h"
 
-/*
+/**
   Translate a colour given in hue, saturation and value (intensity) as
   given by the PS300 into an (R,G,B) triplet.  See Foley & Van Dam
   p. 615.  First version, in Fortran, 11-May-1990 Morten Kjeldgaard
   Converted to C 991104.  */
-void
-hsv2rgb (hsvColor *hsv, rgbColor *rgb)
+void hsv2rgb (hsvColor *hsv, rgbColor *rgb)
 {
   float f, p, q, t;
   float r, g, b, h, s, v;
   int i;
 
+  r = g = b = 0.0;
   h = hsv->h; s = hsv->s; v = hsv->v;
 
   if (s == 0.0) {
@@ -68,7 +82,7 @@ hsv2rgb (hsvColor *hsv, rgbColor *rgb)
   return;
 }
 
-/*
+/**
  Translate a colour given in the (R,G,B) triplet into hue, saturation,
   and value (intensity) as required by the PS300.  See Foley & Van Dam
   p. 615. 10-May-1990 Morten Kjeldgaard Written, in Dallas.  Converted
@@ -81,6 +95,7 @@ rgb2hsv (rgbColor *rgb, hsvColor *hsv)
   float r, g, b, h, s, v;
   float rgbmax, rgbmin, q, rc, gc, bc;
 
+  h = 0.0;
   r = rgb->r; g = rgb->g; b = rgb->b;
  
   rgbmax = (r > g ? r : g); rgbmax = (rgbmax > b ? rgbmax : b);
@@ -127,12 +142,11 @@ rgb2hsv (rgbColor *rgb, hsvColor *hsv)
   return;
 }
 
-/*
+/**
   Convert an rgb triplet to an O packed color cod
 */
 
-unsigned int 
-rgb2cod (rgbColor *rgb)
+unsigned int rgb2cod (rgbColor *rgb)
 {
   int ir = (rgb->r * 255.0);
   int ig = (rgb->g * 255.0);
@@ -140,39 +154,6 @@ rgb2cod (rgbColor *rgb)
   return 256 * (256 * ir + ig) + ib;
 }
 
-
-#ifdef TESTING
-
-main ()
-{
-  rgbColor rgb;
-  hsvColor hsv;
-
-  rgb.r = 1.; rgb.g = 0.0 ; rgb.b = 0.0;
-  rgb2hsv (&rgb, &hsv); hsv2rgb (&hsv, &rgb);
-
-  rgb.r = 0.0; rgb.g = 1.0 ; rgb.b = 0.0;
-  rgb2hsv (&rgb, &hsv);
-  hsv2rgb (&hsv, &rgb);
-
-  rgb.r = 0.0; rgb.g = 0.0 ; rgb.b = 1.0;
-  rgb2hsv (&rgb, &hsv);
-  hsv2rgb (&hsv, &rgb);
-
-  rgb.r = 1.; rgb.g = 1.0 ; rgb.b = 0.0;
-  rgb2hsv (&rgb, &hsv);
-  hsv2rgb (&hsv, &rgb);
-
-  rgb.r = 1.; rgb.g = 0.0 ; rgb.b = 1.0;
-  rgb2hsv (&rgb, &hsv);
-  hsv2rgb (&hsv, &rgb);
-
-  rgb.r = 0.; rgb.g = 1.0 ; rgb.b = 1.0;
-  rgb2hsv (&rgb, &hsv);
-  hsv2rgb (&hsv, &rgb);
-
-}
-#endif
 
 /*
 Local Variables:
