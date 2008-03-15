@@ -258,7 +258,7 @@ Point3 *v3_premulpointbymatrix(Point3 *pin, Matrix3 *m, Point3 *pout)
 /** 
    multiply a point by a projective matrix and return the transformed point.
 */
-Point3 *v3_mulPointByProjMatrix(Point3 *pin, Matrix4 *m, Point3 *pout)
+Point3 *v3_mulpointbyprojmatrix(Point3 *pin, Matrix4 *m, Point3 *pout)
 {
   double w;
   pout->x = (pin->x * m->element[0][0]) + (pin->y * m->element[1][0]) + 
@@ -749,7 +749,7 @@ Vector2 *v2_copy (Vector2 *u, Vector2 *v)
   return v;
 }
 
-/*
+/**
   Copy a 4x4 matrix to another.
 */
 Matrix4 *m4_copy (Matrix4 *n, Matrix4 *m)
@@ -762,7 +762,7 @@ Matrix4 *m4_copy (Matrix4 *n, Matrix4 *m)
   return m;
 }
 
-/*
+/**
   Set 4x4 matrix to identity.
 */
 Matrix4 *m4_ident (Matrix4 *m)
