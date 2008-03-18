@@ -16,6 +16,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/** @file util.c
+   @brief Various useful functions
+   @author Morten Kjeldgaard
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -229,7 +234,7 @@ char *eatext (char *fname)
 }
 
 /**
-   print out the bits of a 32 bit unsigned long. Mostly for debugging.
+   Print out the bits of a 32 bit unsigned long. Mostly for debugging.
    mk 950330.
 */
 void printbits (unsigned long num)
@@ -245,9 +250,10 @@ void printbits (unsigned long num)
 }
 
 /**
-   Return 1 if two strings are equal, upto and including trailing \0, else
-   return zero.
-   mk 950528
+   Check if two strings are equal. 
+   @return 1 if two strings are equal, upto and including trailing \0, else
+   zero.
+   @date mk 950528
 */
 int streq (char *s, char *t)
 {
@@ -297,13 +303,16 @@ die (char *str)
   exit (1);
 }
 
+/**
+  Give a the sign of b
+*/
 
 double 
 d_sign (double *a, double *b)
 {
   double x;
-  x = (*a >= 0 ? *a : -*a);
-  return (*b >= 0 ? x : -x);
+  x = (*a >= 0 ? *a : -*a);	/* x = |a| */
+  return (*b >= 0 ? x : -x);	/* if b >= 0 return |a|, else -|a| */
 }
 
 /**
@@ -316,14 +325,14 @@ int rand_range(int max)
 }
 
 
-
-
 /**
    See if a file exists. Try a number of different strategies to find
-   the file.
+   the file. A) try the environment variable 'env'. B) try the
+   filepath specified by 'path'. C) Prepend '/usr/share/mox/' to
+   'path'. D) Prepend 'env' to 'path'. E) Give up.
 */
 
-char *fileexists (char *name, char *env)
+char *fileexists (char *path, char *env)
 {
   struct stat sbuf;
   char str[512];
@@ -339,18 +348,18 @@ char *fileexists (char *name, char *env)
       return strdup (c);
   }
 
-  /* then try straight file name */
-  if (name) {
-    if (!stat (name, &sbuf))
-      return strdup (name);
+  /* then try straight file path */
+  if (path) {
+    if (!stat (path, &sbuf))
+      return strdup (path);
 
-    /* prepend /usr/lib to filename */
-    strcpy (str, "/usr/lib/");
-    strcat (str, name);
+    /* prepend /usr/share/mox/ to path */
+    strcpy (str, "/usr/share/mox/");
+    strcat (str, path);
     if (!stat (str, &sbuf))
       return strdup(str);
 
-    /* prepend env to filename */
+    /* prepend env to path */
     if (c) {
       int i;
       strcpy (str, c);
@@ -360,13 +369,14 @@ char *fileexists (char *name, char *env)
 	c[i] = '/';
 	c[i+1] = 0;
       }
-      strcat (str, name);
+      strcat (str, path);
       if (!stat (str, &sbuf))
 	return strdup(str);
     }
   }
   return NULL;
 }
+
 
 #ifdef TESTING
 main ()

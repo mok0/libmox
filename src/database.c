@@ -1,6 +1,6 @@
 /*    
     This file is a part of moxlib, a utility library.
-    Copyright (C) 1995-2007 Morten Kjeldgaard  
+    Copyright (C) 1995-2008 Morten Kjeldgaard  
 
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
@@ -15,6 +15,13 @@
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+/** @file database.c
+   @brief Routines to implement a named storage system like that of O.
+   These routine allocate memory for each new block.
+   @author Morten Kjeldgaard
+*/
+
 
 #include <time.h>
 #include <stdio.h>

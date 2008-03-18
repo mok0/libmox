@@ -16,6 +16,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/**
+   @file pdbutil.c
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,7 +28,8 @@
 /**
    Pass a pdb code name to the pdb index database, and return the
    filename of the pdb entry. Database must be open before calling
-   this routine. mok 970120
+   this routine. 
+   @date 970120
  */
 void pdb_code_to_fname (GDBM_FILE pdb_dbm, char *code, char *fname, int siz)
 {

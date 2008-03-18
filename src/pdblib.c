@@ -16,6 +16,12 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/**
+   @file pdblib.c
+   @brief Functions to parse PDB files
+   @author Morten Kjeldgaard
+*/
+
 #define USEPRIME
 #include <stdio.h>
 #include <stdlib.h>

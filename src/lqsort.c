@@ -16,6 +16,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/**
+   @file lsqsort.c
+*/
+
 #include <stdio.h>
 
 typedef struct node { struct node *next; } node;
