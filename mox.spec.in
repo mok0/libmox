@@ -11,8 +11,8 @@ Version: @VERSION@
 Release: 1%{?reltag}%{?repotag}
 License: LGPL
 Group: Science/Crystallography
-Source:	%name-%version.tar.gz
-URL: http://www.bioxray.dk/~mok
+Source:	ftp://ftp.bioxray.au.dk/pub/mok/src/%name-%version.tar.gz
+URL: http://www.bioxray.au.dk/~mok
 BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot/
 BuildRequires: libcgraph
 Requires: %name-libs = %epoch:%version-%release
@@ -57,14 +57,17 @@ rm -rf %{buildroot}
 %{_libdir}/libmox.a
 %{_libdir}/libmox.la
 %{_libdir}/libmox.so
-%{_libdir}/libmox.1.so
 
 %files libmox1
 %{_libdir}/libmox.so.1.0.0
-
+%{_libdir}/libmox.1.so
 
 %changelog
+* Tur Mar 18 2008 Morten Kjeldgaard <mok@bioxray.au.dk> - 2.0.2
+  - Move libmox.1.so to shlib package.
+  - Update to new bioxray.au.dk domain.
+
 * Mon Oct 22 2007 Morten Kjeldgaard <mok@bioxray.dk> - 2.0
-- Inital packaging as a standalone library. 
+  - Inital packaging as a standalone library. 
 
 ####

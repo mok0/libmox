@@ -1,10 +1,10 @@
 Package: mox
 Version: @VERSION@
 Revision: 1
-Maintainer: Morten Kjeldgaard <mok@bioxray.dk>
+Maintainer: Morten Kjeldgaard <mok@bioxray.au.dk>
 Description: Macromolecular coordinate library
 License: LGPL3
-HomePage: http://www.bioxray.dk/~mok/%N.php
+HomePage: http://www.bioxray.au.dk/~mok/%N.php
 Source: ftp://ftp.bioxray.au.dk/pub/mok/src/%N-%v.tar.gz
 Source-MD5: 1f4ecf472705b010dcd813207be20666 
 NoSourceDirectory: false
