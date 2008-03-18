@@ -1,19 +1,19 @@
 
-/*! \mainpage The libatom Library
-\author Morten Kjeldgaard
+/*! @mainpage The libatom Library
+@author Morten Kjeldgaard
 
 
-\abstract A description on how to use the libatom C library.
+@abstract A description on how to use the libatom C library.
 
 
  
-\section Introduction 
+@section Introduction 
 This document describes how to use the atom library (known as libatom)
 for your own use There are three sections: introduction, descriptions
 of the datastructures, description of the subroutines, and finally
 some examples.
 
-\section s_data_structures Data structures 
+@section s_data_structures Data structures 
 
 In libatom, a macromolecular structure exists as a hierachial
 datastructure. The top level, which corresponds to the content of a
@@ -23,7 +23,7 @@ list of <tt>Residue</tt> data structures, and each <tt>Residue</tt> has an
 associated list of <tt>Atom</tt> datastructures. This is all defined in
 the C include file <tt>atom.h</tt>.
 
-\subsection ss_structure The Structure
+@subsection ss_structure The Structure
 The <tt>Structure</tt> contains information that can be retrieved from the
 header section of a PDB file, for example the dimensions of the unit
 cell and the space group symbolic name. It also contains some
@@ -32,7 +32,7 @@ residues and atoms, and centre of gravity of the assembly of chains.
 Most importantly, there are pointers to the first chain, the first
 residue, and the first atom.
 
- \code
+ @code
 typedef struct Structure {
   char *name;			/* name */
   char id[5];			/* id, usually from pdbfile */
@@ -51,16 +51,16 @@ typedef struct Structure {
   struct Structure *next;	/* pointer to next structure record */
   struct index *reslist;        /* hash table, not used */
 } Structure;
-\endcode
+@endcode
 
-\subsection ss_chain The Chain
+@subsection ss_chain The Chain
 The <tt>Chain</tt> datastructure contains information about each chain in
 the structure, and a pointer to the next and previous chains. It contains a list of
 residues belonging to that chain, the center of gravity and various
 other information. The class field encodes different properties of the 
 chain (protein, RNA, DNA, solvent, etc).
 
- \code
+ @code
 typedef struct Chain {
   char name[6];			/* name of this chain */
   char id;			/* id of this chain */
@@ -79,16 +79,16 @@ typedef struct Chain {
   struct Chain *next;		/* pointer to next chain */
   struct Chain *prev;		/* pointer to previous chain */
 } Chain;
-\endcode
+@endcode
 
-\subsection ss_residue The Residue
+@subsection ss_residue The Residue
 The <tt>Residue</tt> data structure represents one residue, and contains
 informations such as the type, the name, residue number and so
 on. There are pointers to the next and previous residues in the chain, 
 and there are also pointers to the list of atoms, and back to the
 parent chain of this residue.
 
- \code
+ @code
 typedef struct Residue {
   char name[12];		/* residue name */
   char type[6];			/* residue type */
@@ -109,9 +109,9 @@ typedef struct Residue {
   struct Residue *bond_next;	/* if bonded to next res, = next else null */
   struct Residue *bond_prev;	/* if bonded to prev res, = prev else null */
 } Residue;
-\endcode
+@endcode
 
-\subsection ss_atom The Atom
+@subsection ss_atom The Atom
 The <tt>Atom</tt> data structure is the lowest level of the molecular
 structure hierachy. There is one such data structure for each atom in
 the input file. It contains the name and the coordinates, the B-factor 
@@ -120,7 +120,7 @@ in the current residue, as well as a pointer back to the parent
 residue data structure. The internal atom count field is and integer unique to
 each atom.
 
- \code
+ @code
 typedef struct Atom {
   char name[6];			/* atom name */
   char ins;			/* insertion id */
@@ -135,29 +135,29 @@ typedef struct Atom {
   struct Atom *alt;		/* ptr to alternate position(s) of this atom */
   struct Residue *res;		/* pointer to parent residue */
 } Atom;
-\endcode
+@endcode
 
-\subsection ss_zone The Zone
+@subsection ss_zone The Zone
 A datastructure that describes a zone of residues.
 
- \code
+ @code
 typedef struct Zone {
   Chain *ch1, *ch2;		/* first and last chain   in zone */
   Residue *res1, *res2;		/*   -    -   -   residue  -  -   */
   Atom *atm1, *atm2;		/*   -    -   -   atom     -  -   */
   int nres;			/* number of residues in this zone */
 } Zone;
-\endcode
+@endcode
 
 
 
 
-\section s_examples Examples
+@section s_examples Examples
 
 The following program reads a PDB file from standard input and outputs 
 some information about the contents.
 
-\code
+@code
 #include <stdio.h>
 #include "atom.h"
 
@@ -185,11 +185,11 @@ main (argc, argv)
   atm_delete_structure(s);
   return 0;
 }
-\endcode
+@endcode
 
 The following bit of code shows how to run through all atoms in the structure.
 
- \code
+ @code
   Residue *res;
   Atom *atom;
 
@@ -202,11 +202,11 @@ The following bit of code shows how to run through all atoms in the structure.
     }
     res = res->next;
   }
-\endcode
+@endcode
 
-\section s_utility Utility functions
+@section s_utility Utility functions
 
-\subsection ss_math_functions Math functions 
+@subsection ss_math_functions Math functions 
 
 Some of these are lifted from the Graphics Gems library. This
 functions depend on data structures which are defined in
@@ -214,27 +214,27 @@ functions depend on data structures which are defined in
 
 <dt>
 3d point:
- \code
+ @code
 typedef struct Point3Struct {	
   double x, y, z;
 } Point3;
 typedef Point3 Vector3;
-\endcode
+@endcode
 </dt>
 
 <dt>3-by-3 matrix:
- \code
+ @code
 typedef struct Matrix3Struct {
   double element[3][3];
 } Matrix3;
-\endcode
+@endcode
 </dt>
 <dt>4-by-4 matrix:
- \code
+ @code
 typedef struct Matrix4Struct {
   double element[4][4];
 } Matrix4;
-\endcode
+@endcode
 </dt>
 
 

@@ -23,16 +23,21 @@
 extern "C" {
 #endif
 
-char *strleft (char *);
-char *strtrim (char *);
-char *strlower (char *);
-char *strupper (char *);
-char *mytime();
-char *myuser();
-double nicenum(double, int);
-char *eatpath();
-char *eatext();
-void read_matrix_file(int[37][37]);
+  char *strleft (char *);
+  char *strtrim (char *);
+  char *strlower (char *);
+  char *strupper (char *);
+  char *mytime();
+  char *myuser();
+  double nicenum(double, int);
+  char *eatpath();
+  char *eatext();
+  int streq (char *, char *);
+  int strcaseeq (char *, char *);
+  void die (char *);
+  double d_sign (double *, double *);
+  int rand_range (int);
+  char * fileexists (char *, char *);
 
 #ifdef __cplusplus
 }

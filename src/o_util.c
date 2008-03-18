@@ -16,6 +16,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/**
+   @file o_util.c
+   @brief Functions to read various O datastructures.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,10 +28,10 @@
 #include "veclib.h"
 #include "transform.h"
 
-/* 
-   O_read_transform -- open a file containing some transform written by O.
+/**
+   Open a file containing some transform written by O.
    It could be a .gs_real datablock, or it could be an .lsq_rt_* datablock.
-   mok 950822
+   @date mok 950822
 */
 Transform *
 O_read_transform (FILE *f)
@@ -115,9 +120,9 @@ void transform_destroy (Transform *trf)
   free (trf);
 }
 
-/*
-   create a new transform, containing the identity operation
-   mok 960803
+/**
+   Create a new transform, containing the identity operation
+   @date 960803
 */
 Transform *
 transform_create()
@@ -136,12 +141,12 @@ transform_create()
   return t;
 }
 
-/*
-   concatenate two transformations c = ab. This implemenation is rather
+/**
+   Concatenate two transformations c = ab. This implemenation is rather
    stupid, but it is not convienient to store a 4x4 matrix in the 
    transformation structure. Therefore, I first copy the transformations
    into 4x4 matrices, multiply these together, and copy the result back.
-   mok 960804
+   @date 960804
 */
 Transform *
 transform_concat (Transform *a, Transform *b, Transform *c)

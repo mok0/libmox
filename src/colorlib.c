@@ -16,6 +16,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/** @file colorlib.c
+   @brief Routines to manipulate colors
+   @author Morten Kjeldgaard
+*/
+
 #include "colorlib.h"
 
 /**

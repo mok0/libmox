@@ -16,10 +16,14 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+
 #include <stdio.h>
-
-
 #define MAXWORD 100
+
+/**
+   @file getword.c
+ */
+
 
 /** 
     Get a word from a stream. Word separators are user definable in
