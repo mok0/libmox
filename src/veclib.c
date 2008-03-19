@@ -1,6 +1,6 @@
-/*    
+/*
     This file is a part of moxlib, a utility library.
-    Copyright (C) 1995-2007 Morten Kjeldgaard  
+    Copyright (C) 1995-2008 Morten Kjeldgaard
 
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
@@ -17,7 +17,7 @@
 */
 
 /** @file veclib.c
-   @brief Routines to manipulate vectors and matrices 
+   @brief Routines to manipulate vectors and matrices
    @author Morten Kjeldgaard
 */
 
@@ -28,23 +28,23 @@
 #include "veclib.h"
 
 /**
-   returns squared length of input vector 
-*/	
+   Return squared length of input vector.
+*/
 double v3_squaredlength(Vector3 *a)
 {
   return (a->x * a->x)+(a->y * a->y)+(a->z * a->z);
 }
 
-/** 
-   returns length of input vector 
+/**
+   Compute length of input vector.
 */
 double v3_length(Vector3 *a)
 {
   return sqrt((a->x * a->x)+(a->y * a->y)+(a->z * a->z));
 }
 
-/** 
-   negates the input vector and returns it 
+/**
+   Negate the input vector and return it.
 */
 Vector3 *v3_negate(Vector3 *v)
 {
@@ -52,8 +52,8 @@ Vector3 *v3_negate(Vector3 *v)
   return v;
 }
 
-/** 
-   normalizes the input vector and returns it 
+/**
+   Normalize the input vector and return it.
 */
 Vector3 *v3_normalize(Vector3 *v)
 {
@@ -62,8 +62,8 @@ Vector3 *v3_normalize(Vector3 *v)
   return v;
 }
 
-/** 
-   scales the input vector to the new length and returns it 
+/**
+   Scale the input vector to the new length and return it.
 */
 Vector3 *v3_scale(Vector3 *v, double newlen)
 {
@@ -74,9 +74,8 @@ Vector3 *v3_scale(Vector3 *v, double newlen)
   return v;
 }
 
-
 /**
-   return vector sum c = a+b 
+   Compute 3D vector sum c = a+b.
 */
 Vector3 *v3_add(Vector3 *a, Vector3 *b, Vector3 *c)
 {
@@ -84,8 +83,8 @@ Vector3 *v3_add(Vector3 *a, Vector3 *b, Vector3 *c)
   return c;
 }
 
-/** 
-   return vector difference c = a-b 
+/**
+   Return 3D vector difference c = a-b.
 */
 Vector3 *v3_sub(Vector3 *a, Vector3 *b, Vector3 *c)
 {
@@ -93,8 +92,8 @@ Vector3 *v3_sub(Vector3 *a, Vector3 *b, Vector3 *c)
   return c;
 }
 
-/** 
-   return vector difference c = a-b 
+/**
+   Return 2D vector difference c = a-b.
 */
 Vector2 *v2_sub(Vector2 *a, Vector2 *b, Vector2 *c)
 {
@@ -102,25 +101,25 @@ Vector2 *v2_sub(Vector2 *a, Vector2 *b, Vector2 *c)
   return c;
 }
 
-/** 
-   return the dot product of vectors a and b 
+/**
+   Return the dot product of vectors a and b.
 */
 double v3_dot(Vector3 *a, Vector3 *b)
 {
   return (a->x*b->x)+(a->y*b->y)+(a->z*b->z);
 }
 
-/** 
-   return the dot product of vectors a and b 
+/**
+   Return the dot product of vectors a and b.
 */
 double v2_dot(Vector2 *a, Vector2 *b)
 {
   return (a->x*b->x)+(a->y*b->y);
 }
 
-/** 
-   linearly interpolate between vectors by an amount alpha and return
-   the resulting vector.  When alpha=0, result=lo.  When alpha=1,
+/**
+   Linearly interpolate between vectors by an amount alpha and return
+   the resulting vector. When alpha=0, result=lo. When alpha=1,
    result=hi.
 */
 
@@ -133,9 +132,10 @@ Vector3 *v3_lerp(Vector3 *lo, Vector3 *hi, double alpha, Vector3 *result)
 }
 
 
-/** 
-   make a linear combination of two vectors and return the
-   result.  result = (a * ascl) + (b * bscl) 
+/**
+   Make a linear combination of two vectors and return the
+   result.
+   @return (a * ascl) + (b * bscl)
 */
 Vector3 *v3_combine (Vector3 *a, Vector3 *b, Vector3 *result, double ascl, double bscl)
 {
@@ -147,8 +147,8 @@ Vector3 *v3_combine (Vector3 *a, Vector3 *b, Vector3 *result, double ascl, doubl
 }
 
 
-/** 
-   multiply a vector by a scalar return the result 
+/**
+   Multiply a 3D vector by a scalar return the result.
 */
 Vector3 *v3_mul (Vector3 *a, double b, Vector3 *result)
 {
@@ -158,8 +158,8 @@ Vector3 *v3_mul (Vector3 *a, double b, Vector3 *result)
   return result;
 }
 
-/** 
-   divide a vector by a scalar return the result 
+/**
+   Divide a 3D vector by a scalar return the result.
 */
 Vector3 *v3_div (Vector3 *a, double b, Vector3 *result)
 {
@@ -167,12 +167,12 @@ Vector3 *v3_div (Vector3 *a, double b, Vector3 *result)
     result->x = a->x/ b;
     result->y = a->y/ b;
     result->z = a->z/ b;
-  }   
+  }
   return result;
 }
 
-/** 
-   return the distance between two points 
+/**
+   Return the distance between two points.
 */
 double v3_distance(Point3 *a, Point3 *b)
 {
@@ -182,10 +182,10 @@ double v3_distance(Point3 *a, Point3 *b)
   return sqrt((dx*dx)+(dy*dy)+(dz*dz));
 }
 
-/** 
-   return the squared distance between two points 
+/**
+   Return the squared distance between two points.
 */
-double v3_distanceSquared(Point3 *a, Point3 *b)
+double v3_distancesquared(Point3 *a, Point3 *b)
 {
   double dx = a->x - b->x;
   double dy = a->y - b->y;
@@ -193,8 +193,8 @@ double v3_distanceSquared(Point3 *a, Point3 *b)
   return (dx*dx)+(dy*dy)+(dz*dz);
 }
 
-/** 
-   return the distance between two 2D points 
+/**
+   Return the distance between two 2D points.
 */
 double v2_distance(Point2 *a, Point2 *b)
 {
@@ -203,18 +203,18 @@ double v2_distance(Point2 *a, Point2 *b)
   return sqrt((dx*dx)+(dy*dy));
 }
 
-/** 
-   return the squared distance between two 2D points 
+/**
+   Return the squared distance between two 2D points.
 */
-double v2_distanceSquared(Point2 *a, Point2 *b)
+double v2_distancesquared(Point2 *a, Point2 *b)
 {
   double dx = a->x - b->x;
   double dy = a->y - b->y;
   return (dx*dx)+(dy*dy);
 }
 
-/** 
-   return the cross product c = a cross b 
+/**
+   Return the vector cross product c = a X b.
 */
 Vector3 *v3_cross(Vector3 *a, Vector3 *b, Vector3 *c)
 {
@@ -224,8 +224,8 @@ Vector3 *v3_cross(Vector3 *a, Vector3 *b, Vector3 *c)
   return c;
 }
 
-/** 
-   create, initialize, and return a new vector 
+/**
+   Create, initialize, and return a new vector.
 */
 Vector3 *v3_new(double x, double y, double z)
 {
@@ -234,8 +234,8 @@ Vector3 *v3_new(double x, double y, double z)
   return v;
 }
 
-/** 
-   create, initialize, and return a duplicate vector 
+/**
+   Create, initialize, and return a duplicate vector.
 */
 Vector3 *v3_duplicate(Vector3 *a)
 {
@@ -245,42 +245,42 @@ Vector3 *v3_duplicate(Vector3 *a)
 }
 
 
-/** 
+/**
    PREmultiply a point by a matrix and return the transformed
    point.
 */
 Point3 *v3_premulpointbymatrix(Point3 *pin, Matrix3 *m, Point3 *pout)
 {
-  pout->x = (pin->x * m->element[0][0]) + (pin->y * m->element[0][1]) + 
+  pout->x = (pin->x * m->element[0][0]) + (pin->y * m->element[0][1]) +
     (pin->z * m->element[0][2]);
-  pout->y = (pin->x * m->element[1][0]) + (pin->y * m->element[1][1]) + 
+  pout->y = (pin->x * m->element[1][0]) + (pin->y * m->element[1][1]) +
     (pin->z * m->element[1][2]);
-  pout->z = (pin->x * m->element[2][0]) + (pin->y * m->element[2][1]) + 
+  pout->z = (pin->x * m->element[2][0]) + (pin->y * m->element[2][1]) +
     (pin->z * m->element[2][2]);
   return pout;
 }
 
-/** 
-   multiply a point by a projective matrix and return the transformed point.
+/**
+   Multiply a point by a projective matrix and return the transformed point.
 */
 Point3 *v3_mulpointbyprojmatrix(Point3 *pin, Matrix4 *m, Point3 *pout)
 {
   double w;
-  pout->x = (pin->x * m->element[0][0]) + (pin->y * m->element[1][0]) + 
+  pout->x = (pin->x * m->element[0][0]) + (pin->y * m->element[1][0]) +
     (pin->z * m->element[2][0]) + m->element[3][0];
-  pout->y = (pin->x * m->element[0][1]) + (pin->y * m->element[1][1]) + 
+  pout->y = (pin->x * m->element[0][1]) + (pin->y * m->element[1][1]) +
     (pin->z * m->element[2][1]) + m->element[3][1];
-  pout->z = (pin->x * m->element[0][2]) + (pin->y * m->element[1][2]) + 
+  pout->z = (pin->x * m->element[0][2]) + (pin->y * m->element[1][2]) +
     (pin->z * m->element[2][2]) + m->element[3][2];
-  w =    (pin->x * m->element[0][3]) + (pin->y * m->element[1][3]) + 
+  w =    (pin->x * m->element[0][3]) + (pin->y * m->element[1][3]) +
     (pin->z * m->element[2][3]) + m->element[3][3];
   if (w != 0.0) { pout->x /= w;  pout->y /= w;  pout->z /= w; }
   return(pout);
 }
 
 
-/** 
-   multiply together 4x4 matrices c = ab. Matrix c can share storage
+/**
+   Multiply together 4x4 matrices c = ab. Matrix c can share storage
    location with a and/or b.
 */
 Matrix4 *m4_matmul(Matrix4 *a, Matrix4 *b, Matrix4 *c)
@@ -291,7 +291,7 @@ Matrix4 *m4_matmul(Matrix4 *a, Matrix4 *b, Matrix4 *c)
   for (i=0; i<4; i++) {
     for (j=0; j<4; j++) {
       tmp.element[i][j] = 0.0;
-      for (k=0; k<4; k++) 
+      for (k=0; k<4; k++)
 	tmp.element[i][j] += a->element[i][k] * b->element[k][j];
     }
   }
@@ -303,8 +303,8 @@ Matrix4 *m4_matmul(Matrix4 *a, Matrix4 *b, Matrix4 *c)
   return c;
 }
 
-/** 
-   multiply together 4x4 matrices c = ab. Matrix c can share storage
+/**
+   Multiply together 4x4 matrices c = ab. Matrix c can share storage
    location with a and/or b.
 */
 Matrix3 *m3_matmul(Matrix3 *a, Matrix3 *b, Matrix3 *c)
@@ -315,7 +315,7 @@ Matrix3 *m3_matmul(Matrix3 *a, Matrix3 *b, Matrix3 *c)
   for (i=0; i<3; i++) {
     for (j=0; j<3; j++) {
       tmp.element[i][j] = 0.0;
-      for (k=0; k<3; k++) 
+      for (k=0; k<3; k++)
 	tmp.element[i][j] += a->element[i][k] * b->element[k][j];
     }
   }
@@ -346,13 +346,13 @@ double v3_torsion(Point3 *pa, Point3 *pb, Point3 *pc, Point3 *pd)
   v3_cross(&u, &v, &w);
   if (fabs(v3_angle(&cb, &w)) <= 0.1)  /* this is either 0 or 180 */
     return torang;
-  else 
+  else
     return -torang;
 }
 
 
 /**
-   return angle in degrees between two vectors
+   Return angle in degrees between two 3D vectors.
 */
 double v3_angle (Vector3 *v1, Vector3 *v2)
 {
@@ -366,7 +366,7 @@ double v3_angle (Vector3 *v1, Vector3 *v2)
 }
 
 /**
-   return angle in degrees between two vectors
+   Return angle in degrees between two 2D vectors.
 */
 double v2_angle (Vector2 *v1, Vector2 *v2)
 {
@@ -379,7 +379,7 @@ double v2_angle (Vector2 *v1, Vector2 *v2)
 }
 
 /**
-   set all elements in 3x3 matrix to zero.
+   Set all elements in 3x3 matrix to zero.
 */
 Matrix3 *m3_zero (Matrix3 *m)
 {
@@ -390,8 +390,8 @@ Matrix3 *m3_zero (Matrix3 *m)
   return m;
 }
 
-/** 
-   transpose a 4x4 matrix in place 
+/**
+   Transpose a 4x4 matrix in place.
 */
 Matrix4 *m4_transpose (Matrix4 *a)
 {
@@ -403,13 +403,13 @@ Matrix4 *m4_transpose (Matrix4 *a)
       tmp = a->element[i][j];
       a->element[i][j] = a->element[j][i];
       a->element[j][i] = tmp;
-    }  
+    }
   }
   return a;
 }
 
-/** 
-   transpose a 3x3 matrix in place 
+/**
+   Transpose a 3x3 matrix in place.
 */
 Matrix3 *m3_transpose (Matrix3 *a)
 {
@@ -421,14 +421,14 @@ Matrix3 *m3_transpose (Matrix3 *a)
       tmp = a->element[i][j];
       a->element[i][j] = a->element[j][i];
       a->element[j][i] = tmp;
-    }  
+    }
   }
   return a;
 }
    
 
-/** 
-   create, initialize, and return a duplicate M3
+/**
+   Create, initialize, and return a duplicate 3x3 matrix.
 */
 Matrix3 *m3_duplicate(Matrix3 *a)
 {
@@ -437,8 +437,8 @@ Matrix3 *m3_duplicate(Matrix3 *a)
   return m;
 }
 
-/** 
-   create, initialize, and return a duplicate M3
+/**
+   Create, initialize, and return a duplicate 4x4 matrix.
 */
 Matrix4 *m4_duplicate(Matrix4 *a)
 {
@@ -448,11 +448,11 @@ Matrix4 *m4_duplicate(Matrix4 *a)
 }
 
 
-/** 
+/**
    Modified Gram-Schmidt Orthogonalization by Columns.  This routine
    orthogonalizes a n by n square matrix using the modified
    Gram-Schmidt procedure. If the input matrix has a singularity,
-   errcod is returned with a non-zero value.  mok 950815, translated
+   errcod is returned with a non-zero value. @date mok 950815, translated
    from my old fortran code 900328.
 */
 
@@ -467,14 +467,14 @@ Matrix3 *m3_mgs (Matrix3 *m)
     for (ii = 0; ii < n; ii++)
       dnorm = dnorm + SQR(m->element[ii][i]);
 
-    if (dnorm < EPS) 
+    if (dnorm < EPS)
       return NULL;
 
     ido = i+1;
     
     for (j = ido; j < n; j++) {
       dot = 0.0;
-      for (ik = 0; ik < n; ik++) 
+      for (ik = 0; ik < n; ik++)
         dot = dot + m->element[ik][i] * m->element[ik][j];
       for (ik = 0; ik < n; ik++)
         m->element[ik][j] = m->element[ik][j] - m->element[ik][i] * dot/dnorm;
@@ -496,7 +496,7 @@ Matrix3 *m3_mgs (Matrix3 *m)
 }
 
 /**
-   Dump a 3 x 3 matrix to stderr.
+   Dump a 3x3 matrix to stderr.
 */
 void m3_print (char *str, Matrix3 *mat)
 {
@@ -516,7 +516,7 @@ void m3_print (char *str, Matrix3 *mat)
 }
 
 /**
-   Dump a 4 x 4 matrix to stderr.
+   Dump a 4x4 matrix to stderr.
 */
 void m4_print (char *str, Matrix4 *mat)
 {
@@ -538,11 +538,11 @@ void m4_print (char *str, Matrix4 *mat)
 
 
 /**
-   Decode a 3 x 3 rotation matrix into a scale, and rotations around
-   x, y and z axes. Positive direction version.  mok 950815,
-   translated from my old fortran code.
+   Decode a 3x3 rotation matrix into a scale, and rotations around
+   x, y and z axes. Positive direction version. @date mok 950815,
+   translated from my old Fortran code.
 */
-void m3__mat_to_rot (Matrix3 *m, double *alpha, double *beta, double *gamma)
+void m3_mat_to_rot (Matrix3 *m, double *alpha, double *beta, double *gamma)
 {
   double aa, bb, gg;
 
@@ -579,7 +579,7 @@ void m3__mat_to_rot (Matrix3 *m, double *alpha, double *beta, double *gamma)
 }
 
 /**
-  Return the scale factor (zoom) on the 3 x 3 matrix.
+  Return the scale factor (zoom) on the 3x3 matrix.
 */
 double m3_toscale (Matrix3 *m)
 {
@@ -604,7 +604,7 @@ Matrix3 *m3_rot_to_mat (Matrix3 *m, char axis, double angle)
 {
   double ca, sa, ang;
 
-  ang = angle*3.141592654/180.0;
+  ang = angle*M_PI/180.0;
   ca = cos (ang); sa = sin(ang);
   memset (m, 0, sizeof (Matrix3)); /* set all elements to 0 */
 
@@ -641,7 +641,7 @@ Matrix3 *m3_rot_to_mat (Matrix3 *m, char axis, double angle)
 
 /**
   Compute the midpoint between vectors a and b.
-  mok 971109
+  @date 19971109
 */
 Vector3 *v3_mid(Vector3 *a, Vector3 *b, Vector3 *c)
 {
@@ -649,9 +649,9 @@ Vector3 *v3_mid(Vector3 *a, Vector3 *b, Vector3 *c)
   return c;
 }
 
-/** 
+/**
    Add a scaled vector to a, and return the result.
-   result = a  + (b * bscl) 
+   @result a  + (b * bscl)
 */
 Vector3 *v3_addscl (Vector3 *a, Vector3 *b, Vector3 *result, double bscl)
 {
@@ -663,7 +663,7 @@ Vector3 *v3_addscl (Vector3 *a, Vector3 *b, Vector3 *result, double bscl)
 }
 
 /**
-  set vector elements to a value
+  Set 2D vector elements to a value.
 */
 Vector2 *v2_set(Vector2 *v, double a, double b)
 {
@@ -672,7 +672,7 @@ Vector2 *v2_set(Vector2 *v, double a, double b)
 }
 
 /**
-  set vector elements to a value
+  Set 3D vector elements to a value.
 */
 Vector3 *v3_set(Vector3 *v, double a, double b, double c)
 {
@@ -682,9 +682,9 @@ Vector3 *v3_set(Vector3 *v, double a, double b, double c)
 
 
 /**
-   set up an orthogonalization matrix from a unit cell. Use PDB
+   Set up an orthogonalization matrix from a unit cell. Use PDB
    standard.  Fractional coords to cartesian, isw <= 0 Cartesian
-   coords to fractional, isw > 0
+   coords to fractional, isw > 0.
  */
 Matrix3 *orthog(float *cell, Matrix3 *m, int isw)
 {
@@ -703,7 +703,7 @@ Matrix3 *orthog(float *cell, Matrix3 *m, int isw)
   cabgs[2] = (cabg[0] * cabg[1] - cabg[2]) / (sabg[0] * sabg[1]);
 
   vol = cell[0] * cell[1] * cell[2] *
-    sqrt(1.0 + 2.0 * cabg[0]*cabg[1]*cabg[2] 
+    sqrt(1.0 + 2.0 * cabg[0]*cabg[1]*cabg[2]
 	 - SQR(cabg[0]) - SQR(cabg[1]) - SQR(cabg[2]));
     
   abcs[0] = cell[1] * cell[2] * sabg[0] / vol;
@@ -737,7 +737,7 @@ Matrix3 *orthog(float *cell, Matrix3 *m, int isw)
 
 
 /**
-  Copy a 3D vector to a second.
+  Copy a 3D vector.
 */
 Vector3 *v3_copy (Vector3 *u, Vector3 *v)
 {
@@ -746,7 +746,7 @@ Vector3 *v3_copy (Vector3 *u, Vector3 *v)
 }
 
 /**
-  Copy a 2D vector to a second.
+  Copy a 2D vector.
 */
 Vector2 *v2_copy (Vector2 *u, Vector2 *v)
 {
@@ -783,8 +783,8 @@ Matrix4 *m4_ident (Matrix4 *m)
   return m;
 }
 
-/*
-  Dump a vector to stderr
+/**
+  Dump a 3D vector to stderr. Mostly for debugging.
 */
 void v3_print (char *str, Vector3 *vec)
 {
@@ -792,16 +792,16 @@ void v3_print (char *str, Vector3 *vec)
 }
 
 /**
-  Dump a vector to stderr
+  Dump a 2D vector to stderr. Mostly for debugging.
 */
 void v2_print (char *str, Vector2 *vec)
 {
   fprintf (stderr, "%s: %f %f\n", str, vec->x, vec->y);
 }
 
-/** 
+/**
    Multiply a point by the rotation part of a 4x4 matrix and return
-   the transformed point. mok 930216.
+   the transformed point. @date 19930216.
 */
 Point3 *v3_mulpointbymatrix4 (Point3 *pin, Matrix4 *m, Point3 *pout)
 {
