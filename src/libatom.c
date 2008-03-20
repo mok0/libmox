@@ -16,6 +16,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/**
+   @file libatom.c
+   @brief A simple library to manipulate macromolecular structures.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -36,7 +41,7 @@
    chnm and resnm must be large enough, no checks made.
 */
 
-int atm_decode_resnam (char *in, char *chnm, char *resnm)
+int atm_decode_resnam (const char *in, char *chnm, char *resnm)
 {
   char *c;
   int i;
@@ -72,7 +77,7 @@ int atm_decode_resnam (char *in, char *chnm, char *resnm)
    handle the most degenerate cases.
 */
 
-int atm_decode_atmnam (char *in, char *chnm, char *resnm, char *atmnm)
+int atm_decode_atmnam (const char *in, char *chnm, char *resnm, char *atmnm)
 {
   char *c1, *c2;
   int i, j;
@@ -125,9 +130,9 @@ int atm_decode_atmnam (char *in, char *chnm, char *resnm, char *atmnm)
 }
 
 /**
-  open an atom file -- this version handles compressed files too.
+  Open an atom file -- this version handles compressed files too.
 */
-AtomFile *atm_open_file(char *fnam, char *mode)
+AtomFile *atm_open_file(const char *fnam, const char *mode)
 {
   AtomFile *f;
 
@@ -148,7 +153,7 @@ AtomFile *atm_open_file(char *fnam, char *mode)
 }
 
 /**
-  open an atom file and associate file with a file descriptor. This
+  Open an atom file and associate file with a file descriptor. This
   version handles compressed files too.
 */
 
@@ -193,8 +198,8 @@ void atm_close_file (AtomFile *f)
 }
 
 /**
-   read a pdb file, and return a pointer to a new
-   Structure record. Pass a file pointer to an open file.
+   Read a pdb file, and return a pointer to a new Structure
+   record. Pass a file pointer to an open file.
 */
 
 Structure *atm_read_pdbfile (AtomFile *f)
@@ -471,7 +476,7 @@ Structure *atm_read_pdbfile (AtomFile *f)
 }
 
 /**
-   read one record from an open file, determine its
+   Read one record from an open file, determine its
    type and return it.
 */
 int atm_read_pdbrecord (char *buf, int siz, AtomFile *f)
@@ -593,10 +598,9 @@ static pdb_aniso_record *decode_pdb_aniso (pdb_aniso_record *aniso, char *buf)
 
 
 /**
-   Decode the part of the string describing one 
-   ATOM record from a pdb file and fill in some of the fields concerning
-   atom and residue id (the parts that are identical in an ATOM and ANISO 
-   record)
+   Decode the part of the string describing one ATOM record from a pdb
+   file and fill in some of the fields concerning atom and residue id
+   (the parts that are identical in an ATOM and ANISO record)
 */
 
 static void decode_pdb_atom_id (pdb_atom_record *atom, char *buf)
@@ -753,20 +757,15 @@ void atm_chain_what_residue_class (Chain *chain)
       ++(chain->hetcount);
     }
     
-
-
     res = res->next;
   }
 }
 
 /**
-   Figure something out about the connectivity of the
-   residues in the chain. (At the moment, this routine does not do any
-   real checks.)
+   Figure something out about the connectivity of the residues in the
+   chain. (At the moment, this routine does not do any real checks.)
 */
-
-void 
-atm_chain_connect (Chain *chain)
+void atm_chain_connect (Chain *chain)
 {
   Residue *res;
 
@@ -782,9 +781,9 @@ atm_chain_connect (Chain *chain)
 }
 
 /**
-   find a named atom in the specified residue.
+   Find a named atom in the specified residue.
 */
-Atom *atm_find_atom (Residue *res, char *atmnam)
+Atom *atm_find_atom (Residue *res, const char *atmnam)
 {
   Atom *theatom;
   char name[8];
@@ -825,8 +824,8 @@ Atom *atm_find_atom (Residue *res, char *atmnam)
 }
 
 /**
-   Find a named residue in the specified chain.
-   Rewrite this sometime to use a hashed search.
+   Find a named residue in the specified chain.  Rewrite this sometime
+   to use a hashed search.
 */
 Residue *atm_find_residue (Chain *chain, char *name)
 {
@@ -845,10 +844,10 @@ Residue *atm_find_residue (Chain *chain, char *name)
 }
 
 /**
-   Find a named chain in the specified structure
-   Rewrite this sometime to use a hashed search.
+   Find a named chain in the specified structure Rewrite this sometime
+   to use a hashed search.
 */
-Chain *atm_find_named_chain (Structure *st, char *name)
+Chain *atm_find_named_chain (Structure *st, const char *name)
 {
   Chain *thechain;
 
@@ -867,7 +866,7 @@ Chain *atm_find_named_chain (Structure *st, char *name)
 /**
    Search the structure for a chain of the given identity.
 */
-Chain *atm_find_chain_id (Structure *s, char chid)
+Chain *atm_find_chain_id (Structure *s, const char chid)
 {
   Chain *chain;
 
@@ -900,8 +899,8 @@ void atm_version_out(void)
 }
 
 /**
-   Given a pointer to a structure record, output what we
-   know about it.
+   Given a pointer to a structure record, output what we know about
+   it.
 */
 void atm_structure_out (Structure *s)
 {
@@ -983,8 +982,8 @@ void atm_chain_out (Chain *chain)
 /* ==== Miscellaneous computations on chains ==== */
 
 /**
-   Calculate the center-of-gravity of this chain and of every residue in the
-   chain.
+   Calculate the center-of-gravity of this chain and of every residue
+   in the chain.
 */
 void atm_chain_cg(Chain *chain)
 {
@@ -1012,8 +1011,8 @@ void atm_chain_cg(Chain *chain)
 }
 
 /**
-   Calculate the average B factor of this chain and of every residue in the
-   chain.
+   Calculate the average B factor of this chain and of every residue
+   in the chain.
 */
 void atm_chain_bav(Chain *chain)
 {
@@ -1044,8 +1043,7 @@ void atm_chain_bav(Chain *chain)
 /* ==== Routines to create datastructures ==== */
 
 /**
-   Allocate a new Structure datastructure,
-   and fill with zeroes.
+   Allocate a new Structure datastructure, and fill with zeroes.
  */
 Structure *atm_create_structure(void)
 {
@@ -1060,10 +1058,9 @@ Structure *atm_create_structure(void)
   return s;
 }
 
-/*
-   atm_create_chain -- allocate a new Chain datastructure, 
-   and fill with zeroes.
-   mok 960726
+/**
+   Allocate a new Chain datastructure, and fill with zeroes.
+   @date 19960726
 */
 Chain *atm_create_chain(void)
 {
@@ -1126,7 +1123,7 @@ static char *Elements[] = { "??",
 /**
   Given a pdb atom name, decode the element number.
 */
-int atm_atom_to_z (char *name)
+int atm_atom_to_z (const char *name)
 {
   register int i;
 
@@ -1150,8 +1147,8 @@ char *atm_z_to_atom (int z)
 }
 
 /**
-   Pass atom paths of the beginning and end of a zone,
-   and return a Zone datastructure containing the pointers.
+   Pass atom paths of the beginning and end of a zone, and return a
+   Zone datastructure containing the pointers.
 */
 Zone *atm_atom_zone (Structure *st, char *from, char *to)
 {
@@ -1279,7 +1276,7 @@ Zone *atm_residue_zone (Structure *st, char *from, char *to)
   the atom - otherwise NULL.
 */
 
-Atom *atm_find_named_atom (Structure *st, char *atomcode)
+Atom *atm_find_named_atom (Structure *st, const char *atomcode)
 {
   char chnm[12], resnm[12], atmnm[12];
   Chain *ch;
@@ -1395,4 +1392,3 @@ Matrix3 *atm_aniso_to_M3 (Atom *atom)
    mode: font-lock
    End:
 */
-
