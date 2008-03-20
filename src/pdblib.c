@@ -47,9 +47,9 @@ static char *Elements[] = { "??",
 };
 
 /**
-  pdb_get_next_atom -- read and decode the next atom record from a PDB file. 
-  Return NULL pointer if not found. The routine allocates one pdb atom record.
-  mk 950309
+  Read and decode the next atom record from a PDB file.  Return NULL
+  pointer if not found. The routine allocates one pdb atom record.
+  @date 19950309
 */
 pdb_atom_record *
 pdb_get_next_atom (FILE *f)
@@ -120,9 +120,8 @@ pdb_get_next_atom (FILE *f)
 }
 
 /**
-   pdb_decode_atom_record -- decode an atom record from a PDB file. 
-   Return NULL pointer if not found. The routine allocates one pdb atom record.
-   mk 950309
+   Decode an atom record from a PDB file.  Return NULL pointer if not
+   found. The routine allocates one pdb atom record.  @date 19950309
 */
 pdb_atom_record *
 pdb_decode_atom_record (char *buf)
@@ -186,9 +185,8 @@ pdb_decode_atom_record (char *buf)
   return atom;
 }
   
-/*
-   pdb_atom_to_z -- given a pdb atom name, decode the element number.
-   mk 950309.
+/**
+   Given a pdb atom name, decode the element number.  @date 19950309.
 */
 int 
 pdb_atom_to_z (char *name)
@@ -203,9 +201,8 @@ pdb_atom_to_z (char *name)
   return 0;
 }
 
-/*
-   pdb_z_to_atom -- given an atomic number, return the element name
-   mok 950818
+/**
+   Given an atomic number, return the element name. @date 19950818
 */
 char *
 pdb_z_to_atom (int z)
@@ -216,11 +213,10 @@ pdb_z_to_atom (int z)
 }
 
 
-/*
-   pdb_read_atoms -- read in the atom datastructure from a pdb file.
-   Returns a pointer to the first atom record. The record following the last
-   atom or hetatm in the file is eaten.
-   mk 950309
+/**
+   Read in the atom datastructure from a pdb file.  Returns a pointer
+   to the first atom record. The record following the last atom or
+   hetatm in the file is eaten. @date 19950309
 */
 pdb_atom_record *
 pdb_read_atoms (FILE *f)
@@ -255,8 +251,8 @@ pdb_read_atoms (FILE *f)
   return first;
 }
 
-/*
-   pdb_atoms_out -- dump the datastructure to stdout.
+/**
+   Dump the datastructure to stdout.
 */
 void 
 pdb_atoms_out (pdb_atom_record *atom)
@@ -270,14 +266,13 @@ pdb_atoms_out (pdb_atom_record *atom)
   }
 }
 
-/** 
-   pdb_get_cryst_record -- search for the next CRYST1 record, decode it, and
-   return a pointer to a pdb_cryst_record datastructure. The record after the
-   cryst record is eaten by this routine.
-   mk 950309
+/**
+   Search for the next CRYST1 record, decode it, and return a pointer
+   to a pdb_cryst_record datastructure. The record after the cryst
+   record is eaten by this routine. @date 19950309
 */
-pdb_cryst_record *
-pdb_get_cryst_record (FILE *f)
+
+pdb_cryst_record *pdb_get_cryst_record (FILE *f)
 {
   char buf[RECSIZ];
   int iscryst;
@@ -298,12 +293,10 @@ pdb_get_cryst_record (FILE *f)
 
 
 /**
-   pdb_decode_cryst_record -- decode the CRYST1 record from a PDB file and
-   return a pointer to a pdb_cryst_record datastructure.
-   mk 950405.
+   Decode the CRYST1 record from a PDB file and return a pointer to a
+   pdb_cryst_record datastructure.  @date 19950405.
 */
-pdb_cryst_record *
-pdb_decode_cryst_record (char *buf)
+pdb_cryst_record *pdb_decode_cryst_record (char *buf)
 {
   pdb_cryst_record *cryst;
 
@@ -331,9 +324,8 @@ pdb_decode_cryst_record (char *buf)
 }
 
 /**
-   pdb_decode_cmpnd_record -- decode the CMPND record from a PDB file and
-   return a pointer to a pdb_cmpnd_record datastructure.
-   mk 950404.
+  Decode the CMPND record from a PDB file and return a pointer to a
+   pdb_cmpnd_record datastructure. @date 19950404.
 */
 pdb_compnd_record *
 pdb_decode_compnd_record (char *buf)
@@ -353,12 +345,10 @@ pdb_decode_compnd_record (char *buf)
 }
 
 /**
-   pdb_read_file -- read an entire pdb file, and decode some of the interesting 
-   records. The file stream f must be open.
-   mk 950404.
+   Read an entire pdb file, and decode some of the interesting
+   records. The file stream f must be open. @date 19950404.
 */
-PDBfile *
-pdb_read_file (FILE *f)
+PDBfile *pdb_read_file (FILE *f)
 {
   PDBfile *p;
   pdb_atom_record *atom;
@@ -429,9 +419,8 @@ pdb_read_file (FILE *f)
 
 
 /**
-   pdb_decode_helix_record -- decode the HELIX record from a PDB file and
-   return a pointer to a pdb_ss_record datastructure.
-   mk 950404.
+   Decode the HELIX record from a PDB file and return a pointer to a
+   pdb_ss_record datastructure. @date 19950404.
 */
 
 pdb_ss_record *
@@ -469,9 +458,8 @@ pdb_decode_helix_record (char *buf)
 
 
 /**
-   pdb_decode_sheet_record -- decode the SHEET record from a PDB file and
-   return a pointer to a pdb_ss_record datastructure.
-   mk 950404.
+   Decode the SHEET record from a PDB file and return a pointer to a
+   pdb_ss_record datastructure.  @date 19950404.
 */
 
 pdb_ss_record *

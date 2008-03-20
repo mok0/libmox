@@ -145,14 +145,14 @@ typedef struct Zone {
 /* prototypes */
 
 Atom *atm_create_atom(void);
-Atom *atm_find_atom(Residue *res, char *atmnam);
-Atom *atm_find_named_atom(Structure *st, char *atomcode);
+Atom *atm_find_atom(Residue *res, const char *atmnam);
+Atom *atm_find_named_atom(Structure *st, const char *atomcode);
 AtomFile *atm_dopen_file(int fd, char *mode);
-AtomFile *atm_open_file(char *fnam, char *mode);
+AtomFile *atm_open_file(const char *fnam, const char *mode);
 Chain *atm_create_chain(void);
 Chain *atm_delete_chain(Chain *chain);
-Chain *atm_find_named_chain(Structure *st, char *name);
-Chain *atm_find_chain_id(Structure *st, char chid);
+Chain *atm_find_named_chain(Structure *st, const char *name);
+Chain *atm_find_chain_id(Structure *st, const char chid);
 Matrix3 *atm_aniso_to_M3(Atom *atom);
 Residue *atm_create_residue(void);
 Residue *atm_find_residue(Chain *chain, char *name);
@@ -162,9 +162,9 @@ Structure *atm_read_pdbfile (AtomFile *f);
 Zone *atm_atom_zone(Structure *st, char *from, char *to);
 Zone *atm_residue_zone(Structure *st, char *from, char *to);
 char *atm_z_to_atom (int z);
-int atm_atom_to_z (char *name);
-int atm_decode_atmnam (char *in, char *chnm, char *resnm, char *atmnm);
-int atm_decode_resnam (char *in, char *chnm, char *resnm);
+int atm_atom_to_z (const char *name);
+int atm_decode_atmnam (const char *in, char *chnm, char *resnm, char *atmnm);
+int atm_decode_resnam (const char *in, char *chnm, char *resnm);
 int atm_read_pdbrecord (char *buf, int siz, AtomFile *f);
 void atm_chain_bav(Chain *chain);
 void atm_chain_cg(Chain *chain);

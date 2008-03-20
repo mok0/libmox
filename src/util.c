@@ -250,10 +250,9 @@ void printbits (unsigned long num)
 }
 
 /**
-   Check if two strings are equal. 
-   @return 1 if two strings are equal, upto and including trailing \0, else
-   zero.
-   @date mk 950528
+   Check if two strings are equal. @return 1 if two strings are
+   equal, upto and including trailing null byte, else zero.  
+   @date 19950528
 */
 int streq (char *s, char *t)
 {
@@ -270,9 +269,8 @@ int streq (char *s, char *t)
 }
   
 /**
-   Return 1 if two strings are equal, upto and including trailing \0, else
-   return zero. Case insensitive version.
-   mk 970407
+   Return 1 if two strings are equal, upto and including trailing null
+   byte, else return zero. Case insensitive version.  @date 19970407
 */
 
 int strcaseeq (char *s, char *t)
@@ -304,11 +302,10 @@ die (char *str)
 }
 
 /**
-  Give a the sign of b
+  Give a the sign of b. @return if b >= 0 return |a|, else -|a|.
 */
 
-double 
-d_sign (double *a, double *b)
+double d_sign (double *a, double *b)
 {
   double x;
   x = (*a >= 0 ? *a : -*a);	/* x = |a| */
@@ -398,7 +395,7 @@ main ()
 #endif
 
 /* 
-Local Variables:
-mode: font-lock
-End:
+   Local Variables:
+   mode: font-lock
+   End:
 */
