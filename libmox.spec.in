@@ -1,12 +1,7 @@
 # -*- mode: rpm-spec ; mode: font-lock -*-
-#->---------------------------------
-%define comp xray
-%define _rpmdir  /u/src/apt/%{dist}/%{rel}/%{_arch}/RPMS.%{comp}
-%define _srcrpmdir /u/src/apt/%{dist}/%{rel}/%{_arch}/SRPMS.%{comp}
-#<----------------------------------
 
 Summary: Macromolecular coordinate library
-Name: mox
+Name: libmox
 Version: @VERSION@
 Release: 1%{?reltag}%{?repotag}
 License: LGPL

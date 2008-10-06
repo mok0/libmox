@@ -1,3 +1,7 @@
+2008-10-06  Morten Kjeldgaard  <mok0@ubuntu.com>
+
+	* Rename package to libmox
+
 2008-03-18  Morten Kjeldgaard  <mok@homunculus.local>
 
 	* src/*: add doxygen markup.
