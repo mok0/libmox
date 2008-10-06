@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT(mox, 2.0.2, mok@bioxray.au.dk)
+AC_INIT(libmox, 2.0.3, mok@bioxray.au.dk)
 
 AC_CONFIG_SRCDIR([src/libatom.c])
 AC_CONFIG_AUX_DIR([config])
@@ -42,8 +42,8 @@ AC_FUNC_STRTOD
 AC_CHECK_FUNCS([bzero floor memset pow putenv setenv sqrt strcasecmp strchr strdup strerror strncasecmp strrchr strstr])
 
 AC_CONFIG_FILES([Makefile
-		 mox.spec
-		 mox.info
+		 libmox.spec
+		 libmox.info
                  src/Makefile
 		 ])
 

@@ -11,6 +11,6 @@ DIST_SUBDIRS = $(SUBDIRS)
 
 pkgconfigdir = $(libdir)/config
 
-EXTRA_DIST = bootstrap mox.spec.in mox.info.in
+EXTRA_DIST = bootstrap libmox.spec.in libmox.info.in
 
 ####

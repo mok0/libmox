@@ -1,4 +1,4 @@
-Package: mox
+Package: libmox
 Version: @VERSION@
 Revision: 1
 Maintainer: Morten Kjeldgaard <mok@bioxray.au.dk>
