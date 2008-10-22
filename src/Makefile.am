@@ -2,6 +2,8 @@
 
 AM_CFLAGS =
 
+EXTRA_DIST = libatom.dox
+
 libmox_h_sources = atom.h colorlib.h database.h pdb.h	\
 transform.h util.h veclib.h pdblib.h
 
