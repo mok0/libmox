@@ -2,7 +2,7 @@
 ## $Id$
 
 # Build in these directories
-SUBDIRS = src
+SUBDIRS = src test
 
 ACLOCAL_AMFLAGS = -I config
 
@@ -11,6 +11,6 @@ DIST_SUBDIRS = $(SUBDIRS)
 
 pkgconfigdir = $(libdir)/config
 
-EXTRA_DIST = bootstrap libmox.spec.in libmox.info.in
+EXTRA_DIST = bootstrap libmox.spec.in libmox.info.in Doxyfile
 
 ####
