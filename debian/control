@@ -1,0 +1,22 @@
+Source: libmox
+Priority: extra
+Maintainer: Morten Kjeldgaard <mok0@ubuntu.com>
+Build-Depends: debhelper (>= 5), autotools-dev, cdbs, libgdbm-dev, zlib1g-dev
+Standards-Version: 3.7.2
+Section: libs
+
+Package: libmox-dev
+Section: libdevel
+Architecture: any
+Depends: libmox1 (= ${binary:Version})
+Description: library for manipulation of PDB files
+ This package contains the library and header files needed to develop 
+ mox programs.
+
+Package: libmox1
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: shared library for running mox binaries
+ This package contains the shared library needed to develop and
+ run mox programs.

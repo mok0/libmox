@@ -1,0 +1,26 @@
+libmox (2.0.3-0ubuntu1~ppa1) hardy; urgency=low
+
+  * Package renamed to libmox
+  * New upstream release
+
+ -- Morten Kjeldgaard <mok0@ubuntu.com>  Mon, 06 Oct 2008 16:12:07 +0200
+
+mox (2.0-0ubuntu1~ppa2) gutsy; urgency=low
+
+  * Failed to build on amd64. Add zlib1g-dev dependency. 
+
+ -- Morten Kjeldgaard <mok@bioxray.dk>  Sat, 27 Oct 2007 03:50:06 +0200
+
+mox (2.0-0ubuntu1~ppa1) gutsy; urgency=low
+
+  * New upstream release. Library has been separated from apps.
+  * API changed.
+
+ -- Morten Kjeldgaard <mok@bioxray.dk>  Fri, 26 Oct 2007 17:59:06 +0200
+
+mox (1.3.1-0ubuntu1~ppa1) gutsy; urgency=low
+
+  * Initial release
+
+ -- Morten Kjeldgaard <mok@bioxray.dk>  Tue, 11 Sep 2007 12:35:04 +0200
+
