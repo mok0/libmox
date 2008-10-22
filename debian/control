@@ -2,7 +2,7 @@ Source: libmox
 Priority: extra
 Maintainer: Morten Kjeldgaard <mok0@ubuntu.com>
 Build-Depends: debhelper (>= 5), autotools-dev, cdbs, libgdbm-dev, zlib1g-dev
-Standards-Version: 3.7.2
+Standards-Version: 3.8.0
 Section: libs
 
 Package: libmox-dev
