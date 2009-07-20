@@ -94,7 +94,7 @@ typedef struct Residue {
 } Residue;
 
 typedef struct Chain {
-  char name[6];			/*!< name of this chain */
+  char name[8];			/*!< name of this chain (pdbid + id) */
   char id;			/*!< id of this chain */
   int nres;			/*!< number of residues */
   int natoms;			/*!< number of atoms in this chain */
@@ -117,8 +117,8 @@ typedef struct Chain {
 } Chain;
 
 typedef struct Structure {
-  char *name;			/*!< name */
-  char id[5];			/*!< id, usually from pdbfile */
+  char name[16];	        /*!< name */
+  char id[5];			/*!< PDB ident, usually from pdbfile */
   int model;			/*!< model number */
   int modelct;			/*!< number of models */
   int natoms;			/*!< number of atoms in asymmetric unit */

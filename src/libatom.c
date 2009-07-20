@@ -232,6 +232,8 @@ Structure *atm_read_pdbfile (AtomFile *f)
   shead->modelct = 1;
   shead->model = 1;
   shead->head = shead;
+  strncpy (s->name, "0unk_001", 8); 
+  
 
   what = atm_read_pdbrecord (buf,100,f);
   while (what > -1 && !done) {
@@ -241,7 +243,7 @@ Structure *atm_read_pdbfile (AtomFile *f)
       strncpy (s->id, &buf[62], 4);
       s->id[4] = '\0';
       strlower(s->id);
-      s->name = s->id;
+      strncpy (s->name, s->id, 4);
       break;
 
     case REMARK:
@@ -263,7 +265,7 @@ Structure *atm_read_pdbfile (AtomFile *f)
       break;
 
     case MODEL:
-      if (sscanf(&buf[6], "%d", model) != 1) {
+      if (sscanf(&buf[6], "%d", &model) != 1) {
 	fprintf (stderr, "could not decode model record:\n%s\n", buf);
       }
 
@@ -272,7 +274,6 @@ Structure *atm_read_pdbfile (AtomFile *f)
 
       if (model > 1) {
 	isfirstchain = isfirstresidue = isfirstatom = TRUE;
-	done = 0;
 	hetflag = FALSE;
 	natoms = nhetatoms = 0;
 	chain_was = '?';
@@ -280,8 +281,11 @@ Structure *atm_read_pdbfile (AtomFile *f)
 	ctres = ctatom = 0;
 	Structure *snew = atm_create_structure();
 	snew->model = model;
-	strncpy (snew->id, s->id, 5);
-	strncpy (snew->name, s->name, 5);
+	
+	strcpy (snew->id, shead->id);
+	strcpy (snew->name, shead->name);
+	sprintf(snew->name+5, "%3.3d", model);
+
 	/* hook the new model into the list */
 	snew->prev = s;
 	snew->head = shead;
@@ -329,7 +333,8 @@ Structure *atm_read_pdbfile (AtomFile *f)
 	  //fprintf (stderr, "new chain %i (%c)\n", s->nchain, pdbatom.chain);
 	  thechain = newchain;
 	  thechain->id = pdbatom.chain;
-	  thechain->name[0] = thechain->id;
+	  strncpy(thechain->name, s->id, 4);
+	  thechain->name[4] = thechain->id;
 	  thechain->structure = s;
 
 	  /* we are beginning a new chain, make a new residue */
@@ -348,7 +353,8 @@ Structure *atm_read_pdbfile (AtomFile *f)
 
 	  thechain = newchain;
 	  thechain->id = pdbatom.chain;
-	  thechain->name[0] = thechain->id;
+	  strncpy(thechain->name, s->id, 4);
+	  thechain->name[4] = thechain->id;
 	  thechain->structure = s;
 
 	  theresidue = newchain->last;
@@ -490,23 +496,28 @@ Structure *atm_read_pdbfile (AtomFile *f)
   /* file is read -- now fill out the bits and pieces we didn't know
      about before... */
 
-  thechain = s->chain;
-  while (thechain) {
+  s = shead;
+  while (s) {
 
-    /* calculate the center-of-gravity of every residue */
-    atm_chain_cg(thechain); 
+    thechain = s->chain;
+    while (thechain) {
 
-    /* calculate the average B-factor of every residue */
-    atm_chain_bav(thechain); 
+      /* calculate the center-of-gravity of every residue */
+      atm_chain_cg(thechain); 
 
-    /* what can we find out about the class of residue and what atoms
-       it contains? */
-    atm_chain_what_residue_class(thechain);
+      /* calculate the average B-factor of every residue */
+      atm_chain_bav(thechain); 
 
-    /* figure something out about the connectivity of this chain */
-    atm_chain_connect(thechain);
+      /* what can we find out about the class of residue and what atoms
+	 it contains? */
+      atm_chain_what_residue_class(thechain);
 
-    thechain = thechain->next;
+      /* figure something out about the connectivity of this chain */
+      atm_chain_connect(thechain);
+
+      thechain = thechain->next;
+    }
+    s = s->next;
   }
 
   return shead;
@@ -540,8 +551,6 @@ int atm_read_pdbrecord (char *buf, int siz, AtomFile *f)
     return HELIX;
   else if (strncmp(buf, "SHEET", 5) == 0)
     return SHEET;
-  else if (strncmp(buf, "END", 3) == 0)
-    return ENDFILE;
   else if (strncmp(buf, "HETATM", 6) == 0)
     return HETATM;
   else if (strncmp(buf, "ANISOU", 6) == 0)
@@ -552,6 +561,8 @@ int atm_read_pdbrecord (char *buf, int siz, AtomFile *f)
     return MODEL;
   else if (strncmp(buf, "ENDMDL", 6) == 0)
     return ENDMDL;
+  else if (strncmp(buf, "END", 3) == 0) /* check for this last */
+    return ENDFILE;
   else
     return 999;
 }
@@ -563,7 +574,6 @@ int atm_read_pdbrecord (char *buf, int siz, AtomFile *f)
 
 static pdb_atom_record *decode_pdb_atom (pdb_atom_record *atom, char *buf)
 {
-
   decode_pdb_atom_id (atom, buf);
 
   char xbuf[10], ybuf[10], zbuf[10];
@@ -948,14 +958,17 @@ void atm_structure_out (Structure *s)
   register int i;
 
   if (s) {
-    printf ("structure name: %s, id: %s\n", s->name, s->id);
+    printf ("structure name: %s, id: %s, model: %d\n", s->name, s->id, s->model);
     printf ("contains %d chains, %d residues and %d atoms\n",
-	     s->nchain, s->nres, s->natoms);
-    printf ("cell parameters: ");
-    for (i=0; i<6; i++)
-      printf ("%8.2f ", s->cell[i]);
-    printf ("\nspacegroup: %s, %d molecules in unit cell\n",
-	     s->spacegroup, s->z);
+	    s->nchain, s->nres, s->natoms);
+    if (s->model == 1) {
+      printf ("number of models: %d\n", s->modelct);
+      printf ("cell parameters: ");
+      for (i=0; i<6; i++)
+	printf ("%8.2f ", s->cell[i]);
+      printf ("\nspacegroup: %s, %d molecules in unit cell\n",
+	      s->spacegroup, s->z);
+    }
   }
 }
 

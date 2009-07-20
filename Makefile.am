@@ -9,7 +9,7 @@ ACLOCAL_AMFLAGS = -I config
 #Distribute these directories:
 DIST_SUBDIRS = $(SUBDIRS)
 
-pkgconfigdir = $(libdir)/config
+pkgconfigdir = $(libdir)/pkgconfig
 
 EXTRA_DIST = bootstrap libmox.spec.in libmox.info.in Doxyfile
 

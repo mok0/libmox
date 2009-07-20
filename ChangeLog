@@ -1,10 +1,14 @@
 2009-07-20  Morten Kjeldgaard  <mok@homunculus>
 
-	* src/libatom.c: deal with models in pdb files. A new structure
-	instance is created for each model. The first structure in the 
-	list is the "master" structure containing all available information
-	like spacegroup etc. It also contains a total count of the models.
-        * configure.ac: bump version to 2.1
+	* src/libatom.c: 
+	 - Deal with models in pdb files. A new structure instance is
+	   created for each model. The first structure in the list is the
+	   "master" structure containing all available information like
+	   spacegroup etc. It also contains a total count of the models.
+	 - Chain name is pdbid + chain id (e.g. 1eftA). Structure name is
+	   pdbid + _ + model number (e.g. 1eft_001).
+	
+        * configure.ac: bump version to 2.1.1
 	
 2008-10-06  Morten Kjeldgaard  <mok0@ubuntu.com>
 
