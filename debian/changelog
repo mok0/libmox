@@ -1,3 +1,9 @@
+libmox (2.1-0ubuntu1~ppa1) jaunty; urgency=low
+
+  * New upstream version, deals with models.
+
+ -- Morten Kjeldgaard <mok0@ubuntu.com>  Mon, 20 Jul 2009 18:33:46 +0200
+
 libmox (2.0.3-0ubuntu1~ppa1) hardy; urgency=low
 
   * Package renamed to libmox
