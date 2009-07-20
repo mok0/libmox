@@ -18,18 +18,17 @@
 
 
 #include <stdio.h>
-#define MAXWORD 100
+#define MAXWORD 1024
 
 /**
    @file getword.c
- */
+*/
 
 
 /** 
-    Get a word from a stream. Word separators are user definable in
-    "is_sep".  Maximum word size is MAXWORD characters. If a word
-    reaches it's maximum limit, we choose not to flush the rest of the
-    word. Returns NULL on EOF.
+    Get a word from a stream.  Maximum word size is MAXWORD
+    characters. If a word reaches it's maximum limit, we choose not to
+    flush the rest of the word. Returns NULL on EOF.
 */
 char *getword(FILE *fp)
 {
