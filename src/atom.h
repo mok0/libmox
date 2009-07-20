@@ -1,6 +1,6 @@
-/*    
+/*
     This file is a part of moxlib, a utility library.
-    Copyright (C) 1995-2007 Morten Kjeldgaard  
+    Copyright (C) 1995-2007 Morten Kjeldgaard
 
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
@@ -29,13 +29,13 @@
 extern "C" {
 #endif
 
-/* define USEPRIME if you want to use primes in atom names on nucleic acids 
+/* define USEPRIME if you want to use primes in atom names on nucleic acids
    instead of the standard asterisk */
 
 #define USEPRIME
 
 enum class_type { PROTEIN, AMINOACID, CIS, NUCLEIC_ACID, DNA, RNA,
-		  PURINE, PYRIMIDINE, SOLVENT, HETERO, NUCLEOTIDE, 
+		  PURINE, PYRIMIDINE, SOLVENT, HETERO, NUCLEOTIDE,
 		  RNABASE, DNABASE, POLYPHOSPHATE };
 
 enum atom_type { ATOM_CA, ATOM_N, ATOM_C, ATOM_O, ATOM_P, ATOM_O2P, ATOM_O3P};
@@ -57,89 +57,92 @@ typedef struct {
 } AtomFile;
 
 typedef struct Atom {
-  char name[6];			/* atom name */
-  char ins;			/* insertion id */
-  unsigned char z;		/* element number */
-  Point3 xyz;			/* coordinate */
-  float b, occ;			/* temperature factor, occupancy*/
-  float *aniso;			/* pointer to anisotropic B factor */
-  int ic;			/* internal atom count */
-  unsigned long flag;		/* flag to store properties of this atom */
-  struct Atom *next;		/* Pointer to next atom */
-  struct Atom *prev;		/* pointer to previous atom */
-  struct Atom *alt;		/* ptr to alternate position(s) of this atom */
-  struct Residue *res;		/* pointer to parent residue */
+  char name[6];			/*!< atom name */
+  char ins;			/*!< insertion id */
+  unsigned char z;		/*!< element number */
+  Point3 xyz;			/*!< coordinate */
+  float b, occ;			/*!< temperature factor, occupancy*/
+  float *aniso;			/*!< pointer to anisotropic B factor */
+  int ic;			/*!< internal atom count */
+  unsigned long flag;		/*!< flag to store properties of this atom */
+  struct Atom *next;		/*!< Pointer to next atom */
+  struct Atom *prev;		/*!< pointer to previous atom */
+  struct Atom *alt;		/*!< ptr to alternate position(s) of this atom */
+  struct Residue *res;		/*!< pointer to parent residue */
 } Atom;
 
 typedef struct Residue {
-  char name[12];		/* residue name */
-  char type[6];			/* residue type */
-  int resno;			/* residue number */
-  char resins;			/* code for insertion of residues */
-  int ic;			/* internal residue count */
-  Point3 cg;			/* center-of-gravity */
-  float rad;			/* radius from cg that includes all atoms */
-  float bav;			/* average B-factor of this residue */
-  unsigned char naltatm;	/* number of atoms with alternate positions */
-  struct Chain *chain;		/* pointer to chain */
-  unsigned char natoms;		/* number of atoms in this residue*/
-  struct Atom *atoms;		/* pointer to list of atoms */
-  struct Atom *ca;		/* pointer to central atom */
-  unsigned long flag;	        /* flag to store properties of this residue */
-  unsigned long res_class;
-  struct Residue *next;		/* pointer to next res */
-  struct Residue *prev;		/* pointer to prev res */
-  struct Residue *bond_next;	/* if bonded to next res, = next else null */
-  struct Residue *bond_prev;	/* if bonded to prev res, = prev else null */
+  char name[12];		/*!< residue name */
+  char type[6];			/*!< residue type */
+  int resno;			/*!< residue number */
+  char resins;			/*!< code for insertion of residues */
+  int ic;			/*!< internal residue count */
+  Point3 cg;			/*!< center-of-gravity */
+  float rad;			/*!< radius from cg that includes all atoms */
+  float bav;			/*!< average B-factor of this residue */
+  unsigned char naltatm;	/*!< number of atoms with alternate positions */
+  struct Chain *chain;		/*!< pointer to chain */
+  unsigned char natoms;		/*!< number of atoms in this residue*/
+  struct Atom *atoms;		/*!< pointer to list of atoms */
+  struct Atom *ca;		/*!< pointer to central atom */
+  unsigned long flag;	        /*!< flag to store properties of this residue */
+  unsigned long res_class;	/*!< class of this residue */
+  struct Residue *next;		/*!< pointer to next res */
+  struct Residue *prev;		/*!< pointer to prev res */
+  struct Residue *bond_next;	/*!< if bonded to next res, = next else null */
+  struct Residue *bond_prev;	/*!< if bonded to prev res, = prev else null */
 } Residue;
 
 typedef struct Chain {
-  char name[6];			/* name of this chain */
-  char id;			/* id of this chain */
-  int nres;			/* number of residues */
-  int natoms;			/* number of atoms in this chain */
-  int nhetatoms;		/* number of pdb style hetatoms in this chain */
-  int nresins;			/* number of inserted residues */
-  int naltatm;			/* number of atoms with alternate positions */
-  int ic;			/* internal count number of this chain */
-  Point3 cg;			/* center-of-gravity */
-  float rad;			/* radius from cg that includes all atoms */
-  float bav;			/* average B-factor of this chain */
-  unsigned long chain_class;	/* class of this chain */
-  int hetcount;			/* non-water het groups in this chain */
-  Residue *res;			/* pointer to residue list */
-  Residue *first;		/* pointer to first residue (alias for *res) */
-  Residue *last;		/* pointer to last residue */
-  Atom *atoms;			/* pointer to atom list */
-  struct Structure *structure;	/* pointer to whole structure */
-  struct Chain *next;		/* pointer to next chain */
-  struct Chain *prev;		/* pointer to previous chain */
+  char name[6];			/*!< name of this chain */
+  char id;			/*!< id of this chain */
+  int nres;			/*!< number of residues */
+  int natoms;			/*!< number of atoms in this chain */
+  int nhetatoms;		/*!< number of pdb style hetatoms in this chain */
+  int nresins;			/*!< number of inserted residues */
+  int naltatm;			/*!< number of atoms with alternate positions */
+  int ic;			/*!< internal count number of this chain */
+  Point3 cg;			/*!< center-of-gravity */
+  float rad;			/*!< radius from cg that includes all atoms */
+  float bav;			/*!< average B-factor of this chain */
+  unsigned long chain_class;	/*!< class of this chain */
+  int hetcount;			/*!< non-water het groups in this chain */
+  Residue *res;			/*!< pointer to residue list */
+  Residue *first;		/*!< pointer to first residue (alias for *res) */
+  Residue *last;		/*!< pointer to last residue */
+  Atom *atoms;			/*!< pointer to atom list */
+  struct Structure *structure;	/*!< pointer to whole structure */
+  struct Chain *next;		/*!< pointer to next chain */
+  struct Chain *prev;		/*!< pointer to previous chain */
 } Chain;
 
 typedef struct Structure {
-  char *name;			/* name */
-  char id[5];			/* id, usually from pdbfile */
-  int natoms;			/* number of atoms in asymmetric unit */
-  int nhetatoms;		/* number of het atoms in asymmetric unit */
-  int nres;			/* number of residues */
-  int nchain;			/* number of chains */
-  Point3 cg;			/* center-of-gravity */
-  float rad;			/* radius from cg that includes all atoms */
-  float cell[6];		/* unit cell */
-  char spacegroup[12];		/* space group */
-  int z;			/* molecules per asymmetric unit */
-  struct Atom *atoms;		/* pointer to first atom */
-  struct Residue *res;		/* pointer to first residue */
-  struct Chain *chain;		/* pointer to first chain */
-  struct Structure *next;	/* pointer to next structure record */
-  struct index *reslist;
+  char *name;			/*!< name */
+  char id[5];			/*!< id, usually from pdbfile */
+  int model;			/*!< model number */
+  int modelct;			/*!< number of models */
+  int natoms;			/*!< number of atoms in asymmetric unit */
+  int nhetatoms;		/*!< number of het atoms in asymmetric unit */
+  int nres;			/*!< number of residues */
+  int nchain;			/*!< number of chains */
+  Point3 cg;			/*!< center-of-gravity */
+  float rad;			/*!< radius from cg that includes all atoms */
+  float cell[6];		/*!< unit cell */
+  char spacegroup[12];		/*!< space group */
+  int z;			/*!< molecules per asymmetric unit */
+  struct Atom *atoms;		/*!< pointer to first atom */
+  struct Residue *res;		/*!< pointer to first residue */
+  struct Chain *chain;		/*!< pointer to first chain */
+  struct Structure *next;	/*!< pointer to next structure record */
+  struct Structure *prev;	/*!< pointer to previous structure record */
+  struct Structure *head;	/*!< pointer to first structure in list */
 } Structure;
 
 typedef struct Zone {
-  Chain *ch1, *ch2;		/* first and last chain   in zone */
-  Residue *res1, *res2;		/*   -    -   -   residue  -  -   */
-  Atom *atm1, *atm2;		/*   -    -   -   atom     -  -   */
-  int nres;			/* number of residues in this zone */
+  Chain *ch1, *ch2;		/*!< first and last chain   in zone */
+  Residue *res1, *res2;		/*!<   -    -   -   residue  -  -   */
+  Atom *atm1, *atm2;		/*!<   -    -   -   atom     -  -   */
+  int nres;			/*!< number of residues in this zone */
 } Zone;
 
 /* prototypes */

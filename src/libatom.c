@@ -1,6 +1,6 @@
-/*    
+/*
     This file is a part of moxlib, a utility library.
-    Copyright (C) 1995-2007 Morten Kjeldgaard  
+    Copyright (C) 1995-2009 Morten Kjeldgaard
 
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
@@ -54,11 +54,11 @@ int atm_decode_resnam (const char *in, char *chnm, char *resnm)
 
   c = strchr(in, ':');
 
-  if (c == NULL) {		
+  if (c == NULL) {
     *chnm = 0;
     strcpy (resnm, in);
     return 1;
-  } 
+  }
   
   i = c-in;
   strncpy (chnm, in, i);
@@ -204,13 +204,13 @@ void atm_close_file (AtomFile *f)
 
 Structure *atm_read_pdbfile (AtomFile *f)
 {
-  Structure *s;
+  Structure *shead, *s;
   Atom *theatom = NULL, *newatom;
   Residue *theresidue = NULL, *newresidue;
   Chain *thechain = NULL, *newchain, *lastchain = NULL;
   pdb_atom_record pdbatom;
   char buf[100];
-  int what, done, natoms, nhetatoms, hetflag;
+  int what, done, natoms, nhetatoms, hetflag, model;
   char chain_was, residue_ins_was = 0;
   int residue_was, isfirstchain, isfirstresidue, isfirstatom;
   int ctatom, ctres;
@@ -225,8 +225,13 @@ Structure *atm_read_pdbfile (AtomFile *f)
   chain_was = '?';
   residue_was = -999;
   ctres = ctatom = 0;
+  model = 1;
 
-  s = atm_create_structure();
+  /* shead points the first structure in the list */
+  s = shead = atm_create_structure();
+  shead->modelct = 1;
+  shead->model = 1;
+  shead->head = shead;
 
   what = atm_read_pdbrecord (buf,100,f);
   while (what > -1 && !done) {
@@ -257,6 +262,38 @@ Structure *atm_read_pdbfile (AtomFile *f)
       s->z = atoi(&buf[66]);
       break;
 
+    case MODEL:
+      if (sscanf(&buf[6], "%d", model) != 1) {
+	fprintf (stderr, "could not decode model record:\n%s\n", buf);
+      }
+
+      /* Model 1 is always allocated by default; in xray structure files
+	 there are normally no model/endmdl records */
+
+      if (model > 1) {
+	isfirstchain = isfirstresidue = isfirstatom = TRUE;
+	done = 0;
+	hetflag = FALSE;
+	natoms = nhetatoms = 0;
+	chain_was = '?';
+	residue_was = -999;
+	ctres = ctatom = 0;
+	Structure *snew = atm_create_structure();
+	snew->model = model;
+	strncpy (snew->id, s->id, 5);
+	strncpy (snew->name, s->name, 5);
+	/* hook the new model into the list */
+	snew->prev = s;
+	snew->head = shead;
+	s->next = snew;
+	s = snew;
+	(shead->modelct)++;
+      }
+      break;
+
+    case ENDMDL:
+      break;
+
     case HETATM:
       hetflag = TRUE;
       nhetatoms++;
@@ -268,7 +305,7 @@ Structure *atm_read_pdbfile (AtomFile *f)
       /* check to see if this is the beginning of a new chain.
 	 if so, make a new chain and a new residue */
 
-      if (pdbatom.chain != chain_was) {	
+      if (pdbatom.chain != chain_was) {
 
 	if (!(newchain = atm_find_chain_id(s, pdbatom.chain))) {
 
@@ -289,7 +326,7 @@ Structure *atm_read_pdbfile (AtomFile *f)
 	  }
 
 	  ++(s->nchain);
-	  //fprintf (stderr, "New chain %i (%c)\n", s->nchain, pdbatom.chain);
+	  //fprintf (stderr, "new chain %i (%c)\n", s->nchain, pdbatom.chain);
 	  thechain = newchain;
 	  thechain->id = pdbatom.chain;
 	  thechain->name[0] = thechain->id;
@@ -330,7 +367,7 @@ Structure *atm_read_pdbfile (AtomFile *f)
 	residue_was = pdbatom.resno;
 	newresidue = atm_create_residue();
 
-	/* if this is the first residue in a chain, its backward pointer 
+	/* if this is the first residue in a chain, its backward pointer
 	   is NULL. If not, hook it into the list of residues */
 
 	if (isfirstresidue) {
@@ -450,7 +487,7 @@ Structure *atm_read_pdbfile (AtomFile *f)
       what = atm_read_pdbrecord (buf,100,f);
   }
 
-  /* file is read -- now fill out the bits and pieces we didn't know 
+  /* file is read -- now fill out the bits and pieces we didn't know
      about before... */
 
   thechain = s->chain;
@@ -472,7 +509,7 @@ Structure *atm_read_pdbfile (AtomFile *f)
     thechain = thechain->next;
   }
 
-  return s;
+  return shead;
 }
 
 /**
@@ -482,7 +519,7 @@ Structure *atm_read_pdbfile (AtomFile *f)
 int atm_read_pdbrecord (char *buf, int siz, AtomFile *f)
 {
 #ifdef HAVE_LIBZ
-  if (!gzgets (f->File, buf, siz)) 
+  if (!gzgets (f->File, buf, siz))
     return -1;
 #else
   if (!fgets(buf, siz, f->File))
@@ -511,12 +548,16 @@ int atm_read_pdbrecord (char *buf, int siz, AtomFile *f)
     return ANISOU;
   else if (strncmp(buf, "TER", 3) == 0)
     return TER;
+  else if (strncmp(buf, "MODEL", 5) == 0)
+    return MODEL;
+  else if (strncmp(buf, "ENDMDL", 6) == 0)
+    return ENDMDL;
   else
     return 999;
 }
 
 /**
-   Decode the string describing one ATOM record from 
+   Decode the string describing one ATOM record from
    a pdb file and fill in some of the fields.
 */
 
@@ -541,7 +582,7 @@ static pdb_atom_record *decode_pdb_atom (pdb_atom_record *atom, char *buf)
   atom->xyz.z = strtod(zbuf, &endp);
   
   /*
-  if (sscanf (&buf[30], "%lf %lf %lf", &atom->xyz.x, &atom->xyz.y, 
+  if (sscanf (&buf[30], "%lf %lf %lf", &atom->xyz.x, &atom->xyz.y,
 	      &atom->xyz.z) != 3) {
     fprintf (stderr, "could not decode coordinates from record:\n%s\n", buf);
     free(atom);
@@ -575,7 +616,7 @@ static pdb_atom_record *decode_pdb_atom (pdb_atom_record *atom, char *buf)
 }
 
 /**
-   Decode the string describing one ANISO record from 
+   Decode the string describing one ANISO record from
    a pdb file and fill in some of the fields.
 */
 
@@ -583,10 +624,10 @@ static pdb_atom_record *decode_pdb_atom (pdb_atom_record *atom, char *buf)
 static pdb_aniso_record *decode_pdb_aniso (pdb_aniso_record *aniso, char *buf)
 {
 
-  if (sscanf (&buf[31], "%f %f %f %f %f %f", 
-	      &aniso->aniso[0], &aniso->aniso[1], &aniso->aniso[2], 
+  if (sscanf (&buf[31], "%f %f %f %f %f %f",
+	      &aniso->aniso[0], &aniso->aniso[1], &aniso->aniso[2],
 	      &aniso->aniso[3], &aniso->aniso[4], &aniso->aniso[5]) != 6) {
-    fprintf (stderr, 
+    fprintf (stderr,
 	     "could not decode anisotropic matrix from record:\n%s\n", buf);
     return NULL;
   }
@@ -669,7 +710,7 @@ void atm_chain_what_residue_class (Chain *chain)
     theatom = res->atoms;
     while (theatom) {
 
-      if (strcmp(theatom->name, "CA") == 0 && theatom->z == 6) { 
+      if (strcmp(theatom->name, "CA") == 0 && theatom->z == 6) {
 	setbit(flag, ATOM_CA);	/* 1 */
 	res->ca = theatom;	/* set central atom */
       }
@@ -908,18 +949,18 @@ void atm_structure_out (Structure *s)
 
   if (s) {
     printf ("structure name: %s, id: %s\n", s->name, s->id);
-    printf ("contains %d chains, %d residues and %d atoms\n", 
+    printf ("contains %d chains, %d residues and %d atoms\n",
 	     s->nchain, s->nres, s->natoms);
     printf ("cell parameters: ");
     for (i=0; i<6; i++)
       printf ("%8.2f ", s->cell[i]);
-    printf ("\nspacegroup: %s, %d molecules in unit cell\n", 
+    printf ("\nspacegroup: %s, %d molecules in unit cell\n",
 	     s->spacegroup, s->z);
   }
 }
 
 
-/** 
+/**
    Output the classes from the input type.
 */
 void atm_residue_class_out (unsigned int residue_class)
@@ -944,7 +985,7 @@ void atm_residue_class_out (unsigned int residue_class)
     printf ("solvent "); 
 }
 
-/** 
+/**
    Output the classes from the input type.
 */
 void atm_chain_class_out (unsigned int chain_class)
@@ -1178,7 +1219,7 @@ Zone *atm_atom_zone (Structure *st, char *from, char *to)
   z->res1 = atm_find_residue (z->ch1, resnm1);
   z->res2 = atm_find_residue (z->ch2, resnm2);
   if (!z->res1) {
-    fprintf (stderr, "warning: no residue named \"%s\" in chain \"%s\"\n", 
+    fprintf (stderr, "warning: no residue named \"%s\" in chain \"%s\"\n",
 	     resnm1, chnm1);
     return NULL;
   }
@@ -1191,7 +1232,7 @@ Zone *atm_atom_zone (Structure *st, char *from, char *to)
   z->atm1 = atm_find_atom (z->res1, atmnm1);
   z->atm2 = atm_find_atom (z->res2, atmnm2);
   if (!z->atm1) {
-    fprintf (stderr, "warning: no atom named \"%s\" in residue \"%s\"\n", 
+    fprintf (stderr, "warning: no atom named \"%s\" in residue \"%s\"\n",
 	     atmnm1, resnm1);
     return NULL;
   }
@@ -1248,7 +1289,7 @@ Zone *atm_residue_zone (Structure *st, char *from, char *to)
   z->res1 = atm_find_residue (z->ch1, resnm1);
   z->res2 = atm_find_residue (z->ch2, resnm2);
   if (!z->res1) {
-    fprintf (stderr, "warning: no residue named \"%s\" in chain \"%s\"\n", 
+    fprintf (stderr, "warning: no residue named \"%s\" in chain \"%s\"\n",
 	     resnm1, chnm1);
     return NULL;
   }
@@ -1292,14 +1333,14 @@ Atom *atm_find_named_atom (Structure *st, const char *atomcode)
 
   res = atm_find_residue (ch, resnm);
   if (!res) {
-    fprintf (stderr, "warning: no residue named \"%s\" in chain \"%s\"\n", 
+    fprintf (stderr, "warning: no residue named \"%s\" in chain \"%s\"\n",
 	     resnm, chnm);
     return NULL;
   }
 
   atm = atm_find_atom (res, atmnm);
   if (!atm) {
-    fprintf (stderr, "warning: no atom named \"%s\" in residue \"%s\"\n", 
+    fprintf (stderr, "warning: no atom named \"%s\" in residue \"%s\"\n",
 	     atmnm, resnm);
     return NULL;
   }
@@ -1343,27 +1384,24 @@ Structure *atm_delete_structure (Structure *s)
 {
   Chain *chain, *nextchain;
 
-  if (!s)
-    return NULL;
-
-  chain = s->chain;
-  while (chain) {
-    nextchain = chain->next;
-    chain = atm_delete_chain(chain);
-    chain = nextchain;
+  while (s) {
+    Structure *nexts = s->next;	/* stash away pointer to next */
+    /* delete all chains that are part of s */
+    chain = s->chain;
+    while (chain) {
+      nextchain = chain->next;
+      chain = atm_delete_chain(chain);
+      chain = nextchain;
+    }
+    free(s);
+    s = nexts;
   }
 
-  /* here, free other datastructures that are part of a Structure. For now,
-     there aren't any... */
-
-  free(s);
   return NULL;
 }
 
 
-
-
-/** 
+/**
    Given a pointer to an atom, return the anisotropic temperature
    factor as a 3x3 matrix. The routine allocates a new Matrix3
    datastructure; it is the repsonsibility of the user to free this
@@ -1387,7 +1425,7 @@ Matrix3 *atm_aniso_to_M3 (Atom *atom)
   return m;
 }
 
-/* 
+/*
    Local Variables:
    mode: font-lock
    End:
