@@ -24,7 +24,7 @@ extern "C" {
 #endif
 
 enum pdbrecord_type {HEADER, REMARK, COMPND, CRYST1, ATOM, HETATM,
-		     HELIX, SHEET, ANISOU, TER, ENDFILE};
+		     HELIX, SHEET, ANISOU, TER, MODEL, ENDMDL, ENDFILE};
 
 typedef struct pdb_atom_record {
   int serial;			/* serial number */

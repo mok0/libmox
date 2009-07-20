@@ -94,8 +94,7 @@ void hsv2rgb (hsvColor *hsv, rgbColor *rgb)
   to C 991104. 
 */
 
-void 
-rgb2hsv (rgbColor *rgb, hsvColor *hsv)
+void rgb2hsv (rgbColor *rgb, hsvColor *hsv)
 {
   float r, g, b, h, s, v;
   float rgbmax, rgbmin, q, rc, gc, bc;
@@ -148,7 +147,7 @@ rgb2hsv (rgbColor *rgb, hsvColor *hsv)
 }
 
 /**
-  Convert an rgb triplet to an O packed color cod
+  Convert an rgb triplet to an O packed color code.
 */
 
 unsigned int rgb2cod (rgbColor *rgb)
@@ -158,7 +157,6 @@ unsigned int rgb2cod (rgbColor *rgb)
   int ib = (rgb->b * 255.0);
   return 256 * (256 * ir + ig) + ib;
 }
-
 
 /*
 Local Variables:

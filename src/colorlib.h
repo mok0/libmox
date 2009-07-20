@@ -1,9 +1,7 @@
-
 /*    
     This file is a part of moxlib, a utility library.
-
     Copyright (C) 1995-2007 Morten Kjeldgaard  
-*//*
+
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
     as published by the Free Software Foundation, either version 3 of
@@ -25,20 +23,24 @@
 extern "C" {
 #endif
 
-/* rgb color type. R, G, and B are between 0.0 and 1.0; */
+  /**
+     rgb color type. R, G, and B are between 0.0 and 1.0; 
+  */
 
-typedef struct {
-  float  r, g, b;
-} rgbColor;
+  typedef struct {
+    float  r, g, b;
+  } rgbColor;
 
 
-/* hsv color type. h is a float 0-360.0, s and b are floats 0.0-1.0 */
+  /**
+  hsv color type. h is a float 0-360.0, s and b are floats 0.0-1.0 
+  */
 
-typedef struct {
-  float h, s, v;
-} hsvColor;
+  typedef struct {
+    float h, s, v;
+  } hsvColor;
 
-unsigned int rgb2cod (rgbColor *);
+  unsigned int rgb2cod (rgbColor *);
 
 #ifdef __cplusplus
 }
