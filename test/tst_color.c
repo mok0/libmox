@@ -19,7 +19,7 @@
 #include "../src/colorlib.h"
 
 
-main ()
+int main ()
 {
   rgbColor rgb;
   hsvColor hsv;
