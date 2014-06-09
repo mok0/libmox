@@ -41,6 +41,8 @@ extern "C" {
   } hsvColor;
 
   unsigned int rgb2cod (rgbColor *);
+  void hsv2rgb (hsvColor *hsv, rgbColor *rgb);
+  void rgb2hsv (rgbColor *rgb, hsvColor *hsv);
 
 #ifdef __cplusplus
 }
