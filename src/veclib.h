@@ -1,6 +1,6 @@
-/*    
+/*
     This file is a part of moxlib, a utility library.
-    Copyright (C) 1995-2007 Morten Kjeldgaard  
+    Copyright (C) 1995-2007 Morten Kjeldgaard
 
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
@@ -76,10 +76,10 @@ typedef struct {		/* 3d box */
 ((a)==(int)(a) ? (a) : (a)>0 ? 1+(int)(a) : -(1+(int)(-a)))
 
 /* round a to nearest int */
-#define ROUND(a)	((a)>0 ? (int)(a+0.5) : -(int)(0.5-a))		
+#define ROUND(a)	((a)>0 ? (int)(a+0.5) : -(int)(0.5-a))
 
 /* take sign of a, either -1, 0, or 1 */
-#define ZSGN(a)		(((a)<0) ? -1 : (a)>0 ? 1 : 0)	
+#define ZSGN(a)		(((a)<0) ? -1 : (a)>0 ? 1 : 0)
 
 /* take binary sign of a, either -1, or 1 if >= 0 */
 #define SGN(a)		(((a)<0) ? -1 : 0)
@@ -90,15 +90,15 @@ typedef struct {		/* 3d box */
 /* shout if something that should be true isn't */
 #define ASSERT(x) \
 if (!(x)) fprintf(stderr," Assert failed: x\n");
-     
+
 /* square a */
-#define SQR(a)		((a)*(a))	
-     
+#define SQR(a)		((a)*(a))
+
 /* find minimum of a and b */
-#define MIN(a,b)	(((a)<(b))?(a):(b))	
+#define MIN(a,b)	(((a)<(b))?(a):(b))
 
 /* find maximum of a and b */
-#define MAX(a,b)	(((a)>(b))?(a):(b))	
+#define MAX(a,b)	(((a)>(b))?(a):(b))
 
 /* swap a and b (see Gem by Wyvill) */
 #define SWAP(a,b)	{ a^=b; b^=a; a^=b; }
@@ -198,11 +198,3 @@ void m3_print(char *, Matrix3 *);
 #endif
 
 #endif /* _veclib_h */
-
-/*
-  Local variables:
-  mode: font-lock
-  End:
-*/
-
-

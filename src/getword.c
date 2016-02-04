@@ -1,6 +1,6 @@
-/*    
+/*
     This file is a part of moxlib, a utility library.
-    Copyright (C) 1995-2007 Morten Kjeldgaard  
+    Copyright (C) 1995-2007 Morten Kjeldgaard
 
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@
 
 
 #include <stdio.h>
+#include <ctype.h>
 #define MAXWORD 1024
 
 /**
@@ -25,7 +26,7 @@
 */
 
 
-/** 
+/**
     Get a word from a stream.  Maximum word size is MAXWORD
     characters. If a word reaches it's maximum limit, we choose not to
     flush the rest of the word. Returns NULL on EOF.
@@ -54,7 +55,7 @@ char *getword(FILE *fp)
 
 #ifdef TESTING
 
-main () 
+main ()
 {
   char *word;
   FILE *f;
@@ -70,9 +71,3 @@ main ()
   }
 }
 #endif
-
-/*
-  Local variables:
-  mode: font-lock
-  End:
-*/

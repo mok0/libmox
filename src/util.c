@@ -1,6 +1,6 @@
-/*    
+/*
     This file is a part of moxlib, a utility library.
-    Copyright (C) 1995-2007 Morten Kjeldgaard  
+    Copyright (C) 1995-2007 Morten Kjeldgaard
 
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
@@ -37,7 +37,7 @@
 #define expt(a, n) pow(a, (double)(n))
 
 /**
-   Shove a string to the left, and compress spaces. 
+   Shove a string to the left, and compress spaces.
    mk 950309.
 */
 char *
@@ -46,7 +46,7 @@ strleft (char *str)
   register char *t, *s;
 
   s = str;
-  while (*s) { 
+  while (*s) {
     if (*s < 33) {
       t = s;
       while (*t) {
@@ -84,7 +84,7 @@ strtrim (char *str)
 }
 
 /**
-   Convert a string to lower case. The string must be terminated by a 
+   Convert a string to lower case. The string must be terminated by a
    zero byte. mk950510.
 */
 char *
@@ -97,7 +97,7 @@ strlower (char *str)
 
   s = str;
 
-  while (*s) { 
+  while (*s) {
     *s = tolower(*s);
     s++;
   }
@@ -105,7 +105,7 @@ strlower (char *str)
 }
 
 /**
-   Convert a string to upper case. The string must be terminated by a 
+   Convert a string to upper case. The string must be terminated by a
    zero byte.
 */
 char *strupper (char *str)
@@ -117,7 +117,7 @@ char *strupper (char *str)
 
   s = str;
 
-  while (*s) { 
+  while (*s) {
     *s = toupper(*s);
     s++;
   }
@@ -126,8 +126,8 @@ char *strupper (char *str)
 
 /**
    Return a character string containing the current time.  The linefeed at
-   the end of the string returned by ctime is stripped off.  
-   mk 950405.  
+   the end of the string returned by ctime is stripped off.
+   mk 950405.
 */
 char *
 mytime()
@@ -142,7 +142,7 @@ mytime()
 }
 
 /**
-   Return a character string containing the username of the user.  
+   Return a character string containing the username of the user.
    mok 950529.
 */
 char *
@@ -206,7 +206,7 @@ eatpath (char *fname)
   while (n--) {
     if (fname[n] == '/') {
       n++;
-      return s+n; 
+      return s+n;
     }
   }
   return fname;
@@ -240,10 +240,11 @@ char *eatext (char *fname)
 void printbits (unsigned long num)
 {
   char bbuf[33];
-  int i;
-  
+  int i, j;
+
   for (i = 32; i >= 0; ) {
-    bbuf[32 - i] = (((num >> --i) & 1) == 1 ? '1' : '0');
+    j = 32 - i;
+    bbuf[j] = (((num >> --i) & 1) == 1 ? '1' : '0');
   }
   bbuf[32 - i] = '\0';
   printf (" %s", bbuf);
@@ -251,7 +252,7 @@ void printbits (unsigned long num)
 
 /**
    Check if two strings are equal. @return 1 if two strings are
-   equal, upto and including trailing null byte, else zero.  
+   equal, upto and including trailing null byte, else zero.
    @date 19950528
 */
 int streq (char *s, char *t)
@@ -267,7 +268,7 @@ int streq (char *s, char *t)
 
   return 0;
 }
-  
+
 /**
    Return 1 if two strings are equal, upto and including trailing null
    byte, else return zero. Case insensitive version.  @date 19970407
@@ -294,7 +295,7 @@ int strcaseeq (char *s, char *t)
 /**
   just die...
 */
-void 
+void
 die (char *str)
 {
   perror (str);
@@ -336,7 +337,7 @@ char *fileexists (char *path, char *env)
   char *c;
 
   c = NULL;
-  if (env) 
+  if (env)
     c = getenv(env);
 
   /* if env var is set, try that */
@@ -361,7 +362,7 @@ char *fileexists (char *path, char *env)
       int i;
       strcpy (str, c);
       /* if env does not end with a /, add one */
-      i = strlen(c);		
+      i = strlen(c);
       if (c[i-1] != '/') {
 	c[i] = '/';
 	c[i+1] = 0;
@@ -393,9 +394,3 @@ main ()
 }
 
 #endif
-
-/* 
-   Local Variables:
-   mode: font-lock
-   End:
-*/

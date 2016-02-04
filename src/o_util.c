@@ -1,6 +1,6 @@
-/*    
+/*
     This file is a part of moxlib, a utility library.
-    Copyright (C) 1995-2007 Morten Kjeldgaard  
+    Copyright (C) 1995-2007 Morten Kjeldgaard
 
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
@@ -143,7 +143,7 @@ transform_create()
 
 /**
    Concatenate two transformations c = ab. This implemenation is rather
-   stupid, but it is not convienient to store a 4x4 matrix in the 
+   stupid, but it is not convienient to store a 4x4 matrix in the
    transformation structure. Therefore, I first copy the transformations
    into 4x4 matrices, multiply these together, and copy the result back.
    @date 960804
@@ -179,16 +179,9 @@ transform_concat (Transform *a, Transform *b, Transform *c)
       c->mat.element[i][j] = m1.element[i][j];
     }
   }
-  c->trans.x = m1.element[3][0]; 
-  c->trans.y = m1.element[3][1]; 
-  c->trans.z = m1.element[3][2]; 
+  c->trans.x = m1.element[3][0];
+  c->trans.y = m1.element[3][1];
+  c->trans.z = m1.element[3][2];
 
   return c;
 }
-
-/* 
-Local Variables:
-mode: c
-mode: font-lock
-End:
-*/

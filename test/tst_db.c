@@ -18,7 +18,7 @@
 
 #include "../src/database.h"
 
-main () 
+int main ()
 {
   Database *DB;
   Datablock *db;
@@ -36,4 +36,3 @@ main ()
   DBlist (DB);
 
 }
-

@@ -1,6 +1,6 @@
-/*    
+/*
     This file is a part of moxlib, a utility library.
-    Copyright (C) 1995-2007 Morten Kjeldgaard  
+    Copyright (C) 1995-2007 Morten Kjeldgaard
 
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
@@ -43,10 +43,3 @@ void transform_destroy();
 #endif
 
 #endif /* transform.h */
-
-/* 
-Local Variables:
-mode: c
-mode: font-lock
-End:
-*/

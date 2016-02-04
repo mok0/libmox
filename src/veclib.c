@@ -425,7 +425,7 @@ Matrix3 *m3_transpose (Matrix3 *a)
   }
   return a;
 }
-   
+
 
 /**
    Create, initialize, and return a duplicate 3x3 matrix.
@@ -471,7 +471,7 @@ Matrix3 *m3_mgs (Matrix3 *m)
       return NULL;
 
     ido = i+1;
-    
+
     for (j = ido; j < n; j++) {
       dot = 0.0;
       for (ik = 0; ik < n; ik++)
@@ -504,7 +504,7 @@ void m3_print (char *str, Matrix3 *mat)
   int i;
 
   fprintf (stderr,"=========\n");
-  sprintf (buf,"%s\n",str); 
+  sprintf (buf,"%s\n",str);
   fprintf (stderr, "%s", buf);
   for (i = 0; i < 3; i++) {
     sprintf (buf, "%.4f %.4f %.4f\n",
@@ -524,7 +524,7 @@ void m4_print (char *str, Matrix4 *mat)
   int i;
 
   fprintf (stderr,"=========\n");
-  sprintf (buf,"%s\n",str); 
+  sprintf (buf,"%s\n",str);
   fprintf (stderr, "%s", buf);
   for (i = 0; i < 4; i++) {
     sprintf (buf, "%.4f %.4f %.4f %.4f\n",
@@ -570,7 +570,7 @@ void m3_mat_to_rot (Matrix3 *m, double *alpha, double *beta, double *gamma)
     bb = copysign(bb, m->element[0][2]); /* bb is now 1.0 or -1.0 */
     bb = asin(bb);		/* bb is now 90 or -90 */
   }
-  
+
   /* convert to degrees */
 
   *alpha = -aa * RTOD;
@@ -667,7 +667,7 @@ Vector3 *v3_addscl (Vector3 *a, Vector3 *b, Vector3 *result, double bscl)
 */
 Vector2 *v2_set(Vector2 *v, double a, double b)
 {
-  v->x = a; v->y = b; 
+  v->x = a; v->y = b;
   return v;
 }
 
@@ -705,7 +705,7 @@ Matrix3 *orthog(float *cell, Matrix3 *m, int isw)
   vol = cell[0] * cell[1] * cell[2] *
     sqrt(1.0 + 2.0 * cabg[0]*cabg[1]*cabg[2]
 	 - SQR(cabg[0]) - SQR(cabg[1]) - SQR(cabg[2]));
-    
+
   abcs[0] = cell[1] * cell[2] * sabg[0] / vol;
   abcs[1] = cell[0] * cell[2] * sabg[1] / vol;
   abcs[2] = cell[0] * cell[1] * sabg[2] / vol;
@@ -772,13 +772,13 @@ Matrix4 *m4_copy (Matrix4 *n, Matrix4 *m)
 */
 Matrix4 *m4_ident (Matrix4 *m)
 {
-  m->element[0][0] = 1.0; m->element[0][1] = 0.0;  
+  m->element[0][0] = 1.0; m->element[0][1] = 0.0;
   m->element[0][2] = 0.0; m->element[0][3] = 0.0;
-  m->element[1][0] = 0.0; m->element[1][1] = 1.0;  
+  m->element[1][0] = 0.0; m->element[1][1] = 1.0;
   m->element[1][2] = 0.0; m->element[1][3] = 0.0;
-  m->element[2][0] = 0.0; m->element[2][1] = 0.0;  
+  m->element[2][0] = 0.0; m->element[2][1] = 0.0;
   m->element[2][2] = 1.0; m->element[2][3] = 0.0;
-  m->element[3][0] = 0.0; m->element[3][1] = 0.0;  
+  m->element[3][0] = 0.0; m->element[3][1] = 0.0;
   m->element[3][2] = 0.0; m->element[3][3] = 1.0;
   return m;
 }
@@ -813,9 +813,3 @@ Point3 *v3_mulpointbymatrix4 (Point3 *pin, Matrix4 *m, Point3 *pout)
     (pin->z * m->element[2][2]);
   return(pout);
 }
-
-/*
-  Local variables:
-  mode: font-lock
-  End:
-*/

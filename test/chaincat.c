@@ -18,6 +18,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "../src/atom.h"
 
 /**
@@ -32,7 +33,8 @@ static void chain_residue_out (Chain *chain)
   while (chain) {
     printf ("-----------------------------------------------------------\n");
     printf ("name: %-4s id: %c residues: %6d atoms: %6d, cg: %.2f %.2f %.2f\n",
-	    chain->name, chain->id, chain->nres, chain->natoms, chain->cg);
+	    chain->name, chain->id, chain->nres, chain->natoms,
+	    chain->cg.x, chain->cg.y, chain->cg.z);
     printf ("%d residues with insertion codes, ", chain->nresins);
     printf ("%d atoms with alternate positions\n", chain->naltatm);
     printf ("average temperature factor %f\n", chain->bav);
@@ -43,10 +45,12 @@ static void chain_residue_out (Chain *chain)
 
     res = chain->res;
     while (res) {
-      printf ("%4d %c:%-4s %-3s %4d %2d %8.2f %8.2f %8.2f ", 
-	       res->ic, res->chain->id, res->name, res->type, 
-	       res->resno, res->natoms, res->cg); 
-      atm_residue_class_out (res->res_class); 
+      printf ("%4d %c:%-4s %-3s %4d %2d %8.2f %8.2f %8.2f ",
+	      res->ic, res->chain->id, res->name, res->type,
+	      res->resno, res->natoms,
+	      res->cg.x, res->cg.y, res->cg.z);
+
+      atm_residue_class_out (res->res_class);
       {
 	Atom *atom;
 	atom = res->atoms;
@@ -63,7 +67,7 @@ static void chain_residue_out (Chain *chain)
   }
 }
 
-main (int argc, char **argv)
+int main (int argc, char **argv)
 {
   AtomFile *f;
   Structure *shead;
@@ -74,7 +78,7 @@ main (int argc, char **argv)
     if (c == 'r')
       rflag = 1;
     else {
-      fprintf(stderr, "usage: % [-r] pdbfile[.gz]\n", argv[0]);
+      fprintf(stderr, "usage: %s [-r] pdbfile[.gz]\n", argv[0]);
       return 1;
     }
 
@@ -100,7 +104,7 @@ main (int argc, char **argv)
 
   while(s) {
   atm_structure_out (s);
-  if (rflag) 
+  if (rflag)
     chain_residue_out (s->chain);
   else
     atm_chain_out(s->chain);
@@ -110,9 +114,3 @@ main (int argc, char **argv)
   atm_delete_structure(shead);
   return 0;
 }
-
-/*
-  Local variables:
-  mode: font-lock
-  End:
-*/

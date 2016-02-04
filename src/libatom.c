@@ -1,6 +1,6 @@
 /*
     This file is a part of moxlib, a utility library.
-    Copyright (C) 1995-2009 Morten Kjeldgaard
+    Copyright (C) 1995-2016 Morten Kjeldgaard
 
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
@@ -59,7 +59,7 @@ int atm_decode_resnam (const char *in, char *chnm, char *resnm)
     strcpy (resnm, in);
     return 1;
   }
-  
+
   i = c-in;
   strncpy (chnm, in, i);
   chnm[i] = 0;
@@ -94,11 +94,11 @@ int atm_decode_atmnam (const char *in, char *chnm, char *resnm, char *atmnm)
 
   if (c2 == NULL && c1 == NULL) { /* ca is atmname only */
     *chnm = 0;
-    *resnm = 0;  
+    *resnm = 0;
     strcpy (atmnm, in);
     return 1;
   }
-  
+
   if (c1 == NULL) {		/* handle 93.ca and .ca and . */
     *chnm = 0;
     i = c2-in;
@@ -123,7 +123,7 @@ int atm_decode_atmnam (const char *in, char *chnm, char *resnm, char *atmnm)
   j = c2-in;
   strcpy(atmnm, &in[j+1]);
 
-  strncpy(resnm, &in[i+1], j-i-1); 
+  strncpy(resnm, &in[i+1], j-i-1);
   resnm[j-i-1] = 0;
 
   return 1;
@@ -145,7 +145,7 @@ AtomFile *atm_open_file(const char *fnam, const char *mode)
 #else
   f->File = fopen (fnam, mode);
 #endif
- 
+
   if (!f->File)
     return NULL;
   else
@@ -170,7 +170,7 @@ AtomFile *atm_dopen_file(int fd, char *mode)
 #else
   f->File = fdopen (fd, mode);
 #endif
- 
+
   if (!f->File)
     return NULL;
   else
@@ -232,8 +232,8 @@ Structure *atm_read_pdbfile (AtomFile *f)
   shead->modelct = 1;
   shead->model = 1;
   shead->head = shead;
-  strncpy (s->name, "0unk_001", 8); 
-  
+  strncpy (s->name, "0unk_001", 8);
+
 
   what = atm_read_pdbrecord (buf,100,f);
   while (what > -1 && !done) {
@@ -253,7 +253,7 @@ Structure *atm_read_pdbfile (AtomFile *f)
       break;
 
     case CRYST1:
-      strncpy (s->spacegroup, &buf[55], 11);   
+      strncpy (s->spacegroup, &buf[55], 11);
       s->spacegroup[11] = 0;
       strleft (s->spacegroup);
       if (sscanf (&buf[6], "%f %f %f %f %f %f",
@@ -281,7 +281,7 @@ Structure *atm_read_pdbfile (AtomFile *f)
 	ctres = ctatom = 0;
 	Structure *snew = atm_create_structure();
 	snew->model = model;
-	
+
 	strcpy (snew->id, shead->id);
 	strcpy (snew->name, shead->name);
 	sprintf(snew->name+5, "%3.3d", model);
@@ -342,7 +342,7 @@ Structure *atm_read_pdbfile (AtomFile *f)
 	  isfirstresidue = TRUE;
 	  ctres = 0;
 	  // ctatom continues
-	
+
 	} else {
 
 	  // add to existing chain
@@ -365,7 +365,7 @@ Structure *atm_read_pdbfile (AtomFile *f)
 
 	}
       }
-      
+
       /* check to see if this is a new residue. If so, make one */
 
       if (residue_was != pdbatom.resno || residue_ins_was != pdbatom.resins) {
@@ -388,7 +388,7 @@ Structure *atm_read_pdbfile (AtomFile *f)
 
 	++(s->nres);
 	++(thechain->nres);
-	theresidue = newresidue; 
+	theresidue = newresidue;
 	thechain->last = theresidue;  // this is the last residue so far
 	strcpy (theresidue->name, pdbatom.resname);
 	strcpy (theresidue->type, pdbatom.restype);
@@ -503,10 +503,10 @@ Structure *atm_read_pdbfile (AtomFile *f)
     while (thechain) {
 
       /* calculate the center-of-gravity of every residue */
-      atm_chain_cg(thechain); 
+      atm_chain_cg(thechain);
 
       /* calculate the average B-factor of every residue */
-      atm_chain_bav(thechain); 
+      atm_chain_bav(thechain);
 
       /* what can we find out about the class of residue and what atoms
 	 it contains? */
@@ -590,7 +590,7 @@ static pdb_atom_record *decode_pdb_atom (pdb_atom_record *atom, char *buf)
   atom->xyz.x = strtod(xbuf, &endp);
   atom->xyz.y = strtod(ybuf, &endp);
   atom->xyz.z = strtod(zbuf, &endp);
-  
+
   /*
   if (sscanf (&buf[30], "%lf %lf %lf", &atom->xyz.x, &atom->xyz.y,
 	      &atom->xyz.z) != 3) {
@@ -675,7 +675,7 @@ static void decode_pdb_atom_id (pdb_atom_record *atom, char *buf)
   atom->aloc = buf[16];
   strncpy (atom->restype, &buf[17], 3); atom->restype[3] = 0;
   strtrim(strleft(atom->restype));
-  strncpy (atom->resname, &buf[22], 5); atom->resname[5] = 0; 
+  strncpy (atom->resname, &buf[22], 5); atom->resname[5] = 0;
   strtrim(strleft(atom->resname));
   atom->resins = buf[26];
   buf[26] = ' ';		/* zap insertion code */
@@ -782,7 +782,7 @@ void atm_chain_what_residue_class (Chain *chain)
     }
 
     if (flag == proteinflag) {
-      setbit(chain->chain_class, PROTEIN); 
+      setbit(chain->chain_class, PROTEIN);
       setbit(res->res_class, AMINOACID);
     }
 
@@ -807,7 +807,7 @@ void atm_chain_what_residue_class (Chain *chain)
 	isclear(res->res_class,SOLVENT)) {
       ++(chain->hetcount);
     }
-    
+
     res = res->next;
   }
 }
@@ -843,7 +843,7 @@ Atom *atm_find_atom (Residue *res, const char *atmnam)
     return NULL;
 
   strcpy (name, atmnam);
-  
+
   if (name[0] == '+') {		/* this atom is in the next residue */
     if (res->bond_next) {
       name[0] = ' ';
@@ -939,14 +939,7 @@ Chain *atm_find_chain_id (Structure *s, const char chid)
 */
 void atm_version_out(void)
 {
-  char buf[] = "$Revision$";
-  char date[] = "$Date$";
-  int n;
-
-  n = strlen(buf);  if (n > 2) buf[n-2] = '\0';
-  n = strlen(date); if (n > 16) date[17] = '\0';
-
-  fprintf (stderr, "libatom version: %s, %s\n", &buf[11], &date[7]);
+  fprintf (stderr, PACKAGE_STRING);
 }
 
 /**
@@ -989,13 +982,13 @@ void atm_residue_class_out (unsigned int residue_class)
   if (isset(residue_class, NUCLEOTIDE))
     printf ("nucleotide ");
   if (isset(residue_class, PURINE))
-    printf ("purine "); 
+    printf ("purine ");
   if (isset(residue_class, PYRIMIDINE))
     printf ("pyrimidine ");
   if (isset(residue_class, AMINOACID))
-    printf ("amino acid "); 
+    printf ("amino acid ");
   if (isset(residue_class, SOLVENT))
-    printf ("solvent "); 
+    printf ("solvent ");
 }
 
 /**
@@ -1014,7 +1007,7 @@ void atm_chain_class_out (unsigned int chain_class)
   if (isset(chain_class, RNA))
     printf ("RNA ");
   if (isset(chain_class, SOLVENT))
-    printf ("solvent "); 
+    printf ("solvent ");
 }
 
 /**
@@ -1056,7 +1049,7 @@ void atm_chain_cg(Chain *chain)
       }
       if (res->natoms > 1)
 	v3_div (&res->cg, (double)res->natoms, &res->cg);
-      v3_add (&res->cg, &chain->cg, &chain->cg); 
+      v3_add (&res->cg, &chain->cg, &chain->cg);
       res = res->next;
     }
     v3_div (&chain->cg, (double)chain->nres, &chain->cg);
@@ -1337,10 +1330,10 @@ Atom *atm_find_named_atom (Structure *st, const char *atomcode)
   Residue *res;
   Atom *atm;
 
-  atm_decode_atmnam(atomcode, chnm, resnm, atmnm);	
+  atm_decode_atmnam(atomcode, chnm, resnm, atmnm);
   ch = atm_find_named_chain (st, chnm);
   if (!ch) {
-    fprintf (stderr, "warning: no chain named \"%s\"\n",chnm); 
+    fprintf (stderr, "warning: no chain named \"%s\"\n",chnm);
     return NULL;
   }
 
@@ -1437,9 +1430,3 @@ Matrix3 *atm_aniso_to_M3 (Atom *atom)
 
   return m;
 }
-
-/*
-   Local Variables:
-   mode: font-lock
-   End:
-*/

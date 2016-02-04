@@ -1,6 +1,6 @@
-/*    
+/*
     This file is a part of moxlib, a utility library.
-    Copyright (C) 1995-2007 Morten Kjeldgaard  
+    Copyright (C) 1995-2007 Morten Kjeldgaard
 
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
@@ -80,7 +80,7 @@ void hsv2rgb (hsvColor *hsv, rgbColor *rgb)
   rgb->b = b;
 
 #ifdef TESTING
-  printf ("hsv %f %f %f -> rgb %f %f %f\n", 
+  printf ("hsv %f %f %f -> rgb %f %f %f\n",
 	  hsv->h, hsv->s, hsv->v, rgb->r, rgb->g, rgb->b);
 
 #endif
@@ -91,7 +91,7 @@ void hsv2rgb (hsvColor *hsv, rgbColor *rgb)
  Translate a colour given in the (R,G,B) triplet into hue, saturation,
   and value (intensity) as required by the PS300.  See Foley & Van Dam
   p. 615. 10-May-1990 Morten Kjeldgaard Written, in Dallas.  Converted
-  to C 991104. 
+  to C 991104.
 */
 
 void rgb2hsv (rgbColor *rgb, hsvColor *hsv)
@@ -101,12 +101,12 @@ void rgb2hsv (rgbColor *rgb, hsvColor *hsv)
 
   h = 0.0;
   r = rgb->r; g = rgb->g; b = rgb->b;
- 
+
   rgbmax = (r > g ? r : g); rgbmax = (rgbmax > b ? rgbmax : b);
   rgbmin = (r < g ? r : g); rgbmin = (rgbmin < b ? rgbmin : b);
   q = rgbmax - rgbmin;
   v = rgbmax;
-  if (rgbmax !=  0.0) 
+  if (rgbmax !=  0.0)
     s = q/rgbmax;
   else
     s = 0.0;
@@ -119,7 +119,7 @@ void rgb2hsv (rgbColor *rgb, hsvColor *hsv)
     gc = (rgbmax - g)/q;
     bc = (rgbmax - b)/q;
 
-    if (r == rgbmax) 
+    if (r == rgbmax)
       /* resulting color between yellow and magenta */
       h = bc - gc;
     else if (g == rgbmax)
@@ -139,7 +139,7 @@ void rgb2hsv (rgbColor *rgb, hsvColor *hsv)
   hsv->v = v;
 
 #ifdef TESTING
-  printf ("rgb %f %f %f -> hsv %f %f %f\n", 
+  printf ("rgb %f %f %f -> hsv %f %f %f\n",
 	  rgb->r, rgb->g, rgb->b, hsv->h, hsv->s, hsv->v);
 #endif
 
@@ -157,10 +157,3 @@ unsigned int rgb2cod (rgbColor *rgb)
   int ib = (rgb->b * 255.0);
   return 256 * (256 * ir + ig) + ib;
 }
-
-/*
-Local Variables:
-mode: c
-mode: font-lock
-End:
-*/

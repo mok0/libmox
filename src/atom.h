@@ -184,9 +184,3 @@ void atm_structure_out(Structure *s);
 #endif
 
 #endif /* atom.h */
-
-/*
-  Local variables:
-  mode: font-lock
-  End:
-*/

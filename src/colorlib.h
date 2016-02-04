@@ -1,6 +1,6 @@
-/*    
+/*
     This file is a part of moxlib, a utility library.
-    Copyright (C) 1995-2007 Morten Kjeldgaard  
+    Copyright (C) 1995-2007 Morten Kjeldgaard
 
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
@@ -24,7 +24,7 @@ extern "C" {
 #endif
 
   /**
-     rgb color type. R, G, and B are between 0.0 and 1.0; 
+     rgb color type. R, G, and B are between 0.0 and 1.0;
   */
 
   typedef struct {
@@ -33,7 +33,7 @@ extern "C" {
 
 
   /**
-  hsv color type. h is a float 0-360.0, s and b are floats 0.0-1.0 
+  hsv color type. h is a float 0-360.0, s and b are floats 0.0-1.0
   */
 
   typedef struct {
@@ -49,10 +49,3 @@ extern "C" {
 #endif
 
 #endif  /* _colorlib_h */
-
-/*
-Local Variables:
-mode: c
-mode: font-lock
-End:
-*/
