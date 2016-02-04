@@ -176,7 +176,9 @@ void atm_chain_out(Chain *chain);
 void atm_chain_what_residue_class(Chain *chain);
 void atm_close_file(AtomFile *f);
 void atm_residue_class_out(unsigned int residue_class);
+void atm_version_out(void);
 void atm_structure_out(Structure *s);
+
 #define _ATOMLIB_H
 
 #ifdef __cplusplus
