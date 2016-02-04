@@ -261,10 +261,3 @@ double dbmax (Datablock *db)
 
   return m;
 }
-
-
-/*
-   Local Variables:
-   mode: font-lock
-   End:
-*/

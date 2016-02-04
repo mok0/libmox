@@ -1,6 +1,6 @@
-/*    
+/*
     This file is a part of moxlib, a utility library.
-    Copyright (C) 1997-2007 Morten Kjeldgaard  
+    Copyright (C) 1997-2007 Morten Kjeldgaard
 
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
@@ -28,7 +28,7 @@
 /**
    Pass a pdb code name to the pdb index database, and return the
    filename of the pdb entry. Database must be open before calling
-   this routine. 
+   this routine.
    @date 970120
  */
 void pdb_code_to_fname (GDBM_FILE pdb_dbm, char *code, char *fname, int siz)
@@ -46,7 +46,7 @@ void pdb_code_to_fname (GDBM_FILE pdb_dbm, char *code, char *fname, int siz)
 
   if (value.dptr) {
     if (value.dsize < siz) {
-    memcpy (fname, (char *)value.dptr, value.dsize); 
+    memcpy (fname, (char *)value.dptr, value.dsize);
     fname[value.dsize] = 0;
     } else {
       fprintf (stderr, "pdb_code_to_fname: buffer too small");
@@ -55,9 +55,3 @@ void pdb_code_to_fname (GDBM_FILE pdb_dbm, char *code, char *fname, int siz)
   } else
     *fname = 0;
 }
-
-/* 
-   Local Variables:
-   mode: font-lock
-   End:
-*/

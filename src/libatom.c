@@ -1430,9 +1430,3 @@ Matrix3 *atm_aniso_to_M3 (Atom *atom)
 
   return m;
 }
-
-/*
-   Local Variables:
-   mode: font-lock
-   End:
-*/

@@ -394,9 +394,3 @@ main ()
 }
 
 #endif
-
-/*
-   Local Variables:
-   mode: font-lock
-   End:
-*/

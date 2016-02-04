@@ -1,6 +1,6 @@
-/*    
+/*
     This file is a part of moxlib, a utility library.
-    Copyright (C) 1995-2007 Morten Kjeldgaard  
+    Copyright (C) 1995-2007 Morten Kjeldgaard
 
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
@@ -116,8 +116,3 @@ void main()
 }
 
 #endif
-/*
-  Local variables:
-  mode: font-lock
-  End:
-*/

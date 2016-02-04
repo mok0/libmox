@@ -71,9 +71,3 @@ main ()
   }
 }
 #endif
-
-/*
-  Local variables:
-  mode: font-lock
-  End:
-*/

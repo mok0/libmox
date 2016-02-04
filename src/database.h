@@ -70,9 +70,3 @@ double dbmax(Datablock *);
 #endif
 
 #endif /* database.h */
-
-/*
-  Local variables:
-  mode: font-lock
-  End:
-*/

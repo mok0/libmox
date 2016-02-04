@@ -1,6 +1,6 @@
-/*    
+/*
     This file is a part of moxlib, a utility library.
-    Copyright (C) 1995-2007 Morten Kjeldgaard  
+    Copyright (C) 1995-2007 Morten Kjeldgaard
 
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
@@ -98,7 +98,7 @@ pdb_get_next_atom (FILE *f)
   buf[26] = ' ';		/* zap insertion code */
   atom->resno = atoi(&buf[22]);
 
-  if (sscanf (&buf[31], "%lf %lf %lf", &atom->xyz.x, &atom->xyz.y, 
+  if (sscanf (&buf[31], "%lf %lf %lf", &atom->xyz.x, &atom->xyz.y,
 	      &atom->xyz.z) != 3) {
     fprintf (stderr, "could not decode coordinates from record:\n%s\n", buf);
     free(atom);
@@ -164,7 +164,7 @@ pdb_decode_atom_record (char *buf)
   atom->resno = atoi(&buf[22]);
   atom->chain = buf[21];
 
-  if (sscanf (&buf[31], "%lf %lf %lf", &atom->xyz.x, &atom->xyz.y, 
+  if (sscanf (&buf[31], "%lf %lf %lf", &atom->xyz.x, &atom->xyz.y,
 	      &atom->xyz.z) != 3) {
     fprintf (stderr, "could not decode coordinates from record:\n%s\n", buf);
     free(atom);
@@ -184,11 +184,11 @@ pdb_decode_atom_record (char *buf)
   }
   return atom;
 }
-  
+
 /**
    Given a pdb atom name, decode the element number.  @date 19950309.
 */
-int 
+int
 pdb_atom_to_z (char *name)
 {
   register int i;
@@ -233,7 +233,7 @@ pdb_read_atoms (FILE *f)
   }
 
   /* count residues and generate irc */
-  
+
   atom = first;
   irc = 0;
   was = -9999;
@@ -254,13 +254,13 @@ pdb_read_atoms (FILE *f)
 /**
    Dump the datastructure to stdout.
 */
-void 
+void
 pdb_atoms_out (pdb_atom_record *atom)
 {
   while (atom) {
     printf("ATOM  %5d %2s%c%c%c%-3s %c%4d%c   %8.3f%8.3f%8.3f%6.2f%6.2f %3d\n",
-	   atom->serial, atom->chem, atom->remote, atom->branch, atom->aloc, 
-	   atom->restype, atom->chain, atom->resno, atom->resins, 
+	   atom->serial, atom->chem, atom->remote, atom->branch, atom->aloc,
+	   atom->restype, atom->chain, atom->resno, atom->resins,
 	   atom->xyz.x, atom->xyz.y, atom->xyz.z, atom->occ, atom->b, atom->Z);
     atom = atom->next;
   }
@@ -337,7 +337,7 @@ pdb_decode_compnd_record (char *buf)
     fprintf (stderr, "could not allocate space for compnd record\n");
     return NULL;
   }
-  
+
   buf[70] = EOS;
   compnd->text = (char *)malloc(strlen(strtrim(&buf[10])));
   strcpy (compnd->text,&buf[10]);
@@ -357,7 +357,7 @@ PDBfile *pdb_read_file (FILE *f)
   int done = 0;
   int was;
   char wasins;
-  
+
   compound = NULL;
 
   if ((p = (PDBfile *)malloc(sizeof (PDBfile))) == NULL) {
@@ -367,7 +367,7 @@ PDBfile *pdb_read_file (FILE *f)
 
   p->f = f;
   p->id[0] = '\0';
- 
+
   while (fgets(buf, 100, f) && ! done) {
 
     if (strncmp(buf,"ATOM",4) == 0 || strncmp (buf,"HETA",4) == 0) {
@@ -382,7 +382,7 @@ PDBfile *pdb_read_file (FILE *f)
     } else if (strncmp (buf, "HEADER", 6) == 0) {
       strncpy (p->id, &buf[62], 4);
       p->id[4] = '\0';
- 
+
     } else if (strncmp (buf, "CRYS", 4) == 0) {
       p->CRYST1 = pdb_decode_cryst_record (buf);
 
@@ -396,11 +396,11 @@ PDBfile *pdb_read_file (FILE *f)
 
     } else if (strncmp (buf, "END", 3) == 0) {
       printf ("end"); done = 1;
-    } 
+    }
   }
 
   /* count residues and generate irc */
-  
+
   atom = p->ATOM;
   p->nres = 0;
   was = -9999;
@@ -494,9 +494,3 @@ pdb_decode_sheet_record (char *buf)
   sheet->next = NULL;
   return sheet;
 }
-
-/* 
-   Local Variables:
-   mode: font-lock
-   End:
-*/
