@@ -1,6 +1,6 @@
-/*    
+/*
     This file is a part of moxlib, a utility library.
-    Copyright (C) 1995-2008 Morten Kjeldgaard  
+    Copyright (C) 1995-2008 Morten Kjeldgaard
 
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
@@ -31,10 +31,10 @@
 #include "veclib.h"
 #include "database.h"
 
-/** 
+/**
    Create a new empty database.
 */
-Database *DBcreate(char *name)
+Database *DBcreate(const char *name)
 {
   Database *DB;
   extern char *strdup();
@@ -68,19 +68,19 @@ void DBlist (Database *DB)
 	break;
       }
       s++;
-    } 
-    printf ("%c %10d %10d %30s %s\n", db->type, db->size, db->bsize, str, 
+    }
+    printf ("%c %10d %10d %30s %s\n", db->type, db->size, db->bsize, str,
 	    db->name);
     db = db->next;
   }
 }
 
-  
-/** 
+
+/**
    Add new empty datablock of given name and size.
 */
 Datablock *
-dbcreate(Database *DB, char *name, char type, int size)
+dbcreate(Database *DB, const char *name, char type, int size)
 {
   Datablock *d;
   extern char *strdup();
@@ -164,17 +164,17 @@ dbcreate(Database *DB, char *name, char type, int size)
 
 
 /**
-   Return pointer to data area of named datablock, NULL if 
-   datablock was not found. This is a simple search from the top of the list. 
+   Return pointer to data area of named datablock, NULL if
+   datablock was not found. This is a simple search from the top of the list.
    Could be greatly improved, using a hash table or some such.
 */
-Datablock *dbpointer (Database *DB, char *name)
+Datablock *dbpointer (Database *DB, const char *name)
 {
   Datablock *db;
 
   db = DB->top;
   while (db) {
-    if (db->name){ 
+    if (db->name){
     if (strcasecmp(db->name, name) == 0)
 	return db;
     }
@@ -202,7 +202,7 @@ double dbmin (Datablock *db)
     ip = (int *)db->data;
     for (i=0; i<db->size; i++) {
       m = MIN (m, *ip++);
-    } 
+    }
 
   } else if (db->type == 'f') {
     float *fp;
@@ -220,7 +220,7 @@ double dbmin (Datablock *db)
 
   } else
     m = 0.0;
-  
+
   return m;
 }
 
@@ -243,7 +243,7 @@ double dbmax (Datablock *db)
     ip = (int *)db->data;
     for (i=0; i<db->size; i++) {
       m = MAX (m, *ip++);
-    } 
+    }
   }else if (db->type == 'f') {
     float *fp;
     fp = (float *)db->data;
@@ -258,14 +258,13 @@ double dbmax (Datablock *db)
     }
   } else
     m = 0.0;
-  
+
   return m;
 }
 
 
-/* 
+/*
    Local Variables:
    mode: font-lock
    End:
 */
-

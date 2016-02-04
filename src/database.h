@@ -1,6 +1,6 @@
-/*    
+/*
     This file is a part of moxlib, a utility library.
-    Copyright (C) 1995-2007 Morten Kjeldgaard  
+    Copyright (C) 1995-2007 Morten Kjeldgaard
 
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
@@ -17,7 +17,7 @@
 */
 
 /*
-   Datablock types: i = int, r = real, t = text, x = coordinate, 
+   Datablock types: i = int, r = real, t = text, x = coordinate,
    h = int coordinate, b = byte, pointer.
 */
 
@@ -54,10 +54,10 @@ typedef struct Database {
   struct Datablock *top;	/* pointer to first datablock */
 } Database;
 
-Database *DBcreate(char *);		/* create a new database */
+Database *DBcreate(const char *);		/* create a new database */
 void DBlist(Database *);			/* list contents of database */
-Datablock *dbcreate(Database *, char *, char, int);		/* add new empty datablock */
-Datablock *dbpointer(Database *, char *);		/* return pointer to named datablock */
+Datablock *dbcreate(Database *, const char *, char, int);		/* add new empty datablock */
+Datablock *dbpointer(Database *, const char *);		/* return pointer to named datablock */
   //Datablock *dbdelete();		/* delete datablock */
   /*
 void dbdiagram();
@@ -76,10 +76,3 @@ double dbmax(Datablock *);
   mode: font-lock
   End:
 */
-
-
-
-
-
-
-
