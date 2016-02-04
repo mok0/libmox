@@ -114,9 +114,3 @@ int main (int argc, char **argv)
   atm_delete_structure(shead);
   return 0;
 }
-
-/*
-  Local variables:
-  mode: font-lock
-  End:
-*/
