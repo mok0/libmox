@@ -75,9 +75,8 @@ NODE h, t, *r;
 
 /* Sort any singly linked list where the `next' pointer is the first field
    wrt predicate `cmp'.  Uses O(lg n) stack and no other temp space. */
-void lqsort( lstp, cmp )
-void    *lstp;
-int     (*cmp)();
+
+void lqsort(void *lstp, int (*cmp)())
 {
   Cmp = cmp; qs(*(void**)lstp, NULL, lstp);
 }
