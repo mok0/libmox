@@ -27,7 +27,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
-#include <math.h>		/* definition of HUGE */
+#include <float.h>		/* definition of FLT_MAX */
 #include "veclib.h"
 #include "database.h"
 
@@ -196,7 +196,7 @@ double dbmin (Datablock *db)
   if (!db)
     return 0.0;
 
-  m = HUGE;
+  m = FLT_MAX;
   if (db->type == 'i') {
     int *ip;
     ip = (int *)db->data;
@@ -237,7 +237,7 @@ double dbmax (Datablock *db)
   if (!db)
     return 0.0;
 
-  m = -HUGE;
+  m = -FLT_MAX;
   if (db->type == 'i') {
     int *ip;
     ip = (int *)db->data;
