@@ -1,12 +1,13 @@
 # -*- mode: Autoconf; mode: font-lock -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.59)
-AC_INIT(libmox, 2.1.3, mok@bioxray.dk)
+AC_PREREQ([2.71])
+AC_INIT([libmox],[2.1.3],[mortenkjeldgaard@gmail.com])
 
 AC_CONFIG_SRCDIR([src/libatom.c])
 AC_CONFIG_AUX_DIR([config])
-#AC_CONFIG_HEADER([config.h])
+#AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_MACRO_DIRS([config])
 
 AM_INIT_AUTOMAKE
 
@@ -17,16 +18,20 @@ AC_PROG_CC
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
-AC_PROG_LIBTOOL
+LT_INIT
 
-AC_CHECK_LIBM
+LT_LIB_M
 AC_SUBST(LIBM)
 
-CHECK_ZLIB
-CHECK_GDBM
+AC_CHECK_LIB(z, gzopen)
+AC_CHECK_LIB(gdbm, gdbm_fetch)
+#CHECK_ZLIB
+#CHECK_GDBM
 
 # Checks for header files.
-AC_HEADER_STDC
+AC_CHECK_INCLUDES_DEFAULT
+AC_PROG_EGREP
+
 AC_CHECK_HEADERS([malloc.h stddef.h stdlib.h string.h sys/file.h unistd.h])
 
 # Checks for typedefs, structures, and compiler characteristics.

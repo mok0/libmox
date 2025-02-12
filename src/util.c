@@ -246,7 +246,7 @@ void printbits (unsigned long num)
     j = 32 - i;
     bbuf[j] = (((num >> --i) & 1) == 1 ? '1' : '0');
   }
-  bbuf[32 - i] = '\0';
+  bbuf[j] = '\0';
   printf (" %s", bbuf);
 }
 

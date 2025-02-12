@@ -141,7 +141,7 @@ AtomFile *atm_open_file(const char *fnam, const char *mode)
   f->name = strdup (fnam);
   f->mode = strdup (mode);
 #ifdef HAVE_LIBZ
-  f->File = gzopen (fnam, mode);
+  f->File = (FILE *)gzopen (fnam, mode);
 #else
   f->File = fopen (fnam, mode);
 #endif
@@ -166,7 +166,7 @@ AtomFile *atm_dopen_file(int fd, char *mode)
   f->name = NULL;
   f->mode = strdup (mode);
 #ifdef HAVE_LIBZ
-  f->File = gzdopen (fd, mode);
+  f->File = (FILE *)gzdopen (fd, mode);
 #else
   f->File = fdopen (fd, mode);
 #endif
@@ -188,7 +188,7 @@ void atm_close_file (AtomFile *f)
 
   if (f->File) {
 #ifdef HAVE_LIBZ
-    gzclose (f->File);
+    gzclose ((gzFile)f->File);
 #else
     fclose(f->File);
 #endif
@@ -530,7 +530,7 @@ Structure *atm_read_pdbfile (AtomFile *f)
 int atm_read_pdbrecord (char *buf, int siz, AtomFile *f)
 {
 #ifdef HAVE_LIBZ
-  if (!gzgets (f->File, buf, siz))
+  if (!gzgets ((gzFile)f->File, buf, siz))
     return -1;
 #else
   if (!fgets(buf, siz, f->File))
