@@ -2,7 +2,7 @@
 ## $Id$
 
 EXTRA_DIST = *.c
-AM_LDFLAGS = ../src/libmox.la
+AM_LDFLAGS = ../src/libmox.la $(LIBM)
 
 noinst_PROGRAMS = chaincat tst_color tst_db
 
