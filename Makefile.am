@@ -1,16 +1,13 @@
-## -*- mode: Makefile ; mode: font-lock -*-
-## $Id$
 
-# Build in these directories
+## Build in these directories
 SUBDIRS = src test
 
-ACLOCAL_AMFLAGS = -I config
+AC_LOCAL_AMFLAGS = -I m4 --install
 
-#Distribute these directories:
+## Distribute these directories:
 DIST_SUBDIRS = $(SUBDIRS)
 
 pkgconfigdir = $(libdir)/pkgconfig
 
-EXTRA_DIST = bootstrap libmox.spec.in libmox.info.in Doxyfile
-
-####
+## Need to include dummy file NOTES to keep m4/ in distro
+EXTRA_DIST = bootstrap libmox.spec.in libmox.info.in Doxyfile m4/NOTES

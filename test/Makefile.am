@@ -1,7 +1,7 @@
 ## -*- mode: Makefile ; mode: font-lock -*-
 ## $Id$
 
-EXTRA_DIST = *.c
+EXTRA_DIST = chaincat.c tst_color.c tst_db.c
 AM_LDFLAGS = ../src/libmox.la $(LIBM)
 
 noinst_PROGRAMS = chaincat tst_color tst_db
