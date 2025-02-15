@@ -32,7 +32,11 @@
 #include "pdb.h"
 #include "util.h"
 
+/// \def SEP1
+/// Delimiter between chain id and residue number.
 #define SEP1 ':'
+/// \def SEP2
+/// Delimiter between residue number and atom
 #define SEP2 '.'
 
 /**
@@ -40,7 +44,6 @@
    name 'a' is returned in 'chnm', residue name in 'resnm'. The strings
    chnm and resnm must be large enough, no checks made.
 */
-
 int atm_decode_resnam (const char *in, char *chnm, char *resnm)
 {
   char *c;
@@ -76,7 +79,6 @@ int atm_decode_resnam (const char *in, char *chnm, char *resnm)
    'chnm', residue name in 'resnm', atom name in 'atnm'. This routine should
    handle the most degenerate cases.
 */
-
 int atm_decode_atmnam (const char *in, char *chnm, char *resnm, char *atmnm)
 {
   char *c1, *c2;
@@ -156,7 +158,6 @@ AtomFile *atm_open_file(const char *fnam, const char *mode)
   Open an atom file and associate file with a file descriptor. This
   version handles compressed files too.
 */
-
 AtomFile *atm_dopen_file(int fd, char *mode)
 {
   AtomFile *f;
@@ -180,7 +181,6 @@ AtomFile *atm_dopen_file(int fd, char *mode)
 /**
    Close a file opened by atm_open_file.
 */
-
 void atm_close_file (AtomFile *f)
 {
   if (!f)
@@ -201,7 +201,6 @@ void atm_close_file (AtomFile *f)
    Read a pdb file, and return a pointer to a new Structure
    record. Pass a file pointer to an open file.
 */
-
 Structure *atm_read_pdbfile (AtomFile *f)
 {
   Structure *shead, *s;
@@ -233,7 +232,6 @@ Structure *atm_read_pdbfile (AtomFile *f)
   shead->model = 1;
   shead->head = shead;
   strncpy (s->name, "0unk_001", 8);
-
 
   what = atm_read_pdbrecord (buf,100,f);
   while (what > -1 && !done) {
@@ -571,7 +569,6 @@ int atm_read_pdbrecord (char *buf, int siz, AtomFile *f)
    Decode the string describing one ATOM record from
    a pdb file and fill in some of the fields.
 */
-
 static pdb_atom_record *decode_pdb_atom (pdb_atom_record *atom, char *buf)
 {
   decode_pdb_atom_id (atom, buf);
@@ -629,8 +626,6 @@ static pdb_atom_record *decode_pdb_atom (pdb_atom_record *atom, char *buf)
    Decode the string describing one ANISO record from
    a pdb file and fill in some of the fields.
 */
-
-
 static pdb_aniso_record *decode_pdb_aniso (pdb_aniso_record *aniso, char *buf)
 {
 
@@ -653,7 +648,6 @@ static pdb_aniso_record *decode_pdb_aniso (pdb_aniso_record *aniso, char *buf)
    file and fill in some of the fields concerning atom and residue id
    (the parts that are identical in an ATOM and ANISO record)
 */
-
 static void decode_pdb_atom_id (pdb_atom_record *atom, char *buf)
 {
   char *ch;
@@ -686,8 +680,6 @@ static void decode_pdb_atom_id (pdb_atom_record *atom, char *buf)
 
   return;
 }
-
-
 
 /**
    Step through residues, see if we can find out what type of residue

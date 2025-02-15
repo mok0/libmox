@@ -22,6 +22,8 @@
    @author Morten Kjeldgaard
 */
 
+/// \def USEPRIME
+///  If defined, use primes instead of asterisk for ribose atoms.
 #define USEPRIME
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,7 +32,11 @@
 #include "pdblib.h"
 #include "util.h"
 
+/// \def RECSIZ
+/// Max size of a PDB file record in bytes
 #define RECSIZ 100
+/// \def EOS
+/// End of string byte value (0)
 #define EOS '\0'
 
 static char *Elements[] = { "??",

@@ -16,13 +16,12 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/**
-   @file lsqsort.c
-*/
-
 #include <stdio.h>
 
-typedef struct node { struct node *next; } node;
+/** @struct node
+ *  @brief Structure representing a node for the quicksort list algorithm.
+ */
+typedef struct node { struct node *next; /*!< pointer to next node */ } node;
 typedef struct node *NODE, NODE_REC;
 
 static int (*Cmp)();

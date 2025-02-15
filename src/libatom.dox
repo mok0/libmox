@@ -2,10 +2,7 @@
 /*! @mainpage The libatom Library
 @author Morten Kjeldgaard
 
-
-@abstract A description on how to use the libatom C library.
-
-
+A description on how to use the libatom C library.
  
 @section Introduction 
 This document describes how to use the atom library (known as libatom)

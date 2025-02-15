@@ -31,27 +31,33 @@ extern "C" {
 #include <time.h>
 #include <stdio.h>
 
+/** @struct Datablock
+ * @brief This structure describes a datablock
+ */
 typedef struct Datablock {
-  char *name;
-  char type;			/* i, r, d, t, x, h, b, p */
-  unsigned int size;		/* no of elements */
-  unsigned int bsize;		/* size in bytes */
-  time_t timestamp;
-  char *format;
-  int status;
-  struct Datablock *next;
-  void *data;
-  void *maxval;			/* pointer to max valid value */
-  void *minval;			/* pointer to min valid value */
-  unsigned int ct;		/* last used line, for text datablocks */
+  char *name;                   /*!< Name of datablock */
+  char type;			/*!< Type of datablock:  i, r, d, t, x, h, b, p */
+  unsigned int size;		/*!< Number of elements in datablock */
+  unsigned int bsize;		/*!< Size in bytes */
+  time_t timestamp;             /*!< Timestamp when written */
+  char *format;                 /*!< Format to print */
+  int status;                   /*!< Status  */
+  struct Datablock *next;       /*!< Pointer to next datablock */
+  void *data;                   /*!< Pointer to data */
+  void *maxval;			/*!< Pointer to max valid value */
+  void *minval;			/*!< Pointer to min valid value */
+  unsigned int ct;		/*!< Last used line, for text datablocks */
 } Datablock;
 
+/** @struct Database
+ * @brief This structure describes a database consisting of Datablocks.
+ */
 typedef struct Database {
-  char *name;
-  FILE *f;
-  time_t timestamp;
-  int status;			/* saved, readonly */
-  struct Datablock *top;	/* pointer to first datablock */
+  char *name;                   /*!< Name of database */
+  FILE *f;                      /*!< File pointer  */
+  time_t timestamp;             /*!< Timestamp */
+  int status;			/*!< Status saved, readonly */
+  struct Datablock *top;	/*!< pointer to first datablock */
 } Database;
 
 Database *DBcreate(const char *);		/* create a new database */

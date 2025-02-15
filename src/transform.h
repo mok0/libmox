@@ -25,11 +25,14 @@
 extern "C" {
 #endif
 
+/** @struct Transform
+ *  @brief This structure reprsents a named 3D transformation.
+ */
 typedef struct Transform {	/* Transformation */
-  char *name;
-  Matrix3 mat;
-  Vector3 trans;
-  struct Transform *next;
+  char *name;                   /*!< Name of this transform */
+  Matrix3 mat;                  /*!< Rotation matrix */
+  Vector3 trans;                /*!< Translation vector */
+  struct Transform *next;       /*!< Next transform  */
 } Transform;
 
 Transform *O_read_transform();

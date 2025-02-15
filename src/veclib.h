@@ -23,46 +23,87 @@
 extern "C" {
 #endif
 
+/** @struct Point2Struct
+ *  @brief This structure holds a 2D vector of doubles.
+ */
 typedef struct Point2Struct {	/* 2d point */
-  double x, y;
+  double x;  /*!< x coordinate */
+  double y;  /*!< y coordinate */
 } Point2;
 typedef Point2 Vector2;
 
+/** @struct IntPoint2Struct
+ *  @brief This structure holds a 2D vector of ints.
+ */
 typedef struct IntPoint2Struct { /* 2d integer point */
-  int x, y;
+  int x;  /*!< x coordinate */
+  int y;  /*!< y coordinate */
 } Point2i;
 
+/** @struct Matrix3Struct
+ *  @brief This structure holds a 3D transformation matrix.
+ */
 typedef struct Matrix3Struct {	/* 3-by-3 matrix */
-  double element[3][3];
+  double element[3][3];   /*!< 3D transformation matrix */
 } Matrix3;
 
-typedef struct Box2dStruct {	/* 2d box */
-  Point2 min, max;
+/** @struct Box2dStruct
+ *  @brief This structure holds a 2D bounding box.
+ */
+  typedef struct Box2dStruct {	/* 2d box */
+  Point2 min;  /*!< Min coordinates of 2D box */
+  Point2 max;  /*!< Max coordinates of 2D box */
 } Box2;
 
+/** @struct Box2v
+ *  @brief This structure holds a 2D bounding box of 2D double vectors
+ */
 typedef struct {		/* 2d box */
-  double min[2], max[2];
+  double min[2];  /*!< Min coordinates 2D of box */
+  double max[2];  /*!< Max coordinates 2D of box */
 } Box2v;
 
+/** @struct Point3Struct
+ *  @brief This structure holds a 3D coordinate of doubles.
+ */
 typedef struct Point3Struct {	/* 3d point */
-  double x, y, z;
+  double x;  /*!< x coordinate */
+  double y;  /*!< y coordinate */
+  double z;  /*!< z coordinate */
 } Point3;
 typedef Point3 Vector3;
 
+/** @struct IntPoint3Struct
+ *  @brief This structure holds a 3D coordinate of ints.
+ */
 typedef struct IntPoint3Struct { /* 3d integer point */
-  int x, y, z;
+  int x;  /*!< x coordinate */
+  int y;  /*!< y coordinate */
+  int z;  /*!< z coordinate */
 } Point3i;
 
-typedef struct Matrix4Struct {	/* 4-by-4 matrix */
-  double element[4][4];
+
+/** @struct Matrix4Struct
+ * @brief This structure holds a 4D transformation matrix
+ */
+  typedef struct Matrix4Struct {	/* 4-by-4 matrix */
+  double element[4][4];  /*!< 4D transformation matrix */
 } Matrix4;
 
+/** @struct Box3dStruct
+ * @brief This structure holds a 3D bounding box.
+ */
 typedef struct Box3dStruct {	/* 3d box */
-  Point3 min, max;
+  Point3 min; /*!< Min coordinates of 3D box */
+  Point3 max; /*!< Max coordinates of 3D box */
 } Box3;
 
+/** @struct Box3v
+ *  @brief This structure holds a 2D bounding box of 3D double vectors
+ */
 typedef struct {		/* 3d box */
-  double min[3], max[3];
+  double min[3]; /*!< Min coordinates of 3D box */
+  double max[3]; /*!< Max coordinates of 3D box */
 } Box3v;
 
 /* absolute value of a */

@@ -1,7 +1,7 @@
 # -*- mode: Autoconf; mode: font-lock -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_INIT([libmox],[2.2.0],[mortenkjeldgaard@gmail.com])
+AC_INIT([libmox],[2.2.1],[mortenkjeldgaard@gmail.com])
 
 ## Force autoconf to be at least this version
 AC_PREREQ([2.71])
@@ -50,10 +50,24 @@ AC_FUNC_STAT
 AC_FUNC_STRTOD
 AC_CHECK_FUNCS([bzero floor memset pow putenv setenv sqrt strcasecmp strchr strdup strerror strncasecmp strrchr strstr])
 
+## Doxygen stuff
+DX_HTML_FEATURE(ON)
+DX_CHM_FEATURE(OFF)
+DX_CHI_FEATURE(OFF)
+DX_MAN_FEATURE(OFF)
+DX_RTF_FEATURE(OFF)
+DX_XML_FEATURE(OFF)
+DX_PDF_FEATURE(OFF)
+DX_PS_FEATURE(OFF)
+
+DX_INIT_DOXYGEN([$PACKAGE_NAME], [$(top_srcdir)/Doxyfile], [doc/doxygen])
+
+
 ## Generate various files
 AC_CONFIG_FILES([Makefile
 		 libmox.spec
 		 libmox.info
+                 Doxyfile
                  src/Makefile
                  test/Makefile
 		 ])

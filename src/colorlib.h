@@ -26,18 +26,20 @@ extern "C" {
   /**
      rgb color type. R, G, and B are between 0.0 and 1.0;
   */
-
   typedef struct {
-    float  r, g, b;
+    float  r;  /*!< Red component */
+    float  g;  /*!< Green component */
+    float  b;  /*!< Blue component */
   } rgbColor;
 
 
   /**
   hsv color type. h is a float 0-360.0, s and b are floats 0.0-1.0
   */
-
   typedef struct {
-    float h, s, v;
+    float h;  /*!< Hue (0-360) */
+    float s;  /*!< Saturation (0-1) */
+    float v;  /*!< Value (0-1) */
   } hsvColor;
 
   unsigned int rgb2cod (rgbColor *);

@@ -26,41 +26,48 @@ extern "C" {
 enum pdbrecord_type {HEADER, REMARK, COMPND, CRYST1, ATOM, HETATM,
 		     HELIX, SHEET, ANISOU, TER, MODEL, ENDMDL, ENDFILE};
 
+/** @struct pdb_atom_record
+ * @brief This structure describes an ATOM record from a PDB file.
+ */
 typedef struct pdb_atom_record {
-  int serial;			/* serial number */
-  char name[5];			/* name */
-  char chem[3];			/* chemical symbol, right justified */
-  char remote;			/* remoteness indicator */
-  char branch;			/* branch indicator */
-  char aloc;			/* alternate atom location id */
-  unsigned char z;		/* element number */
-  int resno;			/* residue number */
-  int irc;			/* internal residue count */
-  char resname[7];		/* residue name */
-  char restype[4];		/* residue type */
-  char chain;			/* chain identifier */
-  char resins;			/* code for insertion of residues */
-  Point3 xyz;			/* coordinate */
-  float occ;			/* occupancy */
-  float b;			/* temperature factor */
-  struct pdb_atom_record *next;	/* pointer to next atom */
-  struct pdb_atom_record *prev;	/* pointer to previous atom */
+  int serial;			/*!< serial number */
+  char name[5];			/*!< name */
+  char chem[3];			/*!< chemical symbol, right justified */
+  char remote;			/*!< remoteness indicator */
+  char branch;			/*!< branch indicator */
+  char aloc;			/*!< alternate atom location id */
+  unsigned char z;		/*!< element number */
+  int resno;			/*!< residue number */
+  int irc;			/*!< internal residue count */
+  char resname[7];		/*!< residue name */
+  char restype[4];		/*!< residue type */
+  char chain;			/*!< chain identifier */
+  char resins;			/*!< code for insertion of residues */
+  Point3 xyz;			/*!< coordinate */
+  float occ;			/*!< occupancy */
+  float b;			/*!< temperature factor */
+  struct pdb_atom_record *next;	/*!< pointer to next atom */
+  struct pdb_atom_record *prev;	/*!< pointer to previous atom */
 } pdb_atom_record;
 
+
+/** @struct pdb_aniso_record
+ * @brief This structure describes an ANISO record from a PDB file.
+ */
 typedef struct pdb_aniso_record {
-  int serial;			/* serial number */
-  char name[5];			/* name */
-  char chem[3];			/* chemical symbol, right justified */
-  char remote;			/* remoteness indicator */
-  char branch;			/* branch indicator */
-  char aloc;			/* alternate atom location id */
-  unsigned char z;		/* element number */
-  int resno;			/* residue number */
-  char resname[7];		/* residue name */
-  char restype[4];		/* residue type */
-  char chain;			/* chain identifier */
-  char resins;			/* code for insertion of residues */
-  float aniso[6];		/* anisotropic temperature factor */
+  int serial;			/*!< serial number */
+  char name[5];			/*!< name */
+  char chem[3];			/*!< chemical symbol, right justified */
+  char remote;			/*!< remoteness indicator */
+  char branch;			/*!< branch indicator */
+  char aloc;			/*!< alternate atom location id */
+  unsigned char z;		/*!< element number */
+  int resno;			/*!< residue number */
+  char resname[7];		/*!< residue name */
+  char restype[4];		/*!< residue type */
+  char chain;			/*!< chain identifier */
+  char resins;			/*!< code for insertion of residues */
+  float aniso[6];		/*!< anisotropic temperature factor */
 } pdb_aniso_record;
 
 /* prototypes */

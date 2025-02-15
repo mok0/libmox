@@ -185,7 +185,7 @@ Datablock *dbpointer (Database *DB, const char *name)
 
 
 /**
-   return (as a double value) the minimum value of an integer or real
+   Return (as a double value) the minimum value of an integer or real
    datablock.
 */
 double dbmin (Datablock *db)
@@ -225,14 +225,14 @@ double dbmin (Datablock *db)
 }
 
 
-/*
+/**
    Return (as a double value) the maximum value of an integer or real
    datablock.
 */
 double dbmax (Datablock *db)
 {
   double m;
-  int i;
+  uint i;
 
   if (!db)
     return 0.0;

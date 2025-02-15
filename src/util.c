@@ -33,7 +33,8 @@
 #  include <pwd.h>
 #endif
 
-/* expt(a,n)=a^n for integer n */
+/// \def expt(a, n)
+/// Macro for a^n for integer n
 #define expt(a, n) pow(a, (double)(n))
 
 /**

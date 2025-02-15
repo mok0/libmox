@@ -46,22 +46,29 @@ enum atom_type { ATOM_CA, ATOM_N, ATOM_C, ATOM_O, ATOM_P, ATOM_O2P, ATOM_O3P};
 #define isset(a,i)     ((a) &   (1<<(i)))
 #define isclear(a,i) (!((a) &   (1<<(i))))
 
+/** @struct AtomFile
+ *  @brief This structure holds all data related to a file.
+ */
 typedef struct {
-  char *name;
+  char *name; /*!< name of file */
 #ifdef ZLIB
-  gzFile *File;
+  gzFile *File;  /*!< File pointer for gzipped file */
 #else
-  FILE *File;
+  FILE *File;  /*!< File pointer for text file */
 #endif
-  char *mode;
+  char *mode;  /*!< File mode (r/w) */
 } AtomFile;
 
+/** @struct Atom
+ *  @brief This structure holds all data related to a single atom.
+ */
 typedef struct Atom {
   char name[6];			/*!< atom name */
   char ins;			/*!< insertion id */
   unsigned char z;		/*!< element number */
   Point3 xyz;			/*!< coordinate */
-  float b, occ;			/*!< temperature factor, occupancy*/
+  float b;			/*!< temperature factor */
+  float occ;			/*!< occupancy */
   float *aniso;			/*!< pointer to anisotropic B factor */
   int ic;			/*!< internal atom count */
   unsigned long flag;		/*!< flag to store properties of this atom */
@@ -71,6 +78,9 @@ typedef struct Atom {
   struct Residue *res;		/*!< pointer to parent residue */
 } Atom;
 
+/** @struct Residue
+ *  @brief This structure holds all data related to a residue.
+ */
 typedef struct Residue {
   char name[12];		/*!< residue name */
   char type[6];			/*!< residue type */
@@ -93,6 +103,9 @@ typedef struct Residue {
   struct Residue *bond_prev;	/*!< if bonded to prev res, = prev else null */
 } Residue;
 
+/** @struct Chain
+ *  @brief This structure holds all data related to a chain.
+ */
 typedef struct Chain {
   char name[8];			/*!< name of this chain (pdbid + id) */
   char id;			/*!< id of this chain */
@@ -116,6 +129,9 @@ typedef struct Chain {
   struct Chain *prev;		/*!< pointer to previous chain */
 } Chain;
 
+/** @struct Structure
+ *  @brief This structure holds all data related to a structure.
+ */
 typedef struct Structure {
   char name[16];	        /*!< name */
   char id[5];			/*!< PDB ident, usually from pdbfile */
@@ -138,11 +154,18 @@ typedef struct Structure {
   struct Structure *head;	/*!< pointer to first structure in list */
 } Structure;
 
+/**
+ *     @struct Zone
+ *  @brief This structure holds all data related to a zone of residues.
+ */
 typedef struct Zone {
-  Chain *ch1, *ch2;		/*!< first and last chain   in zone */
-  Residue *res1, *res2;		/*!<   -    -   -   residue  -  -   */
-  Atom *atm1, *atm2;		/*!<   -    -   -   atom     -  -   */
-  int nres;			/*!< number of residues in this zone */
+  Chain *ch1;		        /*!< first chain in zone */
+  Chain *ch2;                   /*!< last chain in zone */
+  Residue *res1;                /*!< first residue in zone */
+  Residue *res2;                /*!< last residue in zone */
+  Atom *atm1;                   /*!< first atom in zone */
+  Atom *atm2;                   /*!<  last atom in zone */
+  int nres;                     /*!< number of residues in this zone */
 } Zone;
 
 /* prototypes */

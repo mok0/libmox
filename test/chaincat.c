@@ -71,7 +71,7 @@ int main (int argc, char **argv)
 {
   AtomFile *f;
   Structure *shead;
-  int c, rflag = 0, zflag=0;
+  int c, rflag = 0;
   extern int optind;
 
   while ((c = getopt (argc, argv, "r")) != EOF)
@@ -85,7 +85,7 @@ int main (int argc, char **argv)
   /* We are done parsing options */
 
   if (optind < argc){          /* Assume input file name */
-    freopen(argv[optind], "r", stdin);
+    (void) freopen(argv[optind], "r", stdin);
   }
   f = atm_dopen_file (0, "r");
 

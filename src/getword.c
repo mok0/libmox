@@ -19,6 +19,8 @@
 
 #include <stdio.h>
 #include <ctype.h>
+/// \def MAXWORD
+/// Maximum word size in bytes.
 #define MAXWORD 1024
 
 /**

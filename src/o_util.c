@@ -107,8 +107,8 @@ O_read_transform (FILE *f)
   }
 }
 
-/*
-   destroy this transform, and all the transforms in the list.
+/**
+   Destroy this transform, and all the transforms in the list.
 */
 void transform_destroy (Transform *trf)
 {
