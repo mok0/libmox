@@ -10,19 +10,25 @@ DIST_SUBDIRS = $(SUBDIRS)
 pkgconfigdir = $(libdir)/pkgconfig
 
 ## Need to include dummy file NOTES to keep m4/ in distro
-EXTRA_DIST = bootstrap libmox.spec.in libmox.info.in Doxyfile m4/NOTES NEWS
+EXTRA_DIST = bootstrap Doxyfile m4/NOTES
 
-# include Doxygen rules (requires autoconf-archive >2016-03-20)
-@DX_RULES@
+# This target name is an Automake extension point:
 
-doxygen-prepare:
+all-local:
 	mkdir -p doc/doxygen/html
+	doxygen
 
-docs: doxygen-prepare doxygen-doc
+install-data-local: install-html-docs
 
+uninstall-local:
+	rm -r $(DESTDIR)$(docdir)
+
+
+.PHONY: install-html-docs
+install-html-docs:
+	mkdir -p $(DESTDIR)$(docdir)
+	cp -a doc/doxygen/html $(DESTDIR)$(docdir)
+
+.PHONY: clean-local
 clean-local:
-	-rm -rf doc/doxygen/
-
-# Try to tell autotools to install documentation
-
-html_DATA = $(builddir)/doc/doxygen/html/*
+	rm -rf doc/doxygen/

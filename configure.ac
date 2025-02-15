@@ -50,18 +50,22 @@ AC_FUNC_STAT
 AC_FUNC_STRTOD
 AC_CHECK_FUNCS([bzero floor memset pow putenv setenv sqrt strcasecmp strchr strdup strerror strncasecmp strrchr strstr])
 
-## Doxygen stuff
-DX_HTML_FEATURE(ON)
-DX_CHM_FEATURE(OFF)
-DX_CHI_FEATURE(OFF)
-DX_MAN_FEATURE(OFF)
-DX_RTF_FEATURE(OFF)
-DX_XML_FEATURE(OFF)
-DX_PDF_FEATURE(OFF)
-DX_PS_FEATURE(OFF)
+#Doxygen stuff
+AC_CHECK_PROGS([DOXYGEN], [doxygen])
+if test -z "$DOXYGEN";
+   then AC_MSG_ERROR([Doxygen not found])
+fi
 
-DX_INIT_DOXYGEN([$PACKAGE_NAME], [$(top_srcdir)/Doxyfile], [doc/doxygen])
+dnl DX_HTML_FEATURE(ON)
+dnl DX_CHM_FEATURE(OFF)
+dnl DX_CHI_FEATURE(OFF)
+dnl DX_MAN_FEATURE(OFF)
+dnl DX_RTF_FEATURE(OFF)
+dnl DX_XML_FEATURE(OFF)
+dnl DX_PDF_FEATURE(OFF)
+dnl DX_PS_FEATURE(OFF)
 
+dnl DX_INIT_DOXYGEN([$PACKAGE_NAME], [$(top_srcdir)/Doxyfile], [doc/doxygen])
 
 ## Generate various files
 AC_CONFIG_FILES([Makefile
