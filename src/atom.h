@@ -173,7 +173,7 @@ typedef struct Zone {
 Atom *atm_create_atom(void);
 Atom *atm_find_atom(Residue *res, const char *atmnam);
 Atom *atm_find_named_atom(Structure *st, const char *atomcode);
-AtomFile *atm_dopen_file(int fd, char *mode);
+AtomFile *atm_dopen_file(int fd, const char *mode);
 AtomFile *atm_open_file(const char *fnam, const char *mode);
 Chain *atm_create_chain(void);
 Chain *atm_delete_chain(Chain *chain);

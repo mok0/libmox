@@ -1,7 +1,7 @@
 # -*- mode: Autoconf; mode: font-lock -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_INIT([libmox],[2.3.1],[mortenkjeldgaard@gmail.com])
+AC_INIT([libmox],[2.3.2],[mortenkjeldgaard@gmail.com])
 
 ## Force autoconf to be at least this version
 AC_PREREQ([2.71])

@@ -158,7 +158,7 @@ AtomFile *atm_open_file(const char *fnam, const char *mode)
   Open an atom file and associate file with a file descriptor. This
   version handles compressed files too.
 */
-AtomFile *atm_dopen_file(int fd, char *mode)
+AtomFile *atm_dopen_file(int fd, const char *mode)
 {
   AtomFile *f;
 
