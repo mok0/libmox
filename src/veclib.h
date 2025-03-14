@@ -177,18 +177,18 @@ if (!(x)) fprintf(stderr," Assert failed: x\n");
 
 typedef int boolean;		/* boolean data type */
 
-double v3_squaredlength(Vector3 *);
+double v3_squared_length(Vector3 *);
 double v3_length(Vector3 *);
 double v3_dot(Vector3 *, Vector3 *);
 double v2_dot(Vector2 *, Vector2 *);
 double v3_distance(Point3 *, Point3 *);
 double v2_distance(Point2 *, Point2 *);
-double v3_distanceSquared(Point3 *, Point3 *);
-double v2_distanceSquared(Point2 *, Point2 *);
+double v3_distance_squared(Point3 *, Point3 *);
+double v2_distance_squared(Point2 *, Point2 *);
 double v3_angle(Vector3 *, Vector3 *);
 double v2_angle(Vector2 *, Vector2 *);
 double v3_torsion(Point3 *, Point3 *, Point3 *, Point3 *);
-double m3_toscale(Matrix3 *);
+double m3_to_scale(Matrix3 *);
 
 Vector2 *v2_set(Vector2 *, double, double);
 Vector2 *v2_sub(Vector2 *, Vector2 *, Vector2 *);
@@ -211,10 +211,9 @@ Vector3 *v3_addScl (Vector3 *, Vector3 *, Vector3 *, double);
 Vector3 *v3_div (Vector3 *, double, Vector3 *);
 Vector3 *v3_copy (Vector3 *, Vector3 *);
 
-
-Point3 *v3_mulpointbymatrix();
-Point3 *v3_mulpointbyprojmatrix(Point3 *, Matrix4 *, Point3 *);
-Point3 *v3_premulpointbymatrix(Point3 *, Matrix3 *, Point3 *);
+Point3 *v3_mul_point_by_matrix();
+Point3 *v3_mul_point_by_proj_matrix(Point3 *, Matrix4 *, Point3 *);
+Point3 *v3_pre_mul_point_by_matrix(Point3 *, Matrix3 *, Point3 *);
 
 Matrix3 *m3_matmul(Matrix3 *, Matrix3 *, Matrix3 *);
 Matrix3 *m3_zero(Matrix3 *);

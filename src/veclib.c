@@ -30,7 +30,7 @@
 /**
    Return squared length of input vector.
 */
-double v3_squaredlength(Vector3 *a)
+double v3_squared_length(Vector3 *a)
 {
   return (a->x * a->x)+(a->y * a->y)+(a->z * a->z);
 }
@@ -185,7 +185,7 @@ double v3_distance(Point3 *a, Point3 *b)
 /**
    Return the squared distance between two points.
 */
-double v3_distancesquared(Point3 *a, Point3 *b)
+double v3_distance_squared(Point3 *a, Point3 *b)
 {
   double dx = a->x - b->x;
   double dy = a->y - b->y;
@@ -206,7 +206,7 @@ double v2_distance(Point2 *a, Point2 *b)
 /**
    Return the squared distance between two 2D points.
 */
-double v2_distancesquared(Point2 *a, Point2 *b)
+double v2_distance_squared(Point2 *a, Point2 *b)
 {
   double dx = a->x - b->x;
   double dy = a->y - b->y;
@@ -249,7 +249,7 @@ Vector3 *v3_duplicate(Vector3 *a)
    PREmultiply a point by a matrix and return the transformed
    point.
 */
-Point3 *v3_premulpointbymatrix(Point3 *pin, Matrix3 *m, Point3 *pout)
+Point3 *v3_pre_mul_point_by_matrix(Point3 *pin, Matrix3 *m, Point3 *pout)
 {
   pout->x = (pin->x * m->element[0][0]) + (pin->y * m->element[0][1]) +
     (pin->z * m->element[0][2]);
@@ -263,7 +263,7 @@ Point3 *v3_premulpointbymatrix(Point3 *pin, Matrix3 *m, Point3 *pout)
 /**
    Multiply a point by a projective matrix and return the transformed point.
 */
-Point3 *v3_mulpointbyprojmatrix(Point3 *pin, Matrix4 *m, Point3 *pout)
+Point3 *v3_mul_point_by_proj_matrix(Point3 *pin, Matrix4 *m, Point3 *pout)
 {
   double w;
   pout->x = (pin->x * m->element[0][0]) + (pin->y * m->element[1][0]) +
@@ -581,7 +581,7 @@ void m3_mat_to_rot (Matrix3 *m, double *alpha, double *beta, double *gamma)
 /**
   Return the scale factor (zoom) on the 3x3 matrix.
 */
-double m3_toscale (Matrix3 *m)
+double m3_to_scale (Matrix3 *m)
 {
   double x, y, z;
 
@@ -803,7 +803,7 @@ void v2_print (char *str, Vector2 *vec)
    Multiply a point by the rotation part of a 4x4 matrix and return
    the transformed point. @date 19930216.
 */
-Point3 *v3_mulpointbymatrix4 (Point3 *pin, Matrix4 *m, Point3 *pout)
+Point3 *v3_mul_point_by_matrix4 (Point3 *pin, Matrix4 *m, Point3 *pout)
 {
   pout->x = (pin->x * m->element[0][0]) + (pin->y * m->element[1][0]) +
     (pin->z * m->element[2][0]);
