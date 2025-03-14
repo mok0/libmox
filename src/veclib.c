@@ -137,7 +137,7 @@ Vector3 *v3_lerp(Vector3 *lo, Vector3 *hi, double alpha, Vector3 *result)
    result.
    @return (a * ascl) + (b * bscl)
 */
-Vector3 *v3_combine (Vector3 *a, Vector3 *b, Vector3 *result, double ascl, double bscl)
+Vector3 *v3_combine(Vector3 *a, Vector3 *b, Vector3 *result, double ascl, double bscl)
 {
   result->x = (ascl * a->x) + (bscl * b->x);
   result->y = (ascl * a->y) + (bscl * b->y);
@@ -150,7 +150,7 @@ Vector3 *v3_combine (Vector3 *a, Vector3 *b, Vector3 *result, double ascl, doubl
 /**
    Multiply a 3D vector by a scalar return the result.
 */
-Vector3 *v3_mul (Vector3 *a, double b, Vector3 *result)
+Vector3 *v3_mul(Vector3 *a, double b, Vector3 *result)
 {
   result->x = a->x * b;
   result->y = a->y * b;
@@ -161,7 +161,7 @@ Vector3 *v3_mul (Vector3 *a, double b, Vector3 *result)
 /**
    Divide a 3D vector by a scalar return the result.
 */
-Vector3 *v3_div (Vector3 *a, double b, Vector3 *result)
+Vector3 *v3_div(Vector3 *a, double b, Vector3 *result)
 {
   if (b > EPS) {
     result->x = a->x/ b;
@@ -278,7 +278,6 @@ Point3 *v3_mul_point_by_proj_matrix(Point3 *pin, Matrix4 *m, Point3 *pout)
   return(pout);
 }
 
-
 /**
    Multiply together 4x4 matrices c = ab. Matrix c can share storage
    location with a and/or b.
@@ -354,7 +353,7 @@ double v3_torsion(Point3 *pa, Point3 *pb, Point3 *pc, Point3 *pd)
 /**
    Return angle in degrees between two 3D vectors.
 */
-double v3_angle (Vector3 *v1, Vector3 *v2)
+double v3_angle(Vector3 *v1, Vector3 *v2)
 {
 
   double value;
@@ -368,7 +367,7 @@ double v3_angle (Vector3 *v1, Vector3 *v2)
 /**
    Return angle in degrees between two 2D vectors.
 */
-double v2_angle (Vector2 *v1, Vector2 *v2)
+double v2_angle(Vector2 *v1, Vector2 *v2)
 {
   double value;
 
@@ -381,7 +380,7 @@ double v2_angle (Vector2 *v1, Vector2 *v2)
 /**
    Set all elements in 3x3 matrix to zero.
 */
-Matrix3 *m3_zero (Matrix3 *m)
+Matrix3 *m3_zero(Matrix3 *m)
 {
   register int i, j;
   for (i=0; i<3; i++)
@@ -393,7 +392,7 @@ Matrix3 *m3_zero (Matrix3 *m)
 /**
    Transpose a 4x4 matrix in place.
 */
-Matrix4 *m4_transpose (Matrix4 *a)
+Matrix4 *m4_transpose(Matrix4 *a)
 {
   register int i, j;
   double tmp;
@@ -411,7 +410,7 @@ Matrix4 *m4_transpose (Matrix4 *a)
 /**
    Transpose a 3x3 matrix in place.
 */
-Matrix3 *m3_transpose (Matrix3 *a)
+Matrix3 *m3_transpose(Matrix3 *a)
 {
   register int i, j;
   double tmp;
@@ -425,7 +424,6 @@ Matrix3 *m3_transpose (Matrix3 *a)
   }
   return a;
 }
-
 
 /**
    Create, initialize, and return a duplicate 3x3 matrix.
@@ -455,8 +453,7 @@ Matrix4 *m4_duplicate(Matrix4 *a)
    errcod is returned with a non-zero value. @date mok 950815, translated
    from my old fortran code 900328.
 */
-
-Matrix3 *m3_mgs (Matrix3 *m)
+Matrix3 *m3_mgs(Matrix3 *m)
 {
   int i, ii, ik, ido, j, n;
   double d, dot, dnorm;
@@ -498,7 +495,7 @@ Matrix3 *m3_mgs (Matrix3 *m)
 /**
    Dump a 3x3 matrix to stderr.
 */
-void m3_print (char *str, Matrix3 *mat)
+void m3_print(char *str, Matrix3 *mat)
 {
   char buf[80];
   int i;
@@ -518,7 +515,7 @@ void m3_print (char *str, Matrix3 *mat)
 /**
    Dump a 4x4 matrix to stderr.
 */
-void m4_print (char *str, Matrix4 *mat)
+void m4_print(char *str, Matrix4 *mat)
 {
   char buf[80];
   int i;
@@ -542,7 +539,7 @@ void m4_print (char *str, Matrix4 *mat)
    x, y and z axes. Positive direction version. @date mok 950815,
    translated from my old Fortran code.
 */
-void m3_mat_to_rot (Matrix3 *m, double *alpha, double *beta, double *gamma)
+void m3_mat_to_rot(Matrix3 *m, double *alpha, double *beta, double *gamma)
 {
   double aa, bb, gg;
 
@@ -581,7 +578,7 @@ void m3_mat_to_rot (Matrix3 *m, double *alpha, double *beta, double *gamma)
 /**
   Return the scale factor (zoom) on the 3x3 matrix.
 */
-double m3_to_scale (Matrix3 *m)
+double m3_to_scale(Matrix3 *m)
 {
   double x, y, z;
 
@@ -600,7 +597,7 @@ double m3_to_scale (Matrix3 *m)
    this axis, return the 3x3 rotation matrix.  mok 930217, revised
    960803, to agree with M3toRot on angle convention.
 */
-Matrix3 *m3_rot_to_mat (Matrix3 *m, char axis, double angle)
+Matrix3 *m3_rot_to_mat(Matrix3 *m, char axis, double angle)
 {
   double ca, sa, ang;
 
@@ -653,7 +650,7 @@ Vector3 *v3_mid(Vector3 *a, Vector3 *b, Vector3 *c)
    Add a scaled vector to a, and return the result.
    @result a  + (b * bscl)
 */
-Vector3 *v3_addscl (Vector3 *a, Vector3 *b, Vector3 *result, double bscl)
+Vector3 *v3_add_scaled(Vector3 *a, Vector3 *b, Vector3 *result, double bscl)
 {
   result->x = a->x + (bscl * b->x);
   result->y = a->y + (bscl * b->y);
@@ -679,7 +676,6 @@ Vector3 *v3_set(Vector3 *v, double a, double b, double c)
   v->x = a; v->y = b; v->z = c;
   return v;
 }
-
 
 /**
    Set up an orthogonalization matrix from a unit cell. Use PDB
@@ -739,7 +735,7 @@ Matrix3 *orthog(float *cell, Matrix3 *m, int isw)
 /**
   Copy a 3D vector.
 */
-Vector3 *v3_copy (Vector3 *u, Vector3 *v)
+Vector3 *v3_copy(Vector3 *u, Vector3 *v)
 {
   v->x = u->x; v->y = u->y; v->z = u->z;
   return v;
@@ -748,7 +744,7 @@ Vector3 *v3_copy (Vector3 *u, Vector3 *v)
 /**
   Copy a 2D vector.
 */
-Vector2 *v2_copy (Vector2 *u, Vector2 *v)
+Vector2 *v2_copy(Vector2 *u, Vector2 *v)
 {
   v->x = u->x; v->y = u->y;
   return v;
@@ -757,7 +753,7 @@ Vector2 *v2_copy (Vector2 *u, Vector2 *v)
 /**
   Copy a 4x4 matrix to another.
 */
-Matrix4 *m4_copy (Matrix4 *n, Matrix4 *m)
+Matrix4 *m4_copy(Matrix4 *n, Matrix4 *m)
 {
   register int i, j;
 
@@ -770,7 +766,7 @@ Matrix4 *m4_copy (Matrix4 *n, Matrix4 *m)
 /**
   Set 4x4 matrix to identity.
 */
-Matrix4 *m4_ident (Matrix4 *m)
+Matrix4 *m4_ident(Matrix4 *m)
 {
   m->element[0][0] = 1.0; m->element[0][1] = 0.0;
   m->element[0][2] = 0.0; m->element[0][3] = 0.0;
@@ -786,7 +782,7 @@ Matrix4 *m4_ident (Matrix4 *m)
 /**
   Dump a 3D vector to stderr. Mostly for debugging.
 */
-void v3_print (char *str, Vector3 *vec)
+void v3_print(char *str, Vector3 *vec)
 {
   fprintf (stderr,"%s: %f %f %f\n", str, vec->x, vec->y, vec->z);
 }
@@ -794,7 +790,7 @@ void v3_print (char *str, Vector3 *vec)
 /**
   Dump a 2D vector to stderr. Mostly for debugging.
 */
-void v2_print (char *str, Vector2 *vec)
+void v2_print(char *str, Vector2 *vec)
 {
   fprintf (stderr, "%s: %f %f\n", str, vec->x, vec->y);
 }
@@ -803,7 +799,7 @@ void v2_print (char *str, Vector2 *vec)
    Multiply a point by the rotation part of a 4x4 matrix and return
    the transformed point. @date 19930216.
 */
-Point3 *v3_mul_point_by_matrix4 (Point3 *pin, Matrix4 *m, Point3 *pout)
+Point3 *v3_mul_point_by_matrix4(Point3 *pin, Matrix4 *m, Point3 *pout)
 {
   pout->x = (pin->x * m->element[0][0]) + (pin->y * m->element[1][0]) +
     (pin->z * m->element[2][0]);

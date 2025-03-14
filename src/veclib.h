@@ -207,7 +207,7 @@ Vector3 *v3_duplicate(Vector3 *);
 Vector3 *v3_mid(Vector3 *, Vector3 *, Vector3 *);
 Vector3 *v3_set(Vector3 *, double, double, double);
 Vector3 *v3_negate(Vector3 *);
-Vector3 *v3_addScl (Vector3 *, Vector3 *, Vector3 *, double);
+Vector3 *v3_add_scaled (Vector3 *, Vector3 *, Vector3 *, double);
 Vector3 *v3_div (Vector3 *, double, Vector3 *);
 Vector3 *v3_copy (Vector3 *, Vector3 *);
 
